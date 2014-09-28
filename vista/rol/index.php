@@ -1,27 +1,27 @@
-
-<h2><?php echo $this->mensaje; ?></h2>
-
-<a href="rol/crear" class="btn btn-link">Nuevo Rol</a>
+<h1>Lista de Roles</h1>
+<a href="<?php echo ROOT . 'rol/nuevo'; ?>" class="btn btn-link">Nuevo Rol</a>
 
 
-<table class="table">
-    <tr>
-        <td>ID</td>
-        <td>Nombre del Rol</td>
-        <td></td>
-    </tr>
+<table class="table table-hover">
 
-    <?php foreach ($this->listaRoles as $key => $rol): ?>
+    <thead>
         <tr>
-            <td><?php echo $rol['Id']; ?></td>
-            <td><?php echo $rol['Nombre']; ?></td>
-            <td>
-                <a href="rol/editar/<?php echo $rol['Id'];?>">Editar</a>
-                <a href="rol/ver/<?php echo $rol['Id'];?>" >Ver</a>
-                <a href="rol/eliminar/<?php echo $rol['Id'];?>" >Eliminar</a>
-            </td>
+            <th>ID</th>
+            <th>Nombre del Rol</th>
+            <th>Opciones</th>
         </tr>
-    <?php endforeach; ?>
-
-
+    </thead>
+    <tbody>
+        <?php foreach ($this->listaRoles as $key => $rol): ?>
+            <tr>
+                <td><?php echo $rol->getId(); ?></td>
+                <td><?php echo $rol->getNombre(); ?></td>
+                <td>
+                    <a href="<?php echo ROOT . 'rol/editar/' . $rol->getId(); ?>">Editar</a>
+                    <a href="<?php echo ROOT . 'rol/mostrar/' . $rol->getId(); ?>" >Mostrar</a>
+                    <a href="<?php echo ROOT . 'rol/eliminar/' . $rol->getId(); ?>" >Eliminar</a>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
 </table>

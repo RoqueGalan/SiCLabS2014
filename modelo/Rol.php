@@ -9,36 +9,50 @@ class Rol extends Modelo {
         parent::__construct();
     }
 
-    function get_Id() {
+    function getId() {
         return $this->_Id;
     }
 
-    function get_Nombre() {
+    function getNombre() {
         return $this->_Nombre;
     }
 
-    function set_Id($Id) {
+    function setId($Id) {
         $this->_Id = $Id;
     }
 
-    function set_Nombre($Nombre) {
+    function setNombre($Nombre) {
         $this->_Nombre = $Nombre;
     }
 
     public function lista() {
-        return $this->_db->select('SELECT * FROM Rol');
+
+        $tempLista = $this->_db->select('SELECT * FROM Rol');
+
+        //crear una lista de objetos, para su facil extracion en las vistas
+        foreach ($tempLista as $temp) {
+            $rol = new Rol();
+            $rol->setId($temp['Id']);
+            $rol->setNombre($temp['Nombre']);
+
+            $lista[] = $rol;
+        }
+
+        return $lista;
     }
-    
-    public function buscar($id){
-         
-        return $this->_db->select("SELECT * FROM Rol WHERE`Id` = {$id}");
- 
-        
+
+    public function buscar($id) {
+        $temp = $this->_db->select("SELECT * FROM Rol WHERE`Id` = {$id} LIMIT 1");
+
+        $this->setId($temp[0]['Id']);
+        $this->setNombre($temp[0]['Nombre']);
+
+        return $this;
     }
 
     public function insertar() {
         $parametros = array(
-            'Nombre' => $this->get_Nombre()
+            'Nombre' => $this->getNombre()
         );
 
         $this->_db->insert('Rol', $parametros);
@@ -46,10 +60,10 @@ class Rol extends Modelo {
 
     public function actualizar() {
         $parametros = array(
-            'Nombre' => $this->get_Nombre()
+            'Nombre' => $this->getNombre()
         );
 
-        $donde = "`Id` = '{$this->get_Id()}'";
+        $donde = "`Id` = '{$this->getId()}'";
 
         $this->_db->update('Rol', $parametros, $donde);
     }

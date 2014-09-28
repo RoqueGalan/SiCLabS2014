@@ -1,6 +1,17 @@
 
 
-
+#contenido{
+    background: #fff;
+    
+    margin-top: -20px;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+   
+	-webkit-box-shadow: rgb(81, 81, 81) 0px 0px 30px;
+	-moz-box-shadow: rgb(81, 81, 81) 0px 0px 30px;
+	-o-box-shadow: rgb(81, 81, 81) 0px 0px 30px;
+	box-shadow: rgb(81, 81, 81) 0px 0px 30px;	
+}
 
 
 

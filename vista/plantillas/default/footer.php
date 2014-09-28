@@ -1,8 +1,16 @@
 </div>
-
-<div id="footer">
-    (C) Footer
 </div>
+</div>
+
+<footer class="text-center">
+    <b>Ingeniería en Computación</b>
+    |
+    Sistema de Control de Laboratorios y Salas de Cómputo
+    |
+    <b>ICO 2009-2014</b>
+    
+</footer>
+
 
 </body>
 

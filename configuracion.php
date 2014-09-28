@@ -1,7 +1,9 @@
 <?php
 
 // Always provide a TRAILING SLASH (/) AFTER A PATH
-define('ROOT', 'http://localhost/SiCLabS2014/');
+define('ROOT', 'http://192.168.0.3/SiCLabS2014/');
+
+
 define('APP', 'aplicacion/');
 define('LIBS', 'librerias/');
 define('MODELS', 'modelo/');

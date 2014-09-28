@@ -1,11 +1,17 @@
 <?php
 
-class Controlador {
+abstract class Controlador {
 
     function __construct() {
 
-        $this->vista = new Vista();
+        $this->_vista = new Vista();
     }
+
+    
+  
+
+
+
 
     /**
      * 
@@ -20,11 +26,12 @@ class Controlador {
             require $ruta;
 
             $nombreModelo = $nombre;
-            $this->modelo = new $nombreModelo();
+            $this->_modelo = new $nombreModelo();
         }
     }
 
-    /*
+    
+    
       protected function getTexto($datos) {
       if (isset($_POST[$datos]) && !empty($_POST[$datos])) {
       $_POST[$datos] = htmlspecialchars($_POST[$datos], ENT_QUOTES);
@@ -42,7 +49,7 @@ class Controlador {
 
       return 0;
       }
-
+/*
       protected function redireccionar($ruta = false) {
       if ($ruta) {
       header('location:' . ROOT . $ruta);
