@@ -18,9 +18,13 @@ class ErrorControlador extends Controlador {
     function tipo($mensaje) {
         
         $errorLista = array(
-            'PaginaNoExiste','Página no encontrada',
-            'NoID','No coincide el ID',
-            'RolNoExiste', 'El Rol no existe'
+            'PaginaNoExiste'=>'Página no encontrada',
+            'NoID'=>'No coincide el ID: URL alterada',
+            'RolNoExiste'=> 'El Rol no existe',
+            'PermisoNoExiste' => 'El Permiso no existe',
+            'PermisoRolNoExiste' => 'El Permiso del Rol no existe',
+            'Repetido' => 'Registro Repetido'
+            
         );
         $this->_vista->titulo = 'Error';
         $this->_vista->mensaje = $errorLista[$mensaje];

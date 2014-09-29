@@ -1,9 +1,11 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
     <head>
+
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <title><?= (isset($this->title)) ? $this->title : 'SiCLabS'; ?></title>
 
@@ -16,43 +18,25 @@
 
     <body>
 
-        <header>
-            <nav class="navbar navbar-default navbar-inverse" role="navigation">
-                <div class="container">
-
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menu-deslizable">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a class="navbar-brand" href="<?php echo ROOT; ?>">SiCLabS</a>
-                    </div>
-
-                    <div class="collapse navbar-collapse" id="menu-deslizable">
-
-                        <ul class="nav navbar-nav">
-
-                            <li><a href="<?php echo ROOT . 'rol'; ?>">Rol</a></li>
-
-                        </ul>
-
-
-                    </div> 
-
+        <div class="navbar navbar-inverse">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="<?php echo ROOT;?>">Siclabs</a>
                 </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="<?php echo ROOT;?>">Inicio</a></li>
+                        <li><a href="<?php echo ROOT . 'rol/';?>">Roles</a></li>
+                        <li><a href="<?php echo ROOT . 'permiso/';?>">Permisos</a></li>
+                        <li><a href="<?php echo ROOT . 'permisoRol/';?>">Permisos-Rol</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
 
-
-
-
-            </nav>
-        </header>
-
-
-        <div  id="contenido" class="container">
-            <div class="row clearfix">
-                <div class="col-md-12 column">
-
-
-
+        <div class="container body-content">

@@ -1,3 +1,17 @@
-<h1> Página de Errores </h1>
+    <h1> ¡Ups! Ha ocurrido un error:  </h1>
+<div class="alert alert-dismissable alert-danger">
+    <h4>
+        <?php echo $this->mensaje; ?>
+    </h4>
+</div>    
+    
+    <small>Porfavor intente de nuevo y si el error persiste, comunicarse con el Administrador, Encargado del Laboratorio ó Encargado de la Sala de Cómputo o bien con el Profesor a cargo.</small>
 
-<?php echo $this->mensaje; ?>
+
+
+
+
+
+<h4>
+    <input type="button" value="Regresar" onclick="history.back(-1)" class="btn btn-link">
+</h4>

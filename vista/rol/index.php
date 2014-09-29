@@ -1,25 +1,25 @@
-<h1>Lista de Roles</h1>
-<a href="<?php echo ROOT . 'rol/nuevo'; ?>" class="btn btn-link">Nuevo Rol</a>
+<h2>Index</h2>
 
+<p>
+    <a href="<?php echo ROOT . 'rol/nuevo'; ?>" class="btn btn-link">Nuevo Rol</a>
+</p>
 
 <table class="table table-hover">
-
     <thead>
         <tr>
-            <th>ID</th>
             <th>Nombre del Rol</th>
             <th>Opciones</th>
         </tr>
     </thead>
+    
     <tbody>
-        <?php foreach ($this->listaRoles as $key => $rol): ?>
+        <?php foreach ($this->listaRoles as $key => $permisoRol): ?>
             <tr>
-                <td><?php echo $rol->getId(); ?></td>
-                <td><?php echo $rol->getNombre(); ?></td>
+                <td><?php echo $permisoRol->getNombre(); ?></td>
                 <td>
-                    <a href="<?php echo ROOT . 'rol/editar/' . $rol->getId(); ?>">Editar</a>
-                    <a href="<?php echo ROOT . 'rol/mostrar/' . $rol->getId(); ?>" >Mostrar</a>
-                    <a href="<?php echo ROOT . 'rol/eliminar/' . $rol->getId(); ?>" >Eliminar</a>
+                    <a href="<?php echo ROOT . 'rol/editar/' . $permisoRol->getId(); ?>">Editar</a> | 
+                    <a href="<?php echo ROOT . 'rol/mostrar/' . $permisoRol->getId(); ?>" >Mostrar</a> | 
+                    <a href="<?php echo ROOT . 'rol/eliminar/' . $permisoRol->getId(); ?>" >Eliminar</a>
                 </td>
             </tr>
         <?php endforeach; ?>

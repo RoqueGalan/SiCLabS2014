@@ -1,18 +1,13 @@
-</div>
-</div>
-</div>
-
-<footer class="text-center">
-    <b>Ingeniería en Computación</b>
-    |
-    Sistema de Control de Laboratorios y Salas de Cómputo
-    |
-    <b>ICO 2009-2014</b>
-    
+<hr />
+<footer>
+    <p class="text-center">
+        <b>Ingeniería en Computación</b>
+        |
+        Sistema de Control de Laboratorios y Salas de Cómputo
+        |
+        <b>2009-2014</b></p>
 </footer>
-
-
-</body>
+</div>
 
 <!-- Insertar aqui los scrips a utilizar -->
 <script type="text/javascript" src="<?php echo ROOT; ?>public/js/jquery.min.js"></script>
@@ -27,5 +22,5 @@ if (isset($this->javaScript)) {
 }
 ?>
 
-
+</body>
 </html>

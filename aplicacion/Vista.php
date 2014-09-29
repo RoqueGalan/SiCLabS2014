@@ -14,7 +14,6 @@ class Vista{
         require 'vista/' . $nombre . '.php';
         
         require 'vista/plantillas/'.$plantilla.'/footer.php';
-  
     }
 
 }
