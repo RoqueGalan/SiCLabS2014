@@ -29,3 +29,7 @@
         <?php endforeach; ?>
     </tbody>
 </table>
+
+<p>
+  <input type="button" value="Regresar" onclick="history.back(-1)" class="btn btn-link">  
+</p>

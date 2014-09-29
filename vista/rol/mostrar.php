@@ -24,7 +24,8 @@
 </div>
 
 <p>
-    <a href="<?php echo ROOT . 'rol/editar/' . $this->rol->getId(); ?>">Editar</a> |
-    <a href="<?php echo ROOT . 'permisoRol/index/' . $this->rol->getId(); ?>">Ver Permisos</a> |
-    <a href="<?php echo ROOT . 'rol/index/';?>">Volver a la Lista</a>
+    <a href="<?php echo ROOT . 'rol/editar/' . $this->rol->getId(); ?>" class="btn btn-link">Editar</a> |
+    <a href="<?php echo ROOT . 'permisoRol/index/' . $this->rol->getId(); ?>" class="btn btn-link">Ver Permisos</a> |
+    <input type="button" value="Regresar" onclick="history.back(-1)" class="btn btn-link"> 
 </p>
+

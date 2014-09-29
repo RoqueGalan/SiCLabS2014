@@ -14,6 +14,6 @@
 </div>
 
 <p>
-    <a href="<?php echo ROOT . 'permiso/editar/' . $this->permiso->getId(); ?>">Editar</a> | 
-    <a href="<?php echo ROOT . 'permiso/index/';?>">Volver a la Lista</a>
+    <a href="<?php echo ROOT . 'permiso/editar/' . $this->permiso->getId(); ?>" class="btn btn-link">Editar</a> | 
+    <input type="button" value="Regresar" onclick="history.back(-1)" class="btn btn-link"> 
 </p>

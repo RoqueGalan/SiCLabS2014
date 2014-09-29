@@ -20,10 +20,16 @@
                 <td><?php echo $permisoRol->getDescripcion(); ?></td>
                 <td>
                     <a href="<?php echo ROOT . 'permiso/editar/' . $permisoRol->getId(); ?>">Editar</a> | 
-                    <a href="<?php echo ROOT . 'permiso/mostrar/' . $permisoRol->getId(); ?>" >Mostrar</a> | 
-                    <a href="<?php echo ROOT . 'permiso/eliminar/' . $permisoRol->getId(); ?>" >Eliminar</a>
+                    <a href="<?php echo ROOT . 'permiso/mostrar/' . $permisoRol->getId(); ?>">Mostrar</a> | 
+                    <a href="<?php echo ROOT . 'permiso/eliminar/' . $permisoRol->getId(); ?>">Eliminar</a>
+                    
+                   
                 </td>
             </tr>
         <?php endforeach; ?>
     </tbody>
 </table>
+
+<p>
+  <input type="button" value="Regresar" onclick="history.back(-1)" class="btn btn-link">  
+</p>

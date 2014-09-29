@@ -26,7 +26,7 @@ class Rol extends Modelo {
     }
 
     public function lista() {
-
+        $lista = array();
         $tempLista = $this->_db->select('SELECT * FROM Rol');
 
         //crear una lista de objetos, para su facil extracion en las vistas
@@ -40,15 +40,33 @@ class Rol extends Modelo {
 
         return $lista;
     }
+    
+    
+    public function existe($nombre) {
+        $temp = $this->_db->select("SELECT Id FROM Rol WHERE `Nombre` = {$nombre} LIMIT 1");
+
+        if (count($temp)) {
+            //existe verdadero
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     public function buscar($id) {
         $temp = $this->_db->select("SELECT * FROM Rol WHERE`Id` = {$id} LIMIT 1");
 
-        $this->setId($temp[0]['Id']);
-        $this->setNombre($temp[0]['Nombre']);
-
+        if(count($temp)){
+       
+            $this->setId($temp[0]['Id']);
+            $this->setNombre($temp[0]['Nombre']);
+        }else{
+            $this->setId(-1);
+        }
+        
         return $this;
     }
+   
 
     public function insertar() {
         $parametros = array(

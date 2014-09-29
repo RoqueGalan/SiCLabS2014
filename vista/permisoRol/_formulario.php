@@ -70,9 +70,9 @@
 
 </form>
 
-<div>
-    <a href="<?php echo ROOT . 'permisoRol/index/'; ?>">Volver a la Lista</a>
-</div>
+<p>
+  <input type="button" value="Regresar" onclick="history.back(-1)" class="btn btn-link">  
+</p>
 
 
 

@@ -29,7 +29,7 @@ class PermisoRolControlador extends Controlador {
 
         //verificar que exista
         if ($this->_vista->permisoRol->getId() == -1) {
-            header('location:' . ROOT . 'error/tipo/PermisoRolNoExiste');
+            header('location:' . ROOT . 'error/tipo/Registro_NoExiste');
             die;
         }
 
@@ -57,7 +57,7 @@ class PermisoRolControlador extends Controlador {
 
         //verificar que exista
         if ($this->_vista->permisoRol->getId() == -1) {
-            header('location:' . ROOT . 'error/tipo/PermisoRolNoExiste');
+            header('location:' . ROOT . 'error/tipo/Registro_NoExiste');
             die;
         }
 
@@ -78,36 +78,32 @@ class PermisoRolControlador extends Controlador {
 
         /*
          * validar Id por Get y Post
+         * Evita posibles ataques a la seguridad
          */
         if ($id != $this->getEntero('Id')) {
             //error faltal
-            header('location:' . ROOT . 'error/tipo/NoID');
+            header('location:' . ROOT . 'error/tipo/Registro_NoID');
             die;
         }
         $id = $this->getEntero('Id');
-
 
         /*
          * Validar Select-Rol:
          * No Select
          */
         $select_Rol = $this->getEntero('Select-Rol');
-
         if ($select_Rol == 0) {
             $this->_vista->listaError[] = 'Seleccione un rol';
         }
-
 
         /*
          * Validar Select-Permiso:
          * No Select
          */
         $select_Permiso = $this->getEntero('Select-Permiso');
-
         if ($select_Permiso == 0) {
             $this->_vista->listaError[] = 'Seleccione un permiso';
         }
-
 
         /*
          * Validar Select-Estado:
@@ -124,7 +120,7 @@ class PermisoRolControlador extends Controlador {
          */
         if (count($this->_vista->listaError)) {
             /*
-             * al encontrar errores hay que redirigir lo ingresado a la vista editar
+             * al encontrar errores hay que redirigir lo ingresado al formilario
              */
 
             $this->_vista->permisoRol = new PermisoRol();
@@ -158,7 +154,7 @@ class PermisoRolControlador extends Controlador {
                  * No Repetido
                  */
                 if ($permisoRol->existe($select_Rol, $select_Permiso)) {
-                    header('location:' . ROOT . 'error/tipo/Repetido');
+                    header('location:' . ROOT . 'error/tipo/Registro_SiExiste');
                     die;
                 }
 
@@ -175,10 +171,9 @@ class PermisoRolControlador extends Controlador {
         }
     }
 
-    function _eliminar($id) {
-        
+    function eliminar($id) {
+        $accion = new PermisoRol();
+        $accion->eliminar($id);
+        $this->index();
     }
-    
-    
-
 }

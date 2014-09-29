@@ -4,7 +4,7 @@
     <a href="<?php echo ROOT . 'rol/nuevo'; ?>" class="btn btn-link">Nuevo Rol</a>
 </p>
 
-<table class="table table-hover">
+<table class="table table-striped table-hover  t">
     <thead>
         <tr>
             <th>Nombre del Rol</th>
@@ -25,3 +25,7 @@
         <?php endforeach; ?>
     </tbody>
 </table>
+
+<p>
+  <input type="button" value="Regresar" onclick="history.back(-1)" class="btn btn-link">  
+</p>

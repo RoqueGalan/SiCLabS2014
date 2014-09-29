@@ -51,12 +51,28 @@ class Permiso extends Modelo {
         return $lista;
     }
 
+     public function existe($nombre) {
+        $temp = $this->_db->select("SELECT Id FROM Permiso WHERE `Nombre` = {$nombre} LIMIT 1");
+
+        if (count($temp)) {
+            //existe verdadero
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    
     public function buscar($id) {
         $temp = $this->_db->select("SELECT * FROM Permiso WHERE`Id` = {$id} LIMIT 1");
 
-        $this->setId($temp[0]['Id']);
-        $this->setNombre($temp[0]['Nombre']);
-        $this->setDescripcion($temp[0]['Descripcion']);
+        if (count($temp)) {
+            $this->setId($temp[0]['Id']);
+            $this->setNombre($temp[0]['Nombre']);
+            $this->setDescripcion($temp[0]['Descripcion']);
+        } else {
+            $this->setId(-1);
+        }
 
         return $this;
     }

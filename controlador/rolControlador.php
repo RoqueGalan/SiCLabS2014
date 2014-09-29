@@ -8,19 +8,24 @@ class RolControlador extends Controlador {
 
     function index() {
         //lista de los roles
-        $this->_vista->titulo = 'Rol';
-
+        $this->_vista->titulo = 'Rol-Lista';
         $rol = new Rol();
 
         $this->_vista->listaRoles = $rol->lista();
         $this->_vista->render('rol/index');
     }
 
-    function mostrar($id) {
-        $rol = new Rol();
-        $rol = $rol->buscar($id);
+    function mostrar($Id) {
+        //mostrar 
+        $this->_vista->titulo = 'Rol-Mostrar';
+        $this->_vista->rol = new Rol();
+        $this->_vista->rol->buscar($Id);
 
-        $this->_vista->rol = $rol;
+        //verificar que exista
+        if ($this->_vista->rol->getId() == -1) {
+            header('location:' . ROOT . 'error/tipo/Registro_NoExiste');
+            die;
+        }
 
         $this->_vista->render("rol/mostrar");
     }
@@ -40,10 +45,13 @@ class RolControlador extends Controlador {
         $this->_vista->rol = new Rol();
         $this->_vista->rol->buscar($id);
 
-        if (empty($this->_vista->rol)) {
-            header('location:' . ROOT . 'error/tipo/RolNoExiste');
+        //verificar que exista
+        if ($this->_vista->rol->getId() == -1) {
+            header('location:' . ROOT . 'error/tipo/Registro_NoExiste');
+            die;
         }
-
+        
+        
         $this->_vista->render('rol/editar');
     }
 
@@ -61,7 +69,7 @@ class RolControlador extends Controlador {
          */
         if ($id != $this->getEntero('Id')) {
             //error faltal
-            header('location:' . ROOT . 'error/tipo/NoID');
+            header('location:' . ROOT . 'error/tipo/Registro_NoID');
         }
 
         /*
@@ -69,7 +77,7 @@ class RolControlador extends Controlador {
          * No Nulo
          * Alfanumerico
          */
-        
+
         $id = $this->getEntero('Id');
         $nombre = $this->getTexto('Nombre');
 
@@ -82,40 +90,56 @@ class RolControlador extends Controlador {
          */
         if (count($this->_vista->listaError)) {
             /*
-             * al encontrar errores hay que redirigir lo ingresado a la vista editar
+             * al encontrar errores hay que redirigir lo ingresado al formulario
              */
 
             $this->_vista->rol = new Rol();
             $this->_vista->rol->setId($id);
             $this->_vista->rol->setNombre($nombre);
 
-            $this->_vista->render('rol/editar');
+            
+            if ($id == 0) {
+                $this->_vista->render('rol/nuevo');
+            } else {
+                $this->_vista->render('rol/editar');
+            }
+            
         } else {
 
             //aplicar patron Factory
-
             //if id == 0 entonces insertar
             //si no entonces actualziar
-            
+
             $rol = new Rol();
             $rol->setNombre($nombre);
 
-            if($id == 0){
+            if ($id == 0) {
+                
+                //insertar
+                /*
+                 * Validar Repetido:
+                 * No Repetido
+                 */
+                if ($rol->existe($id)) {
+                    header('location:' . ROOT . 'error/tipo/Registro_SiExiste');
+                    die;
+                }
+                
                 $rol->insertar();
-            }else{
+            } else {
+                //actualizar
                 $rol->setId($id);
                 $rol->actualizar();
             }
-            
 
             $this->index();
         }
     }
-    
-    
 
-    function _eliminar($id) {
-        
+    function eliminar($id) {
+        $rol = new Rol();
+        $rol->eliminar($id);
+        $this->index();
     }
 
 }

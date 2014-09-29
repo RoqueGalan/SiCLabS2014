@@ -8,21 +8,24 @@ class PermisoControlador extends Controlador {
 
     function index() {
         //lista de permisos
-        $this->_vista->titulo = 'Permiso';
-
+        $this->_vista->titulo = 'Permiso-Lista';
         $permiso = new Permiso();
 
         $this->_vista->listaPermisos = $permiso->lista();
         $this->_vista->render('permiso/index');
     }
 
-    function mostrar($id) {
+    function mostrar($Id) {
         //mostrar 
-        $this->_vista->titulo = 'Permiso-Nuevo';
-        $permiso = new Permiso();
-        $permiso = $permiso->buscar($id);
+        $this->_vista->titulo = 'Permiso-Mostrar';
+        $this->_vista->permiso = new Permiso();
+        $this->_vista->permiso->buscar($Id);
 
-        $this->_vista->permiso = $permiso;
+        //verificar que exista
+        if ($this->_vista->permiso->getId() == -1) {
+            header('location:' . ROOT . 'error/tipo/Registro_NoExiste');
+            die;
+        }
 
         $this->_vista->render("permiso/mostrar");
     }
@@ -63,10 +66,10 @@ class PermisoControlador extends Controlador {
          */
         if ($id != $this->getEntero('Id')) {
             //error faltal
-            header('location:' . ROOT . 'error/tipo/NoID');
+            header('location:' . ROOT . 'error/tipo/Registro_NoID');
         }
         $id = $this->getEntero('Id');
-        
+
         /*
          * Validar Nombre:
          * No Nulo
@@ -77,7 +80,7 @@ class PermisoControlador extends Controlador {
         if (empty($nombre)) {
             $this->_vista->listaError[] = 'Nombre Esta Vacio';
         }
-        
+
         /*
          * Validar Descripcion:
          * No Nulo
@@ -106,17 +109,16 @@ class PermisoControlador extends Controlador {
         } else {
 
             //aplicar patron Factory
-
             //if id == 0 entonces insertar
             //si no entonces actualziar
-            
+
             $permiso = new Permiso();
             $permiso->setNombre($nombre);
             $permiso->setDescripcion($descripcion);
 
-            if($id == 0){
+            if ($id == 0) {
                 $permiso->insertar();
-            }else{
+            } else {
                 $permiso->setId($id);
                 $permiso->actualizar();
             }
@@ -124,11 +126,11 @@ class PermisoControlador extends Controlador {
             $this->index();
         }
     }
-    
-    
 
-    function _eliminar($id) {
-        
+    function eliminar($id) {
+        $accion = new Permiso();
+        $accion->eliminar($id);
+        $this->index();
     }
 
 }

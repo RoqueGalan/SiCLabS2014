@@ -1,3 +1,5 @@
+
+
 <hr />
 <footer>
     <p class="text-center">
@@ -21,6 +23,5 @@ if (isset($this->javaScript)) {
     }
 }
 ?>
-
 </body>
 </html>

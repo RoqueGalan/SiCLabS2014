@@ -1,6 +1,6 @@
 <?php
 
-abstract class Controlador {
+class Controlador {
 
     function __construct() {
 
