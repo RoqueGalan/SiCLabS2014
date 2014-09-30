@@ -34,6 +34,7 @@
                         <li><a href="<?php echo ROOT . 'rol/';?>">Roles</a></li>
                         <li><a href="<?php echo ROOT . 'permiso/';?>">Permisos</a></li>
                         <li><a href="<?php echo ROOT . 'permisoRol/';?>">Permisos-Rol</a></li>
+                        <li><a href="<?php echo ROOT . 'usuario/';?>">Usuarios</a></li>
                     </ul>
                 </div>
             </div>

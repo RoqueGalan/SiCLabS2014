@@ -5,12 +5,7 @@
     </h4>
 </div>    
     
-    <small>Porfavor intente de nuevo y si el error persiste, comunicarse con el Administrador, Encargado del Laboratorio ó Encargado de la Sala de Cómputo o bien con el Profesor a cargo.</small>
-
-
-
-
-
+    <small>Por favor intente de nuevo y si el error persiste, comunicarse con el Administrador, Encargado del Laboratorio ó Encargado de la Sala de Cómputo o bien con el Profesor a cargo.</small>
 
 <h4>
     <input type="button" value="Regresar" onclick="history.back(-1)" class="btn btn-link">

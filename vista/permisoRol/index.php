@@ -15,15 +15,15 @@
     </thead>
 
     <tbody>
-        <?php foreach ($this->listaPermisosRol as $key => $permisoRol): ?>
+        <?php foreach ($this->listaPermisosRol as $key => $rol): ?>
             <tr>
-                <td><?php echo $permisoRol->getRol()->getNombre(); ?></td>
-                <td><?php echo $permisoRol->getPermiso()->getNombre(); ?></td>
-                <td><?php echo $permisoRol->getEstado(); ?></td>
+                <td><?php echo $rol->getRol()->getNombre(); ?></td>
+                <td><?php echo $rol->getPermiso()->getNombre(); ?></td>
+                <td><?php echo $rol->getEstado(); ?></td>
                 <td>
-                    <a href="<?php echo ROOT . 'permisoRol/editar/' . $permisoRol->getId(); ?>">Editar</a> | 
-                    <a href="<?php echo ROOT . 'permisoRol/mostrar/' . $permisoRol->getId(); ?>" >Mostrar</a> | 
-                    <a href="<?php echo ROOT . 'permisoRol/eliminar/' . $permisoRol->getId(); ?>" >Eliminar</a>
+                    <a href="<?php echo ROOT . 'permisoRol/editar/' . $rol->getId(); ?>">Editar</a> | 
+                    <a href="<?php echo ROOT . 'permisoRol/mostrar/' . $rol->getId(); ?>" >Mostrar</a> | 
+                    <a href="<?php echo ROOT . 'permisoRol/eliminar/' . $rol->getId(); ?>" >Eliminar</a>
                 </td>
             </tr>
         <?php endforeach; ?>

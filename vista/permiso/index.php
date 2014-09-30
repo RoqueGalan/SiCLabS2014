@@ -14,14 +14,14 @@
     </thead>
     
     <tbody>
-        <?php foreach ($this->listaPermisos as $key => $permisoRol): ?>
+        <?php foreach ($this->listaPermisos as $key => $rol): ?>
             <tr>
-                <td><?php echo $permisoRol->getNombre(); ?></td>
-                <td><?php echo $permisoRol->getDescripcion(); ?></td>
+                <td><?php echo $rol->getNombre(); ?></td>
+                <td><?php echo $rol->getDescripcion(); ?></td>
                 <td>
-                    <a href="<?php echo ROOT . 'permiso/editar/' . $permisoRol->getId(); ?>">Editar</a> | 
-                    <a href="<?php echo ROOT . 'permiso/mostrar/' . $permisoRol->getId(); ?>">Mostrar</a> | 
-                    <a href="<?php echo ROOT . 'permiso/eliminar/' . $permisoRol->getId(); ?>">Eliminar</a>
+                    <a href="<?php echo ROOT . 'permiso/editar/' . $rol->getId(); ?>">Editar</a> | 
+                    <a href="<?php echo ROOT . 'permiso/mostrar/' . $rol->getId(); ?>">Mostrar</a> | 
+                    <a href="<?php echo ROOT . 'permiso/eliminar/' . $rol->getId(); ?>">Eliminar</a>
                     
                    
                 </td>
