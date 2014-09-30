@@ -36,7 +36,7 @@ class Permiso extends Modelo {
 
     public function lista() {
         $lista = array();
-        $tempLista = $this->_db->select('SELECT * FROM Permiso');
+        $tempLista = $this->_db->select('SELECT * FROM Permiso ORDER BY `Nombre` ASC');
 
         //crear una lista de objetos, para su facil extracion en las vistas
         foreach ($tempLista as $temp) {
@@ -51,17 +51,16 @@ class Permiso extends Modelo {
         return $lista;
     }
 
-     public function existe($nombre) {
-        $temp = $this->_db->select("SELECT Id FROM Permiso WHERE `Nombre` = {$nombre} LIMIT 1");
+    public function existe($nombre) {
+        $temp = $this->_db->select("SELECT Id FROM Permiso WHERE `Nombre` = '{$nombre}' LIMIT 1");
 
         if (count($temp)) {
             //existe verdadero
-            return true;
+            return $temp[0]['Id'];
         } else {
-            return false;
+            return 0;
         }
     }
-    
     
     public function buscar($id) {
         $temp = $this->_db->select("SELECT * FROM Permiso WHERE`Id` = {$id} LIMIT 1");

@@ -87,13 +87,13 @@ class PermisoRol extends Modelo {
     }
 
     public function existe($rolId, $permisoId) {
-        $temp = $this->_db->select("SELECT * FROM PermisoRol WHERE `RolId` = {$rolId} AND `PermisoId` = {$permisoId} LIMIT 1");
+        $temp = $this->_db->select("SELECT `Id` FROM PermisoRol WHERE `RolId` = {$rolId} AND `PermisoId` = {$permisoId} LIMIT 1");
 
         if (count($temp)) {
             //existe verdadero
-            return true;
+            return $temp[0]['Id'];
         } else {
-            return false;
+            return 0;
         }
     }
 
@@ -113,8 +113,8 @@ class PermisoRol extends Modelo {
             'PermisoId' => $this->getPermiso()->getId(),
             'Estado' => $this->getEstado()
         );
-        
-  
+
+
         $donde = "`Id` = '{$this->getId()}'";
 
         $this->_db->update('PermisoRol', $parametros, $donde);

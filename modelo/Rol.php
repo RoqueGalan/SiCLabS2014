@@ -40,33 +40,31 @@ class Rol extends Modelo {
 
         return $lista;
     }
-    
-    
+
     public function existe($nombre) {
-        $temp = $this->_db->select("SELECT Id FROM Rol WHERE `Nombre` = {$nombre} LIMIT 1");
+        $temp = $this->_db->select("SELECT Id FROM Rol WHERE `Nombre` = '{$nombre}' LIMIT 1");
 
         if (count($temp)) {
             //existe verdadero
-            return true;
+            return $temp[0]['Id'];
         } else {
-            return false;
+            return 0;
         }
     }
 
     public function buscar($id) {
         $temp = $this->_db->select("SELECT * FROM Rol WHERE`Id` = {$id} LIMIT 1");
 
-        if(count($temp)){
-       
+        if (count($temp)) {
+
             $this->setId($temp[0]['Id']);
             $this->setNombre($temp[0]['Nombre']);
-        }else{
+        } else {
             $this->setId(-1);
         }
-        
+
         return $this;
     }
-   
 
     public function insertar() {
         $parametros = array(

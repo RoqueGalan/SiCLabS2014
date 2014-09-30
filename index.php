@@ -12,5 +12,5 @@ try {
     $aplicacion->iniciar();
     
 } catch (Exception $e) {
-    echo "hubo un error: ".$e->getMessage();
+    echo "hubo un error: ".$e->getTraceAsString();
 }

@@ -12,6 +12,7 @@ class RolControlador extends Controlador {
         $rol = new Rol();
 
         $this->_vista->listaRoles = $rol->lista();
+        
         $this->_vista->render('rol/index');
     }
 
@@ -23,8 +24,7 @@ class RolControlador extends Controlador {
 
         //verificar que exista
         if ($this->_vista->rol->getId() == -1) {
-            header('location:' . ROOT . 'error/tipo/Registro_NoExiste');
-            die;
+            $this->redireccionar('error/tipo/Registro_NoExiste');
         }
 
         $this->_vista->render("rol/mostrar");
@@ -47,11 +47,10 @@ class RolControlador extends Controlador {
 
         //verificar que exista
         if ($this->_vista->rol->getId() == -1) {
-            header('location:' . ROOT . 'error/tipo/Registro_NoExiste');
-            die;
+            $this->redireccionar('error/tipo/Registro_NoExiste');
         }
-        
-        
+
+
         $this->_vista->render('rol/editar');
     }
 
@@ -66,21 +65,19 @@ class RolControlador extends Controlador {
 
         /*
          * validar Id por Get y Post
+         * Evita posibles ataques a la seguridad
          */
         if ($id != $this->getEntero('Id')) {
-            //error faltal
-            header('location:' . ROOT . 'error/tipo/Registro_NoID');
+            $this->redireccionar('error/tipo/Registro_NoID');
         }
+        $id = $this->getEntero('Id');
 
         /*
          * Validar Nombre:
          * No Nulo
          * Alfanumerico
          */
-
-        $id = $this->getEntero('Id');
         $nombre = $this->getTexto('Nombre');
-
         if (empty($nombre)) {
             $this->_vista->listaError[] = 'Nombre Esta Vacio';
         }
@@ -97,13 +94,12 @@ class RolControlador extends Controlador {
             $this->_vista->rol->setId($id);
             $this->_vista->rol->setNombre($nombre);
 
-            
+
             if ($id == 0) {
                 $this->_vista->render('rol/nuevo');
             } else {
                 $this->_vista->render('rol/editar');
             }
-            
         } else {
 
             //aplicar patron Factory
@@ -114,20 +110,26 @@ class RolControlador extends Controlador {
             $rol->setNombre($nombre);
 
             if ($id == 0) {
-                
                 //insertar
                 /*
                  * Validar Repetido:
                  * No Repetido
                  */
-                if ($rol->existe($id)) {
-                    header('location:' . ROOT . 'error/tipo/Registro_SiExiste');
-                    die;
+                if ($rol->existe($nombre)) {
+                    $this->redireccionar('error/tipo/Registro_SiExiste');
                 }
-                
+
                 $rol->insertar();
             } else {
                 //actualizar
+                /*
+                 * Validar Repetido:
+                 * No Repetido
+                 */
+                if ($rol->existe($nombre) != $id) {
+                    $this->redireccionar('error/tipo/Registro_SiExiste');
+                }
+                
                 $rol->setId($id);
                 $rol->actualizar();
             }
