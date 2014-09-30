@@ -6,12 +6,29 @@ class PermisoControlador extends Controlador {
         parent::__construct();
     }
 
-    function index() {
+    function index($pagina = false) {
+        //preparar el paginador
+        
+        
+        if(!$this->filtrarEntero($pagina)){
+           $pagina = false;
+        }
+        else{
+           $pagina = (int) $pagina;
+        }
+        
+       
         //lista de permisos
         $this->_vista->titulo = 'Permiso-Lista';
         $permiso = new Permiso();
 
-        $this->_vista->listaPermisos = $permiso->lista();
+        $paginador = new Paginador();	
+         
+        $this->_vista->listaPermisos = $paginador->paginar($permiso->lista(), $pagina, 10);
+        
+        //$this->_vista->listaPermisos = $permiso->lista();
+        $this->_vista->paginacion = $paginador->getVista('prueba' , 'permiso/index');
+     
         $this->_vista->render('permiso/index');
     }
 

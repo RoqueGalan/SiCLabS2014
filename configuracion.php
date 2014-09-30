@@ -2,11 +2,13 @@
 
 // Always provide a TRAILING SLASH (/) AFTER A PATH
 define('ROOT', 'http://192.168.0.3/SiCLabS2014/');
+define('DIR_ROOT' , realpath(dirname(__FILE__)) . '/');
 
 
 define('APP', 'aplicacion/');
 define('LIBS', 'librerias/');
 define('MODELS', 'modelo/');
+
 
 define('DB_TYPE', 'mysql');
 define('DB_HOST', 'localhost');

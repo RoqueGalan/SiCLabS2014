@@ -12,7 +12,7 @@
             <th>Opciones</th>
         </tr>
     </thead>
-    
+
     <tbody>
         <?php foreach ($this->listaPermisos as $key => $rol): ?>
             <tr>
@@ -22,14 +22,24 @@
                     <a href="<?php echo ROOT . 'permiso/editar/' . $rol->getId(); ?>">Editar</a> | 
                     <a href="<?php echo ROOT . 'permiso/mostrar/' . $rol->getId(); ?>">Mostrar</a> | 
                     <a href="<?php echo ROOT . 'permiso/eliminar/' . $rol->getId(); ?>">Eliminar</a>
-                    
-                   
+
+
                 </td>
             </tr>
         <?php endforeach; ?>
     </tbody>
+
+    <tfoot>
+        <tr>
+            <td colspan="2"><?php if (isset($this->paginacion)) echo $this->paginacion; ?></td>
+            <td></td>
+        </tr>
+    </tfoot>
 </table>
 
+
+
+
 <p>
-  <input type="button" value="Regresar" onclick="history.back(-1)" class="btn btn-link">  
+    <input type="button" value="Regresar" onclick="history.back(-1)" class="btn btn-link">  
 </p>
