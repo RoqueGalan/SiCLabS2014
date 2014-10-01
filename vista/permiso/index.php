@@ -4,7 +4,7 @@
     <a href="<?php echo ROOT . 'permiso/nuevo'; ?>" class="btn btn-link">Nuevo Permiso</a>
 </p>
 
-<table class="table table-hover">
+<table class="table table-hover table-striped table-responsive">
     <thead>
         <tr>
             <th>Nombre del Permiso</th>
@@ -28,17 +28,9 @@
             </tr>
         <?php endforeach; ?>
     </tbody>
-
-    <tfoot>
-        <tr>
-            <td colspan="2"><?php if (isset($this->paginacion)) echo $this->paginacion; ?></td>
-            <td></td>
-        </tr>
-    </tfoot>
 </table>
 
-
-
+<?php if (isset($this->paginacion)) echo $this->paginacion; ?>
 
 <p>
     <input type="button" value="Regresar" onclick="history.back(-1)" class="btn btn-link">  

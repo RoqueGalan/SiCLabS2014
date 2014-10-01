@@ -10,7 +10,7 @@ class Hash
      * @param string $salt The salt (This should be the same throughout the system probably)
      * @return string The hashed/salted data
      */
-    public static function crearHash($algoritmo, $datos, $key)
+    public static function getHash($algoritmo, $datos, $key)
     {
         
         $contexto = hash_init($algoritmo, HASH_HMAC, $key);
@@ -19,5 +19,7 @@ class Hash
         return hash_final($contexto);
         
     }
+    
+   
     
 }

@@ -4,7 +4,7 @@
     <a href="<?php echo ROOT . 'usuario/nuevo'; ?>" class="btn btn-link">Nuevo Usuario</a>
 </p>
 
-<table class="table table-hover">
+<table class="table table-hover table-striped table-responsive">
     <thead>
         <tr>
             <th>Matricula</th>
@@ -17,7 +17,7 @@
             <th>Opciones</th>
         </tr>
     </thead>
-    
+
     <tbody>
         <?php foreach ($this->listaUsuarios as $key => $rol): ?>
             <tr>
@@ -29,17 +29,18 @@
                 <td><?php echo $rol->getContrasena(); ?></td>
                 <td><?php echo $rol->getFotografia(); ?></td>
                 <td>
-                    <a href="<?php echo ROOT . 'usuario/editar/' . $rol->getMatricula(); ?>">Editar</a> | 
-                    <a href="<?php echo ROOT . 'usuario/mostrar/' . $rol->getMatricula(); ?>">Mostrar</a> | 
-                    <a href="<?php echo ROOT . 'usuario/eliminar/' . $rol->getMatricula(); ?>">Eliminar</a>
-                    
-                   
+                    <a href="<?php echo ROOT . 'usuario/editar/' . $rol->getId(); ?>">Editar</a> | 
+                    <a href="<?php echo ROOT . 'usuario/mostrar/' . $rol->getId(); ?>">Mostrar</a> | 
+                    <a href="<?php echo ROOT . 'usuario/eliminar/' . $rol->getId(); ?>">Eliminar</a>
+
+
                 </td>
             </tr>
         <?php endforeach; ?>
     </tbody>
 </table>
 
+<?php if (isset($this->paginacion)) echo $this->paginacion; ?>
 <p>
-  <input type="button" value="Regresar" onclick="history.back(-1)" class="btn btn-link">  
+    <input type="button" value="Regresar" onclick="history.back(-1)" class="btn btn-link">  
 </p>

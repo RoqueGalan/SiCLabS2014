@@ -1,6 +1,6 @@
 <?php if(isset($this->_paginacion)): ?>
 
-<div>
+<div class="text-center">
     <ul class="pagination">
         <?php if($this->_paginacion['primero']): ?>
 

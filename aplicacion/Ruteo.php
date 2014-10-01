@@ -159,7 +159,7 @@ class Ruteo {
                 break;
 
             default:
-                $this->_controlador->index();
+                $this->_error();
                 break;
         }
     }

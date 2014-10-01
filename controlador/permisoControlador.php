@@ -8,8 +8,6 @@ class PermisoControlador extends Controlador {
 
     function index($pagina = false) {
         //preparar el paginador
-        
-        
         if(!$this->filtrarEntero($pagina)){
            $pagina = false;
         }

@@ -14,7 +14,7 @@
 <form class="form-horizontal" role="form" method="post" action="<?php echo ROOT . 'permisoRol/_guardar/' . $this->permisoRol->getId(); ?>">
     <h4>Permiso Rol</h4>
     <hr />
-    <input type="hidden" name="Id" value="<?php echo $this->permisoRol->getId(); ?>" readonly />
+    <input type="text" name="Id" value="<?php echo $this->permisoRol->getId(); ?>" readonly />
 
     <div class="form-group ">
         <label for="Select-Rol" class="control-label col-md-2">Rol</label>

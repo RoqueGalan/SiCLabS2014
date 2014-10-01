@@ -2,6 +2,7 @@
 
 class Usuario extends Modelo {
 
+    private $_Id;
     private $_Matricula;
     private $_Nombre;
     private $_Apellido;
@@ -15,6 +16,14 @@ class Usuario extends Modelo {
         $this->_Rol = new Rol();
     }
 
+    function getId() {
+        return $this->_Id;
+    }
+
+    function setId($Id) {
+        $this->_Id = $Id;
+    }
+ 
     function getMatricula() {
         return $this->_Matricula;
     }
@@ -79,11 +88,12 @@ class Usuario extends Modelo {
         //crear una lista de objetos, para su facil extracion en las vistas
         foreach ($tempLista as $temp) {
             $usuario = new usuario();
+            $usuario->setId($temp['Id']);
             $usuario->setMatricula($temp['Matricula']);
             $usuario->setNombre($temp['Nombre']);
             $usuario->setApellido($temp['Apellido']);
             $usuario->setCorreo($temp['Correo']);
-            $usuario->setContrasena($temp['Contraseña']);
+            $usuario->setContrasena($temp['Contrasena']);
             $usuario->setFotografia($temp['Fotografia']);
             $usuario->getRol()->buscar($temp['RolId']);
 
@@ -94,29 +104,30 @@ class Usuario extends Modelo {
     }
 
     public function existe($matricula) {
-        $temp = $this->_db->select("SELECT Matricula FROM Usuario WHERE `Matricula` = '{$matricula}' LIMIT 1");
+        $temp = $this->_db->select("SELECT Id FROM Usuario WHERE `Matricula` = '{$matricula}' LIMIT 1");
 
         if (count($temp)) {
             //existe verdadero
-            return $temp[0]['Matricula'];
+            return $temp[0]['Id'];
         } else {
             return 0;
         }
     }
 
-    public function buscar($matricula) {
-        $temp = $this->_db->select("SELECT * FROM Usuario WHERE `Matricula` = '{$matricula}' LIMIT 1");
+    public function buscar($id) {
+        $temp = $this->_db->select("SELECT * FROM Usuario WHERE `Id` = '{$id}' LIMIT 1");
 
         if (count($temp)) {
+            $this->setId($temp[0]['Id']);
             $this->setMatricula($temp[0]['Matricula']);
             $this->setNombre($temp[0]['Nombre']);
             $this->setApellido($temp[0]['Apellido']);
             $this->setCorreo($temp[0]['Correo']);
-            $this->setContrasena($temp[0]['Contraseña']);
+            $this->setContrasena($temp[0]['Contrasena']);
             $this->setFotografia($temp[0]['Fotografia']);
             $this->getRol()->buscar($temp[0]['RolId']);
         } else {
-            $this->setMatricula('-1');
+            $this->setId('-1');
         }
 
         return $this;
@@ -124,6 +135,7 @@ class Usuario extends Modelo {
 
     public function insertar() {
         $parametros = array(
+            'Matricula' => $this->getMatricula(),
             'Nombre' => $this->getNombre(),
             'Apellido' => $this->getApellido(),
             'Correo' => $this->getCorreo(),
@@ -145,13 +157,13 @@ class Usuario extends Modelo {
             'RolId' => $this->getRol()->getId()
         );
 
-        $donde = "`Matricula` = '{$this->getMatricula()}'";
+        $donde = "`Id` = '{$this->getId()}'";
 
-        $this->_db->update('Rol', $parametros, $donde);
+        $this->_db->update('Usuario', $parametros, $donde);
     }
 
-    public function eliminar($matricula) {
-        $this->_db->delete('Usuario', "`Matricula` = {$matricula}");
+    public function eliminar($id) {
+        $this->_db->delete('Usuario', "`Id` = {$id}");
     }
 
 }

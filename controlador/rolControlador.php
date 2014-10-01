@@ -6,13 +6,22 @@ class RolControlador extends Controlador {
         parent::__construct();
     }
 
-    function index() {
+    function index($pagina = false) {
+        //preparar el paginador
+        if (!$this->filtrarEntero($pagina)) {
+            $pagina = false;
+        } else {
+            $pagina = (int) $pagina;
+        }
+
         //lista de los roles
         $this->_vista->titulo = 'Rol-Lista';
         $rol = new Rol();
+        $paginador = new Paginador();
 
-        $this->_vista->listaRoles = $rol->lista();
-        
+        $this->_vista->listaRoles = $paginador->paginar($rol->lista(), $pagina, 10);
+        $this->_vista->paginacion = $paginador->getVista('prueba', 'rol/index');
+
         $this->_vista->render('rol/index');
     }
 
@@ -115,6 +124,7 @@ class RolControlador extends Controlador {
                  * Validar Repetido:
                  * No Repetido
                  */
+                
                 if ($rol->existe($nombre)) {
                     $this->redireccionar('error/tipo/Registro_SiExiste');
                 }
@@ -129,7 +139,7 @@ class RolControlador extends Controlador {
                 if ($rol->existe($nombre) != $id) {
                     $this->redireccionar('error/tipo/Registro_SiExiste');
                 }
-                
+
                 $rol->setId($id);
                 $rol->actualizar();
             }

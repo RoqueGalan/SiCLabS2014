@@ -6,21 +6,33 @@ class PermisoRolControlador extends Controlador {
         parent::__construct();
     }
 
-    function index($RolId = false) {
+    function index($RolId, $pagina = false) {
+        //preparar el paginador
+        if (!$this->filtrarEntero($pagina)) {
+            $pagina = false;
+        } else {
+            $pagina = (int) $pagina;
+        }
+
+        $RolId = $this->filtrarEntero($RolId);
         //lista de permisos
         $this->_vista->titulo = 'PermisoRol-Lista';
 
-        if ($RolId) {
-            $rol = new Rol;
-            $rol->buscar($RolId); // buscar el Rol
-
-            $permisoRol = new PermisoRol();
-            $permisoRol->setRol($rol);
-
-            $this->_vista->listaPermisosRol = $permisoRol->lista();
-        } else {
-            $this->_vista->listaPermisosRol = array();
+        $rol = new Rol;
+        $rol->buscar($RolId); // buscar el Rol
+        //verificar que el rol exista
+        if ($rol->getId() == -1) {
+            $this->redireccionar('error/tipo/Registro_NoExiste');
         }
+
+        $paginador = new Paginador();
+
+        $permisoRol = new PermisoRol();
+        $permisoRol->setRol($rol);
+
+
+        $this->_vista->listaPermisosRol = $paginador->paginar($permisoRol->lista(), $pagina, 10);
+        $this->_vista->paginacion = $paginador->getVista('prueba', 'permisoRol/index/' . $rol->getId());
 
         $this->_vista->render('permisoRol/index');
     }
@@ -157,6 +169,7 @@ class PermisoRolControlador extends Controlador {
                     $this->redireccionar('error/tipo/Registro_SiExiste');
                 }
                 
+
                 $permisoRol->insertar();
             } else {
                 //actualizar
@@ -167,12 +180,12 @@ class PermisoRolControlador extends Controlador {
                 if ($permisoRol->existe($select_Rol, $select_Permiso) != $id) {
                     $this->redireccionar('error/tipo/Registro_SiExiste');
                 }
-                
+
                 $permisoRol->setId($id);
                 $permisoRol->actualizar();
             }
 
-            $this->index();
+            $this->index($permisoRol->getRol()->getID());
         }
     }
 

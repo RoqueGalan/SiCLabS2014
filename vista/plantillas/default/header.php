@@ -31,10 +31,10 @@
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li><a href="<?php echo ROOT;?>">Inicio</a></li>
-                        <li><a href="<?php echo ROOT . 'rol/';?>">Roles</a></li>
-                        <li><a href="<?php echo ROOT . 'permiso/';?>">Permisos</a></li>
-                        <li><a href="<?php echo ROOT . 'permisoRol/';?>">Permisos-Rol</a></li>
-                        <li><a href="<?php echo ROOT . 'usuario/';?>">Usuarios</a></li>
+                        <li><a href="<?php echo ROOT . 'rol/index';?>">Roles</a></li>
+                        <li><a href="<?php echo ROOT . 'permiso/index';?>">Permisos</a></li>
+                        <li><a href="<?php echo ROOT . 'permisoRol/index/1';?>">Permisos-Rol</a></li>
+                        <li><a href="<?php echo ROOT . 'usuario/index';?>">Usuarios</a></li>
                     </ul>
                 </div>
             </div>

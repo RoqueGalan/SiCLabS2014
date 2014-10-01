@@ -10,9 +10,11 @@
     </div>
 <?php endif; ?>
 
-<form class="form-horizontal" role="form" method="post" action="<?php echo ROOT; ?>usuario/_guardar/<?php echo $this->usuario->getMatricula(); ?>">
+<form class="form-horizontal" role="form" method="post" action="<?php echo ROOT; ?>usuario/_guardar/<?php echo $this->usuario->getId(); ?>">
     <h4>Usuario</h4>
     <hr />
+    <input type="hidden" class="form-control" id="Id" name="Id" placeholder="Id" value="<?php echo $this->usuario->getId(); ?>">
+    
     <div class="form-group ">
         <label for="Matricula" class="control-label col-md-2">Matricula</label>
         <div class="col-md-10">
