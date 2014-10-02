@@ -4,7 +4,7 @@
     <a href="<?php echo ROOT . 'usuario/nuevo'; ?>" class="btn btn-link">Nuevo Usuario</a>
 </p>
 
-<table class="table table-hover table-striped table-responsive">
+<table class="table table-hover table-striped">
     <thead>
         <tr>
             <th>Matricula</th>

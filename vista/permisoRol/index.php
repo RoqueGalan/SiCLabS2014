@@ -4,7 +4,7 @@
     <a href="<?php echo ROOT . 'permisoRol/nuevo'; ?>" class="btn btn-link">Asignar Permiso a Rol</a>
 </p>
 
-<table class="table table-hover table-striped table-responsive">
+<table class="table table-hover table-striped">
     <thead>
         <tr>
             <th>Nombre del Rol</th>
