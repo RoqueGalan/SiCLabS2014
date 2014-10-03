@@ -14,15 +14,15 @@
     </thead>
 
     <tbody>
-        <?php foreach ($this->listaPermisos as $key => $rol): ?>
+        <?php foreach ($this->listaPermisos as $key => $tipoEspacio): ?>
             <tr>
-                <td><?php echo $rol->getNombre(); ?></td>
-                <td><?php echo $rol->getDescripcion(); ?></td>
+                <td><?php echo $tipoEspacio->getNombre(); ?></td>
+                <td><?php echo $tipoEspacio->getDescripcion(); ?></td>
                 <td>
                     <div class="btn-group btn-group-sm">
-                        <a href="<?php echo ROOT . 'permiso/editar/' . $rol->getId(); ?>" class="btn btn-success"><i class="glyphicon glyphicon-edit"></i></a>
-                        <a href="<?php echo ROOT . 'permiso/mostrar/' . $rol->getId(); ?>" class="btn btn-primary"><i class="glyphicon glyphicon-eye-open"></i></a>
-                        <a href="<?php echo ROOT . 'permiso/eliminar/' . $rol->getId(); ?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i></a>
+                        <a href="<?php echo ROOT . 'permiso/editar/' . $tipoEspacio->getId(); ?>" class="btn btn-success"><i class="glyphicon glyphicon-edit"></i></a>
+                        <a href="<?php echo ROOT . 'permiso/mostrar/' . $tipoEspacio->getId(); ?>" class="btn btn-primary"><i class="glyphicon glyphicon-eye-open"></i></a>
+                        <a href="<?php echo ROOT . 'permiso/eliminar/' . $tipoEspacio->getId(); ?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i></a>
                     </div>
                 </td>
             </tr>

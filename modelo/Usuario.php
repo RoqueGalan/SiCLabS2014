@@ -8,7 +8,6 @@ class Usuario extends Modelo {
     private $_Apellido;
     private $_Correo;
     private $_Contrasena;
-    private $_Fotografia;
     private $_Rol;
 
     function __construct() {
@@ -44,9 +43,7 @@ class Usuario extends Modelo {
         return $this->_Contrasena;
     }
 
-    function getFotografia() {
-        return $this->_Fotografia;
-    }
+    
 
     function getRol() {
         return $this->_Rol;
@@ -72,10 +69,6 @@ class Usuario extends Modelo {
         $this->_Contrasena = $Contrasena;
     }
 
-    function setFotografia($Fotografia) {
-        $this->_Fotografia = $Fotografia;
-    }
-
     function setRol($Rol) {
         $this->_Rol = $Rol;
     }
@@ -94,7 +87,6 @@ class Usuario extends Modelo {
             $usuario->setApellido($temp['Apellido']);
             $usuario->setCorreo($temp['Correo']);
             $usuario->setContrasena($temp['Contrasena']);
-            $usuario->setFotografia($temp['Fotografia']);
             $usuario->getRol()->buscar($temp['RolId']);
 
             $lista[] = $usuario;
@@ -124,7 +116,6 @@ class Usuario extends Modelo {
             $this->setApellido($temp[0]['Apellido']);
             $this->setCorreo($temp[0]['Correo']);
             $this->setContrasena($temp[0]['Contrasena']);
-            $this->setFotografia($temp[0]['Fotografia']);
             $this->getRol()->buscar($temp[0]['RolId']);
         } else {
             $this->setId('-1');
@@ -140,7 +131,6 @@ class Usuario extends Modelo {
             'Apellido' => $this->getApellido(),
             'Correo' => $this->getCorreo(),
             'Contrasena' => $this->getContrasena(),
-            'Fotografia' => $this->getFotografia(),
             'RolId' => $this->getRol()->getId()
         );
 
@@ -153,7 +143,6 @@ class Usuario extends Modelo {
             'Apellido' => $this->getApellido(),
             'Correo' => $this->getCorreo(),
             'Contrasena' => $this->getContrasena(),
-            'Fotografia' => $this->getFotografia(),
             'RolId' => $this->getRol()->getId()
         );
 

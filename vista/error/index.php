@@ -1,5 +1,5 @@
     <h1> ¡Ups! Ha ocurrido un error:  </h1>
-<div class="alert alert-dismissable alert-danger">
+<div class="text-danger">
     <h4>
         <?php echo $this->mensaje; ?>
     </h4>

@@ -32,7 +32,7 @@ class UsuarioControlador extends Controlador {
         $this->_vista->usuario->buscar($id);
 
         //verificar que existia
-        if ($this->_vista->rol->getId() == '-1') {
+        if ($this->_vista->usuario->getId() == '-1') {
             $this->redireccionar('error/tipo/Registro_NoExiste');
         }
 
@@ -86,7 +86,7 @@ class UsuarioControlador extends Controlador {
         }
         $id = $this->getEntero('Id');
 
-        
+
         /*
          * validar Matricula:
          * No Nulo
@@ -98,9 +98,9 @@ class UsuarioControlador extends Controlador {
         if (empty($matricula)) {
             $this->_vista->listaError[] = 'Matricula Esta Vacio';
         }
-        
-        
-        
+
+
+
         /*
          * Validar Nombre:
          * No Nulo
@@ -142,15 +142,8 @@ class UsuarioControlador extends Controlador {
         if (empty($contrasena)) {
             $this->_vista->listaError[] = 'Contrasena Esta Vacio';
         }
-        
-        /*
-         * Validar Fotografia:
-         * No Nulo
-         */
-        $fotografia = $this->getTexto('Fotografia');
-        if (empty($fotografia)) {
-            $this->_vista->listaError[] = 'Fotografia Esta Vacio';
-        }
+
+       
 
         /*
          * Validar Select-Rol:
@@ -164,9 +157,9 @@ class UsuarioControlador extends Controlador {
 //        foreach ($_POST as $key => $value) {
 //            echo $key . ': ' . $value . '<br>';
 //        }
-        
-        
-        
+
+
+
         /*
          * Existen Errores
          */
@@ -182,7 +175,6 @@ class UsuarioControlador extends Controlador {
             $this->_vista->usuario->setApellido($apellido);
             $this->_vista->usuario->setCorreo($correo);
             $this->_vista->usuario->setContrasena('');
-            $this->_vista->usuario->setFotografia($fotografia);
             $this->_vista->usuario->getRol()->setId($select_Rol);
 
             $this->_vista->listaRoles = $this->_vista->usuario->getRol()->lista();
@@ -197,7 +189,7 @@ class UsuarioControlador extends Controlador {
             //aplicar patron Factory
             //if matricula == 0 entonces insertar
             //si no entonces actualziar
-            
+
             $usuario = new Usuario();
             $usuario->setNombre($nombre);
             $usuario->setMatricula($matricula);
@@ -205,10 +197,9 @@ class UsuarioControlador extends Controlador {
             $usuario->setApellido($apellido);
             $usuario->setCorreo($correo);
             $usuario->setContrasena($contrasena);
-            $usuario->setFotografia($fotografia);
             $usuario->getRol()->setId($select_Rol);
-            
-           
+
+
 
             if ($id == 0) {
                 //insertar

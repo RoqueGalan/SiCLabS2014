@@ -13,13 +13,13 @@
     </thead>
     
     <tbody>
-        <?php foreach ($this->listaRoles as $key => $rol): ?>
+        <?php foreach ($this->listaRoles as $key => $tipoEspacio): ?>
             <tr>
-                <td><?php echo $rol->getNombre(); ?></td>
+                <td><?php echo $tipoEspacio->getNombre(); ?></td>
                 <td>
-                    <a href="<?php echo ROOT . 'rol/editar/' . $rol->getId(); ?>">Editar</a> | 
-                    <a href="<?php echo ROOT . 'rol/mostrar/' . $rol->getId(); ?>" >Mostrar</a> | 
-                    <a href="<?php echo ROOT . 'rol/eliminar/' . $rol->getId(); ?>" >Eliminar</a>
+                    <a href="<?php echo ROOT . 'rol/editar/' . $tipoEspacio->getId(); ?>">Editar</a> | 
+                    <a href="<?php echo ROOT . 'rol/mostrar/' . $tipoEspacio->getId(); ?>" >Mostrar</a> | 
+                    <a href="<?php echo ROOT . 'rol/eliminar/' . $tipoEspacio->getId(); ?>" >Eliminar</a>
                 </td>
             </tr>
         <?php endforeach; ?>

@@ -35,6 +35,8 @@
                         <li><a href="<?php echo ROOT . 'permiso/index';?>">Permisos</a></li>
                         <li><a href="<?php echo ROOT . 'permisoRol/index/1';?>">Permisos-Rol</a></li>
                         <li><a href="<?php echo ROOT . 'usuario/index';?>">Usuarios</a></li>
+                        <li class="nav-divider"></li>
+                        <li><a href="<?php echo ROOT . 'tipoEspacio/index';?>">Tipo Espacio</a></li>
                     </ul>
                 </div>
             </div>

@@ -190,9 +190,20 @@ class PermisoRolControlador extends Controlador {
     }
 
     function eliminar($id) {
+
         $permisoRol = new PermisoRol();
+        
+        $permisoRol->buscar($id);
+        
+        //verificar que exista
+        if ($permisoRol->getId() == -1) {
+            $this->redireccionar('error/tipo/Registro_NoExiste');
+        }
+           
         $permisoRol->eliminar($id);
-        $this->index();
+        $this->index($permisoRol->getRol()->getID());
     }
+    
+ 
 
 }
