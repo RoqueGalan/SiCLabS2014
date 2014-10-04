@@ -23,16 +23,16 @@ class Controlador {
             $this->_modelo = new $nombreModelo();
         }
     }
-
-    protected function getTexto($datos) {
-        if (isset($_POST[$datos]) && !empty($_POST[$datos])) {
-            $_POST[$datos] = htmlspecialchars($_POST[$datos], ENT_QUOTES);
-            return $_POST[$datos];
-        }
-
-        return '';
-    }
-
+//
+//    protected function getTexto($datos) {
+//        if (isset($_POST[$datos]) && !empty($_POST[$datos])) {
+//            $_POST[$datos] = htmlspecialchars($_POST[$datos], ENT_QUOTES);
+//            return $_POST[$datos];
+//        }
+//
+//        return '';
+//    }
+//
     protected function getEntero($datos) {
         if (isset($_POST[$datos]) && !empty($_POST[$datos])) {
             $_POST[$datos] = filter_input(INPUT_POST, $datos, FILTER_VALIDATE_INT);
@@ -41,19 +41,19 @@ class Controlador {
 
         return 0;
     }
-
-    protected function getSql($datos) {
-        if (isset($_POST[$datos]) && !empty($_POST[$datos])) {
-            $_POST[$datos] = strip_tags($_POST[$datos]);
-
-            if (!get_magic_quotes_gpc()) {
-                $_POST[$datos] = mysql_real_escape_string($_POST[$datos], mysql_connect(DB_HOST, DB_USER, DB_PASS));
-            }
-
-            return trim($_POST[$datos]);
-        }
-    }
-
+//
+//    protected function getSql($datos) {
+//        if (isset($_POST[$datos]) && !empty($_POST[$datos])) {
+//            $_POST[$datos] = strip_tags($_POST[$datos]);
+//
+//            if (!get_magic_quotes_gpc()) {
+//                $_POST[$datos] = mysql_real_escape_string($_POST[$datos], mysql_connect(DB_HOST, DB_USER, DB_PASS));
+//            }
+//
+//            return trim($_POST[$datos]);
+//        }
+//    }
+//
     protected function redireccionar($ruta = false) {
         if ($ruta) {
             header('location:' . ROOT . $ruta);
@@ -73,12 +73,12 @@ class Controlador {
             return 0;
         }
     }
-
-    protected function getPostParametro($datos) {
-        if (isset($_POST[$datos])) {
-            return $_POST[$datos];
-        }
-    }
+//
+//    protected function getPostParametro($datos) {
+//        if (isset($_POST[$datos])) {
+//            return $_POST[$datos];
+//        }
+//    }
 
 //    public function validarEmail($email) {
 //        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {

@@ -40,6 +40,7 @@ class RolControlador extends Controlador {
     }
 
     function nuevo() {
+        $this->_vista->errorForm = array();
         $this->_vista->titulo = 'Rol-Nuevo';
 
         $this->_vista->rol = new Rol();
@@ -49,6 +50,7 @@ class RolControlador extends Controlador {
     }
 
     function editar($id) {
+        $this->_vista->errorForm = array();
         $this->_vista->titulo = 'Rol-Editar';
 
         $this->_vista->rol = new Rol();
@@ -64,39 +66,47 @@ class RolControlador extends Controlador {
     }
 
     function _guardar($id) {
-        $this->_vista->listaError = array();
-
-        /*
-         * realizar las validaciones
-         * si todo esta correcto ACTUALIZAR
-         * si no entonces devolver los valores a la vista EDITAR o NUEVO
-         */
-
+        $this->_vista->errorForm = array();
+        
         /*
          * validar Id por Get y Post
-         * Evita posibles ataques a la seguridad
          */
         if ($id != $this->getEntero('Id')) {
             $this->redireccionar('error/tipo/Registro_NoID');
         }
         $id = $this->getEntero('Id');
-
+        
+        
         /*
-         * Validar Nombre:
-         * No Nulo
-         * Alfanumerico
+         * Validar campos del FORMULARIO
+         * correcto ACTUALIZAR o NSERTAR en la BD
+         * incorrecto devolver valores a las vistas EDITAR o NUEVO
          */
-        $nombre = $this->getTexto('Nombre');
-        if (empty($nombre)) {
-            $this->_vista->listaError[] = 'Nombre Esta Vacio';
-        }
+        
+        $val = new Validador($_POST);
+        
+        /*
+         * Nombre
+         * Requerido
+         * Letras
+         * Rango (4,32)
+         */
+        $val->requerido('Nombre');
+        $val->letras('Nombre');
+        $val->cadenaRango('Nombre', 4, 32,1);
+        $nombre = $val->getValor('Nombre');
+        
+        
 
         /*
          * Existen Errores
          */
-        if (count($this->_vista->listaError)) {
+        $this->_vista->errorForm = $val->getErrorLista();
+        
+        if (count($this->_vista->errorForm)) {
             /*
              * al encontrar errores hay que redirigir lo ingresado al formulario
+             * esto se hace por si en el navegador se tiene desactivado javascript
              */
 
             $this->_vista->rol = new Rol();
@@ -110,7 +120,7 @@ class RolControlador extends Controlador {
                 $this->_vista->render('rol/editar');
             }
         } else {
-
+            die;
             //aplicar patron Factory
             //if id == 0 entonces insertar
             //si no entonces actualziar

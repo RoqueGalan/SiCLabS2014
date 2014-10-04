@@ -1,11 +1,19 @@
 <!-- Mostrar Alerta de Errores al Evaluar el formulario -->
-<?php if (isset($this->listaError)): ?>
+<?php if (isset($this->errorForm)): ?>
     <div class="alert alert-dismissable alert-danger">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
         <ul>
-            <?php foreach ($this->listaError as $error): ?>
-                <li><?php echo $error; ?></li>
-            <?php endforeach; ?>
+            <?php
+            foreach ($this->errorForm['Nombre'] as $campoError) {
+                echo '<li>' . $campoError . '</li>';
+                /*
+                foreach ($campoError as $error) {
+                   echo '<li>' . $error . '</li>';
+                }
+                */
+                   
+            }
+            ?>
         </ul>
     </div>
 <?php endif; ?>
@@ -31,7 +39,7 @@
 </form>
 
 <p>
-  <input type="button" value="Regresar" onclick="history.back(-1)" class="btn btn-link">  
+    <input type="button" value="Regresar" onclick="history.back(-1)" class="btn btn-link">  
 </p>
 
 

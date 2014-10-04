@@ -19,7 +19,9 @@ class ErrorControlador extends Controlador {
             'Desconocido' => 'Error Desconocido.',
             'Registro_NoID' => 'Error Desconocido en el ID.',
             'Registro_NoExiste' => 'El Registro No Existe.',
-            'Registro_SiExiste' => 'El Registro esta Repetido.'
+            'Registro_SiExiste' => 'El Registro esta Repetido.',
+            'Formulario_NoExisteCampo' => 'El Campo en el formulario no existe.',
+            'Formulario_NoExisteOperador' => 'No Existe el Operador logico'
         );
         
         if (isset($errorLista[$mensaje])){
