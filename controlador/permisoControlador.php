@@ -149,10 +149,12 @@ class PermisoControlador extends Controlador {
                  * Validar Repetido:
                  * No Repetido
                  */
-                if ($permiso->existe($nombre) != $id) {
+                
+                $existe = $permiso->existe($nombre);
+                if ($existe != $id && $existe != 0) {
                     $this->redireccionar('error/tipo/Registro_SiExiste');
                 }
-
+                
                 $permiso->setId($id);
                 $permiso->actualizar();
             }

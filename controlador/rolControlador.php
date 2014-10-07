@@ -7,6 +7,7 @@ class RolControlador extends Controlador {
     }
 
     function index($pagina = false) {
+        $this->_vista->setJs('botonEliminar','Rol');
         //preparar el paginador
         if (!$this->filtrarEntero($pagina)) {
             $pagina = false;
@@ -40,6 +41,10 @@ class RolControlador extends Controlador {
     }
 
     function nuevo() {
+        $this->_vista->setJs('bootstrapValidator.min');
+        $this->_vista->setCss('bootstrapValidator.min');
+        $this->_vista->setJs('validarForm', 'rol');
+
         $this->_vista->errorForm = array();
         $this->_vista->titulo = 'Rol-Nuevo';
 
@@ -50,6 +55,10 @@ class RolControlador extends Controlador {
     }
 
     function editar($id) {
+        $this->_vista->setJs('bootstrapValidator.min');
+        $this->_vista->setCss('bootstrapValidator.min');
+        $this->_vista->setJs('validarForm', 'rol');
+
         $this->_vista->errorForm = array();
         $this->_vista->titulo = 'Rol-Editar';
 
@@ -67,7 +76,11 @@ class RolControlador extends Controlador {
 
     function _guardar($id) {
         $this->_vista->errorForm = array();
-        
+        $this->_vista->setJs('bootstrapValidator.min');
+        $this->_vista->setCss('bootstrapValidator.min');
+        $this->_vista->setJs('validarForm', 'rol');
+
+
         /*
          * validar Id por Get y Post
          */
@@ -75,16 +88,16 @@ class RolControlador extends Controlador {
             $this->redireccionar('error/tipo/Registro_NoID');
         }
         $id = $this->getEntero('Id');
-        
-        
+
+
         /*
          * Validar campos del FORMULARIO
          * correcto ACTUALIZAR o NSERTAR en la BD
          * incorrecto devolver valores a las vistas EDITAR o NUEVO
          */
-        
+
         $val = new Validador($_POST);
-        
+
         /*
          * Nombre
          * Requerido
@@ -93,16 +106,16 @@ class RolControlador extends Controlador {
          */
         $val->requerido('Nombre');
         $val->letras('Nombre');
-        $val->cadenaRango('Nombre', 4, 32,1);
+        $val->cadenaRango('Nombre', 4, 32, 1);
         $nombre = $val->getValor('Nombre');
-        
-        
+
+
 
         /*
          * Existen Errores
          */
         $this->_vista->errorForm = $val->getErrorLista();
-        
+
         if (count($this->_vista->errorForm)) {
             /*
              * al encontrar errores hay que redirigir lo ingresado al formulario
@@ -120,7 +133,7 @@ class RolControlador extends Controlador {
                 $this->_vista->render('rol/editar');
             }
         } else {
-            die;
+           
             //aplicar patron Factory
             //if id == 0 entonces insertar
             //si no entonces actualziar
@@ -134,7 +147,7 @@ class RolControlador extends Controlador {
                  * Validar Repetido:
                  * No Repetido
                  */
-                
+                echo 'insertar';
                 if ($rol->existe($nombre)) {
                     $this->redireccionar('error/tipo/Registro_SiExiste');
                 }
@@ -146,9 +159,11 @@ class RolControlador extends Controlador {
                  * Validar Repetido:
                  * No Repetido
                  */
-                if ($rol->existe($nombre) != $id) {
+                $existe = $rol->existe($nombre);
+                if ($existe != $id && $existe != 0) {
                     $this->redireccionar('error/tipo/Registro_SiExiste');
                 }
+                
 
                 $rol->setId($id);
                 $rol->actualizar();
@@ -162,6 +177,22 @@ class RolControlador extends Controlador {
         $rol = new Rol();
         $rol->eliminar($id);
         $this->index();
+    }
+
+    function _comprobarNombre() {
+        
+        $nombre = $this->getTexto('Nombre');
+        if ($nombre != '') {
+            $rol = new Rol();
+            if ($rol->existe($nombre)) {
+                $esDisponible = false;
+            } else {
+                $esDisponible = true;
+            }
+        } else {
+            $esDisponible = false;
+        }
+        echo json_encode(array('valid' => $esDisponible));
     }
 
 }

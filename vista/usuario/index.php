@@ -18,18 +18,18 @@
     </thead>
 
     <tbody>
-        <?php foreach ($this->listaUsuarios as $key => $tipoEspacio): ?>
+        <?php foreach ($this->listaUsuarios as $key => $rol): ?>
             <tr>
-                <td><?php echo $tipoEspacio->getMatricula(); ?></td>
-                <td><?php echo $tipoEspacio->getRol()->getNombre(); ?></td>
-                <td><?php echo $tipoEspacio->getNombre(); ?></td>
-                <td><?php echo $tipoEspacio->getApellido(); ?></td>
-                <td><?php echo $tipoEspacio->getCorreo(); ?></td>
-                <td><?php echo $tipoEspacio->getContrasena(); ?></td>
+                <td><?php echo $rol->getMatricula(); ?></td>
+                <td><?php echo $rol->getRol()->getNombre(); ?></td>
+                <td><?php echo $rol->getNombre(); ?></td>
+                <td><?php echo $rol->getApellido(); ?></td>
+                <td><?php echo $rol->getCorreo(); ?></td>
+                <td><?php echo $rol->getContrasena(); ?></td>
                 <td>
-                    <a href="<?php echo ROOT . 'usuario/editar/' . $tipoEspacio->getId(); ?>">Editar</a> | 
-                    <a href="<?php echo ROOT . 'usuario/mostrar/' . $tipoEspacio->getId(); ?>">Mostrar</a> | 
-                    <a href="<?php echo ROOT . 'usuario/eliminar/' . $tipoEspacio->getId(); ?>">Eliminar</a>
+                    <a href="<?php echo ROOT . 'usuario/editar/' . $rol->getId(); ?>">Editar</a> | 
+                    <a href="<?php echo ROOT . 'usuario/mostrar/' . $rol->getId(); ?>">Mostrar</a> | 
+                    <a href="<?php echo ROOT . 'usuario/eliminar/' . $rol->getId(); ?>">Eliminar</a>
                 </td>
             </tr>
         <?php endforeach; ?>

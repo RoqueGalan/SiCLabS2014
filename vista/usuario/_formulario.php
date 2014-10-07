@@ -56,11 +56,11 @@
             <select name="Select-Rol" id="Select-Rol" class="form-control">
                 <option value="0">-- Selecciona Rol --</option>
                 <?php
-                foreach ($this->listaRoles as $key => $tipoEspacio) {
-                    if ($tipoEspacio->getId() == $this->usuario->getRol()->getId())
-                        echo "<option value='{$tipoEspacio->getId()}' selected>{$tipoEspacio->getNombre()}</option>";
+                foreach ($this->listaRoles as $key => $rol) {
+                    if ($rol->getId() == $this->usuario->getRol()->getId())
+                        echo "<option value='{$rol->getId()}' selected>{$rol->getNombre()}</option>";
                     else
-                        echo "<option value='{$tipoEspacio->getId()}'>{$tipoEspacio->getNombre()}</option>";
+                        echo "<option value='{$rol->getId()}'>{$rol->getNombre()}</option>";
                 }
                 ?>
             </select>

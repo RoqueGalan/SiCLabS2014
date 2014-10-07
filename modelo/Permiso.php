@@ -52,14 +52,14 @@ class Permiso extends Modelo {
     }
 
     public function existe($nombre) {
+ 
         $temp = $this->_db->select("SELECT Id FROM Permiso WHERE `Nombre` = '{$nombre}' LIMIT 1");
 
         if (count($temp)) {
             //existe verdadero
             return $temp[0]['Id'];
-        } else {
-            return 0;
         }
+        return 0;
     }
     
     public function buscar($id) {

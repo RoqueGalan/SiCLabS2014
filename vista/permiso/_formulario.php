@@ -13,7 +13,7 @@
 <form class="form-horizontal" role="form" method="post" action="<?php echo ROOT; ?>permiso/_guardar/<?php echo $this->permiso->getId(); ?>">
     <h4>Permiso</h4>
     <hr />
-    <input type="hidden" name="Id" value="<?php echo $this->permiso->getId(); ?>" readonly />
+    <input type="text" name="Id" value="<?php echo $this->permiso->getId(); ?>" readonly />
 
     <div class="form-group ">
         <label for="Nombre" class="control-label col-md-2">Permiso</label>

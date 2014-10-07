@@ -46,6 +46,7 @@ class Rol extends Modelo {
 
         if (count($temp)) {
             //existe verdadero
+            
             return $temp[0]['Id'];
         } else {
             return 0;

@@ -11,17 +11,20 @@
 </footer>
 </div>
 
-<!-- Insertar aqui los scrips a utilizar -->
+<!-- Insertar aqui los scrips a utilizar en la plantilla-->
 <script type="text/javascript" src="<?php echo ROOT; ?>public/js/jquery.min.js"></script>
 <script type="text/javascript" src="<?php echo ROOT; ?>public/js/jquery-ui.min.js"></script>
 <script type="text/javascript" src="<?php echo ROOT; ?>public/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="<?php echo ROOT; ?>public/js/bootstrap-dialog.min.js"></script>
 
+<!-- Insertar aqui los scrips a utilizar en el controlador-->
 <?php
-if (isset($this->javaScript)) {
-    foreach ($this->javaScript as $javaScript) {
-        echo '<script type="text/javascript" src="' . ROOT . 'views/' . $javaScript . '"></script>';
+if (count($this->_js)) {
+    foreach ($this->_js as $js) {
+        echo '<script type="text/javascript" src="' . $js . '"></script>';
     }
 }
 ?>
+
 </body>
 </html>

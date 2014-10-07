@@ -2,8 +2,8 @@
 
 class Controlador {
 
+    var $_vista;
     function __construct() {
-
         $this->_vista = new Vista();
     }
 
@@ -23,16 +23,16 @@ class Controlador {
             $this->_modelo = new $nombreModelo();
         }
     }
-//
-//    protected function getTexto($datos) {
-//        if (isset($_POST[$datos]) && !empty($_POST[$datos])) {
-//            $_POST[$datos] = htmlspecialchars($_POST[$datos], ENT_QUOTES);
-//            return $_POST[$datos];
-//        }
-//
-//        return '';
-//    }
-//
+
+    protected function getTexto($datos) {
+        if (isset($_POST[$datos]) && !empty($_POST[$datos])) {
+            $_POST[$datos] = htmlspecialchars($_POST[$datos], ENT_QUOTES);
+            return $_POST[$datos];
+        }
+
+        return '';
+    }
+
     protected function getEntero($datos) {
         if (isset($_POST[$datos]) && !empty($_POST[$datos])) {
             $_POST[$datos] = filter_input(INPUT_POST, $datos, FILTER_VALIDATE_INT);
