@@ -27,7 +27,7 @@ class Rol extends Modelo {
 
     public function lista() {
         $lista = array();
-        $tempLista = $this->_db->select('SELECT * FROM Rol');
+        $tempLista = $this->_db->select('SELECT * FROM Rol ORDER BY `Nombre` ASC');
 
         //crear una lista de objetos, para su facil extracion en las vistas
         foreach ($tempLista as $temp) {

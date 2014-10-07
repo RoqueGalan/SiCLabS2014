@@ -22,11 +22,11 @@
             <select name="Select-Rol" id="Select-Rol" class="form-control">
                 <option value="0">-- Selecciona Rol --</option>
                 <?php
-                foreach ($this->listaRoles as $key => $rol) {
-                    if ($rol->getId() == $this->permisoRol->getRol()->getId())
-                        echo "<option value='{$rol->getId()}' selected>{$rol->getNombre()}</option>";
+                foreach ($this->listaRoles as $key => $permiso) {
+                    if ($permiso->getId() == $this->permisoRol->getRol()->getId())
+                        echo "<option value='{$permiso->getId()}' selected>{$permiso->getNombre()}</option>";
                     else
-                        echo "<option value='{$rol->getId()}'>{$rol->getNombre()}</option>";
+                        echo "<option value='{$permiso->getId()}'>{$permiso->getNombre()}</option>";
                 }
                 ?>
             </select>
