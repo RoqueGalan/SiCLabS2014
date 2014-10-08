@@ -2,9 +2,9 @@ $(document).ready(function () {
     $('#FormPermisoRol')
             .bootstrapValidator({
                 feedbackIcons: {
-                    valid: 'glyphicon glyphicon-ok',
-                    invalid: 'glyphicon glyphicon-remove',
-                    validating: 'glyphicon glyphicon-refresh'
+                    valid: 'fa fa-2x fa-check',
+                    invalid: 'fa fa-2x fa-times',
+                    validating: 'fa fa-2x fa-refresh fa-spin'
                 },
                 fields: {
                     Select_Rol: {
@@ -59,14 +59,14 @@ $(document).ready(function () {
 
     // revalidar campos
     $('#Select_Permiso').on('change', function (e) {
-                // Revalidar cuando cambia
-                $('#FormPermisoRol').bootstrapValidator('revalidateField', 'Select_Rol');
-            });
-            
+        // Revalidar cuando cambia
+        $('#FormPermisoRol').bootstrapValidator('revalidateField', 'Select_Rol');
+    });
+
     $('#Select_Rol').on('change', function (e) {
-                // Revalidar cuando cambia
-                $('#FormPermisoRol').bootstrapValidator('revalidateField', 'Select_Permiso');
-            });
+        // Revalidar cuando cambia
+        $('#FormPermisoRol').bootstrapValidator('revalidateField', 'Select_Permiso');
+    });
 });
 
 

@@ -27,26 +27,21 @@
                 <td><?php echo $usuario->getCorreo(); ?></td>
                 <td><?php echo $usuario->getContrasena(); ?></td>
                 <td>
-                    <a href="<?php echo ROOT . 'usuario/editar/' . $usuario->getId(); ?>">Editar</a> | 
-                    <a href="<?php echo ROOT . 'usuario/mostrar/' . $usuario->getId(); ?>">Mostrar</a> | 
-                    <a href="<?php echo ROOT . 'usuario/eliminar/' . $usuario->getId(); ?>">Eliminar</a>
-                    
-                    
                     <div class="btn-group btn-group-sm ">
-                        <a href="<?php echo ROOT . 'usuario/editar/' . $usuario->getId(); ?>" class="btn btn-default"><i class="glyphicon glyphicon-edit"></i></a> 
-                        <a href="<?php echo ROOT . 'usuario/mostrar/' . $usuario->getId(); ?>"class="btn btn-primary"><i class="glyphicon glyphicon-eye-open"></i></a>
+                        <a href="<?php echo ROOT . 'usuario/editar/' . $usuario->getId(); ?>" class="btn btn-default"><i class="fa fa-lg fa-edit"></i></a> 
+                        <a href="<?php echo ROOT . 'usuario/mostrar/' . $usuario->getId(); ?>"class="btn btn-primary"><i class="fa fa-lg fa-eye"></i></a>
                         <a href="javascript:;" class="btn btn-danger"
                            data-title="<div class='text-center text-danger'><b>¿Eliminar?</b></div>"
                            data-toggle="popover"
                            data-content="
                            <div class='text-center'>
                            <div class='btn-group btn-group-sm'>
-                           <a class='btn btn-default' data-dismiss='popover' aria-hidden='true'><i class='glyphicon glyphicon-remove'></i></a>
+                           <a class='btn btn-default' data-dismiss='popover' aria-hidden='true'><i class='fa fa-lg fa-remove'></i></a>
                            <a href='<?php echo ROOT . "usuario/eliminar/" . $usuario->getId(); ?>' 
-                           class='btn btn-danger'><i class='glyphicon glyphicon-ok'></i></a>
+                           class='btn btn-danger'><i class='fa fa-lg fa-check'></i></a>
                            </div>
                            </div>">
-                            <i class="glyphicon glyphicon-trash"></i>
+                            <i class="fa fa-lg fa-trash"></i>
                         </a>
                     </div>
                 </td>

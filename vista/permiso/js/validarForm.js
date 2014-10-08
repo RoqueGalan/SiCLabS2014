@@ -2,9 +2,9 @@ $(document).ready(function () {
     $('#FormPermiso').bootstrapValidator({
         // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
         feedbackIcons: {
-            valid: 'glyphicon glyphicon-ok',
-            invalid: 'glyphicon glyphicon-remove',
-            validating: 'glyphicon glyphicon-refresh'
+             valid: 'fa fa-2x fa-check',
+            invalid: 'fa fa-2x fa-times',
+            validating: 'fa fa-2x fa-refresh fa-spin'
         },
         fields: {
             Nombre: {

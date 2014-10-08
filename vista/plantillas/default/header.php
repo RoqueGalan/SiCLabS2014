@@ -14,6 +14,7 @@
         <link rel="stylesheet" href="<?php echo ROOT; ?>public/css/bootstrap.min.css"/>
         <link rel="stylesheet" href="<?php echo ROOT; ?>public/css/bootstrap-theme.min.css" />
         <link rel="stylesheet" href="<?php echo ROOT; ?>public/css/bootstrap-dialog.min.css" />
+        <link rel="stylesheet" href="<?php echo ROOT; ?>public/css/font-awesome.min.css" />
         <link rel="stylesheet" href="<?php echo ROOT; ?>public/css/default.css" /> 
         
         <!-- Insertar aqui los css a utilizar en el controlador-->
