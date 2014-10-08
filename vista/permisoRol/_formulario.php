@@ -26,11 +26,11 @@
             <select name="Select_Rol" id="Select_Rol" class="form-control">
                 <option value="">-- Selecciona Rol --</option>
                 <?php
-                foreach ($this->listaRoles as $key => $permisoRol) {
-                    if ($permisoRol->getId() == $this->permisoRol->getRol()->getId())
-                        echo "<option value='{$permisoRol->getId()}' selected>{$permisoRol->getNombre()}</option>";
+                foreach ($this->listaRoles as $key => $rol) {
+                    if ($rol->getId() == $this->permisoRol->getRol()->getId())
+                        echo "<option value='{$rol->getId()}' selected>{$rol->getNombre()}</option>";
                     else
-                        echo "<option value='{$permisoRol->getId()}'>{$permisoRol->getNombre()}</option>";
+                        echo "<option value='{$rol->getId()}'>{$rol->getNombre()}</option>";
                 }
                 ?>
             </select>
@@ -43,11 +43,11 @@
             <select name="Select_Permiso" id="Select_Permiso" class="form-control">
                 <option value="">-- Selecciona Permiso --</option>
                 <?php
-                foreach ($this->listaPermisos as $key => $permisoRol) {
-                    if ($permisoRol->getId() == $this->permisoRol->getPermiso()->getId())
-                        echo "<option value='{$permisoRol->getId()}' selected>{$permisoRol->getNombre()}</option>";
+                foreach ($this->listaPermisos as $key => $permiso) {
+                    if ($permiso->getId() == $this->permisoRol->getPermiso()->getId())
+                        echo "<option value='{$permiso->getId()}' selected>{$permiso->getNombre()}</option>";
                     else
-                        echo "<option value='{$permisoRol->getId()}'>{$permisoRol->getNombre()}</option>";
+                        echo "<option value='{$permiso->getId()}'>{$permiso->getNombre()}</option>";
                 }
                 ?>
             </select>
