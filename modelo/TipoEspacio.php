@@ -71,7 +71,7 @@ class TipoEspacio extends Modelo {
             'Nombre' => $this->getNombre()
         );
 
-        $this->_db->insert('TipoEspacio', $parametros);
+        return $this->_db->insert('TipoEspacio', $parametros);
     }
 
     public function actualizar() {

@@ -87,11 +87,6 @@ class RolControlador extends Controlador {
     }
 
     function _guardar($id) {
-        /* script o css a utilizar por la vista */
-        $this->_vista->setJs('bootstrapValidator.min');
-        $this->_vista->setCss('bootstrapValidator.min');
-        $this->_vista->setJs('validarForm', 'rol');
-
         /* declarar e inicializar variables */
         $this->_vista->errorForm = array();
         $val = new Validador($_POST);
@@ -126,6 +121,11 @@ class RolControlador extends Controlador {
 
         if (count($this->_vista->errorForm)) {
             // se encontraron errores
+            /* script o css a utilizar por la vista */
+            $this->_vista->setJs('bootstrapValidator.min');
+            $this->_vista->setCss('bootstrapValidator.min');
+            $this->_vista->setJs('validarForm', 'rol');
+
             $this->_vista->rol = new Rol();
 
             $this->_vista->rol->setId($id);
@@ -143,7 +143,6 @@ class RolControlador extends Controlador {
             if ($id == 0) {
                 //insertar
                 // comprobar campo Nombre no repetido
-                echo 'insertar';
                 if ($rol->existe($nombre)) {
                     $this->redireccionar('error/tipo/Registro_SiExiste');
                 }
@@ -169,8 +168,15 @@ class RolControlador extends Controlador {
 
     function eliminar($id) {
         $rol = new Rol();
+        $rol->buscar($id);
+
+        // comprobar que el registro exista
+        if ($rol->getId() == -1) {
+            $this->redireccionar('error/tipo/Registro_NoExiste');
+        }
+
         $rol->eliminar($id);
-        $this->index();
+        $this->redireccionar('rol/index/');
     }
 
     function _comprobarNombre() {

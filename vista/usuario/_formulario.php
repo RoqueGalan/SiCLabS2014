@@ -1,60 +1,64 @@
 <!-- Mostrar Alerta de Errores al Evaluar el formulario -->
-<?php if (isset($this->listaError)): ?>
+<?php if (isset($this->errorForm) && count($this->errorForm)): ?>
     <div class="alert alert-dismissable alert-danger">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
         <ul>
-            <?php foreach ($this->listaError as $error): ?>
-                <li><?php echo $error; ?></li>
-            <?php endforeach; ?>
+            <?php
+            foreach ($this->errorForm as $campoError) {
+                foreach ($campoError as $error) {
+                    echo '<li>' . $error . '</li>';
+                }
+            }
+            ?>
         </ul>
     </div>
 <?php endif; ?>
 
-<form class="form-horizontal" role="form" method="post" action="<?php echo ROOT; ?>usuario/_guardar/<?php echo $this->usuario->getId(); ?>">
+<form class="form-horizontal" id="FormUsuario" method="post" action="<?php echo ROOT; ?>usuario/_guardar/<?php echo $this->usuario->getId(); ?>" autocomplete="off">
     <h4>Usuario</h4>
     <hr />
     <input type="hidden" class="form-control" id="Id" name="Id" placeholder="Id" value="<?php echo $this->usuario->getId(); ?>">
     
     <div class="form-group ">
-        <label for="Matricula" class="control-label col-md-2">Matricula</label>
-        <div class="col-md-10">
+        <label for="Matricula" class="col-lg-3 control-label">Matricula</label>
+        <div class="col-lg-5">
             <input type="text" class="form-control" id="Matricula" name="Matricula" placeholder="Matricula" value="<?php echo $this->usuario->getMatricula(); ?>">
         </div>
     </div>
 
     <div class="form-group ">
-        <label for="Nombre" class="control-label col-md-2">Nombre(s)</label>
-        <div class="col-md-10">
+        <label for="Nombre" class="col-lg-3 control-label">Nombre(s)</label>
+        <div class="col-lg-5">
             <input type="text" class="form-control" id="Nombre" name="Nombre" placeholder="Nombre(s)" value="<?php echo $this->usuario->getNombre(); ?>">
         </div>
     </div>
     
     <div class="form-group ">
-        <label for="Apellido" class="control-label col-md-2">Apellido(s)</label>
-        <div class="col-md-10">
+        <label for="Apellido" class="col-lg-3 control-label">Apellido(s)</label>
+        <div class="col-lg-5">
             <input type="text" class="form-control" id="Apellido" name="Apellido" placeholder="Apellido(s)" value="<?php echo $this->usuario->getApellido(); ?>">
         </div>
     </div>
     
     <div class="form-group ">
-        <label for="Correo" class="control-label col-md-2">Correo</label>
-        <div class="col-md-10">
+        <label for="Correo" class="col-lg-3 control-label">Correo</label>
+        <div class="col-lg-5">
             <input type="text" class="form-control" id="Correo" name="Correo" placeholder="Correo" value="<?php echo $this->usuario->getCorreo(); ?>">
         </div>
     </div>
     
     <div class="form-group ">
-        <label for="Contrasena" class="control-label col-md-2">Contraseña</label>
-        <div class="col-md-10">
+        <label for="Contrasena" class="col-lg-3 control-label">Contraseña</label>
+        <div class="col-lg-5">
             <input type="text" class="form-control" id="Contrasena" name="Contrasena" placeholder="Contraseña" value="<?php echo $this->usuario->getContrasena(); ?>">
         </div>
     </div>
     
     <div class="form-group ">
-        <label for="Select-Rol" class="control-label col-md-2">Rol</label>
-        <div class="col-md-10">
-            <select name="Select-Rol" id="Select-Rol" class="form-control">
-                <option value="0">-- Selecciona Rol --</option>
+        <label for="Select_Rol" class="col-lg-3 control-label">Rol</label>
+        <div class="col-lg-5">
+            <select name="Select_Rol" id="Select_Rol" class="form-control">
+                <option value="">-- Selecciona Rol --</option>
                 <?php
                 foreach ($this->listaRoles as $key => $rol) {
                     if ($rol->getId() == $this->usuario->getRol()->getId())
@@ -68,7 +72,7 @@
     </div>
 
     <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
+        <div class="col-lg-9 col-lg-offset-3">
             <input type="submit" class="btn btn-primary" value="Guardar">
         </div>
     </div>

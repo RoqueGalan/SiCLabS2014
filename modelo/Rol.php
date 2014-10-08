@@ -72,7 +72,7 @@ class Rol extends Modelo {
             'Nombre' => $this->getNombre()
         );
 
-        $this->_db->insert('Rol', $parametros);
+        return $this->_db->insert('Rol', $parametros);
     }
 
     public function actualizar() {

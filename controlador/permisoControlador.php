@@ -64,11 +64,6 @@ class PermisoControlador extends Controlador {
     }
 
     function editar($id) {
-        /* script o css a utilizar por la vista */
-        $this->_vista->setJs('bootstrapValidator.min');
-        $this->_vista->setCss('bootstrapValidator.min');
-        $this->_vista->setJs('validarForm', 'permiso');
-
         /* declarar e inicializar variables */
         $this->_vista->titulo = 'Permiso-Editar';
         $this->_vista->errorForm = array();
@@ -134,6 +129,11 @@ class PermisoControlador extends Controlador {
 
         if (count($this->_vista->errorForm)) {
             // se encontraron errores
+            /* script o css a utilizar por la vista */
+            $this->_vista->setJs('bootstrapValidator.min');
+            $this->_vista->setCss('bootstrapValidator.min');
+            $this->_vista->setJs('validarForm', 'permiso');
+
             $this->_vista->permiso = new Permiso();
 
             $this->_vista->permiso->setId($id);
@@ -176,11 +176,18 @@ class PermisoControlador extends Controlador {
             $this->index();
         }
     }
-
+   
     function eliminar($id) {
         $permiso = new Permiso();
+        $permiso->buscar($id);
+
+        // comprobar que el registro exista
+        if ($permiso->getId() == -1) {
+            $this->redireccionar('error/tipo/Registro_NoExiste');
+        }
+
         $permiso->eliminar($id);
-        $this->index();
+        $this->redireccionar('permiso/index/');
     }
 
     function _comprobarNombre() {

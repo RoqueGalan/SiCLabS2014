@@ -82,7 +82,7 @@ class Permiso extends Modelo {
             'Descripcion' => $this->getDescripcion()
         );
 
-        $this->_db->insert('Permiso', $parametros);
+        return $this->_db->insert('Permiso', $parametros);
     }
 
     public function actualizar() {

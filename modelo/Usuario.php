@@ -76,7 +76,7 @@ class Usuario extends Modelo {
     // ------------------- metodos de la bd ----------------------
     public function lista() {
         $lista = array();
-        $tempLista = $this->_db->select('SELECT * FROM Usuario');
+        $tempLista = $this->_db->select('SELECT * FROM Usuario ORDER BY `Matricula` ASC');
 
         //crear una lista de objetos, para su facil extracion en las vistas
         foreach ($tempLista as $temp) {
@@ -134,7 +134,7 @@ class Usuario extends Modelo {
             'RolId' => $this->getRol()->getId()
         );
 
-        $this->_db->insert('Usuario', $parametros);
+        return $this->_db->insert('Usuario', $parametros);
     }
 
     public function actualizar() {
@@ -145,7 +145,6 @@ class Usuario extends Modelo {
             'Contrasena' => $this->getContrasena(),
             'RolId' => $this->getRol()->getId()
         );
-
         $donde = "`Id` = '{$this->getId()}'";
 
         $this->_db->update('Usuario', $parametros, $donde);

@@ -7,31 +7,38 @@ class UsuarioControlador extends Controlador {
     }
 
     function index($pagina = false) {
-        //preparar el paginador
-        if (!$this->filtrarEntero($pagina)) {
-            $pagina = false;
-        } else {
-            $pagina = (int) $pagina;
-        }
+        /* script o css a utilizar por la vista */
+        $this->_vista->setJs('botonEliminar', 'Usuario');
 
-        //lista de usuarios
+        /* declarar e inicializar variables */
         $this->_vista->titulo = 'Usuario-Lista';
         $usuario = new Usuario();
         $paginador = new Paginador();
 
-        $this->_vista->listaUsuarios = $paginador->paginar($usuario->lista(), $pagina, 10);
+        /* logica */
+        //Numero de pagina
+        $this->filtrarEntero($pagina) ? $pagina = (int) $pagina : $pagina = false;
+
+        //lista Usuarios
+        $this->_vista->listaUsuarios = $paginador->paginar($usuario->lista(), $pagina, 30);
+        //numero de pagina a renderizar
         $this->_vista->paginacion = $paginador->getVista('prueba', 'usuario/index');
 
         $this->_vista->render('usuario/index');
     }
 
     function mostrar($id) {
-        //mostrar 
+        /* script o css a utilizar por la vista */
+
+        /* declarar e inicializar variables */
         $this->_vista->titulo = 'Usuario-Mostrar';
         $this->_vista->usuario = new Usuario();
+        $id = $this->filtrarEntero($id);
+
+        /* logica */
         $this->_vista->usuario->buscar($id);
 
-        //verificar que existia
+        // comprobar que el registro exista
         if ($this->_vista->usuario->getId() == '-1') {
             $this->redireccionar('error/tipo/Registro_NoExiste');
         }
@@ -40,157 +47,164 @@ class UsuarioControlador extends Controlador {
     }
 
     function nuevo() {
+        /* script o css a utilizar por la vista */
+        $this->_vista->setJs('bootstrapValidator.min');
+        $this->_vista->setCss('bootstrapValidator.min');
+        $this->_vista->setJs('validarForm', 'usuario');
+
+        /* declarar e inicializar variables */
         $this->_vista->titulo = 'Usuario-Nuevo';
-
+        $this->_vista->errorForm = array();
         $this->_vista->usuario = new Usuario();
-        $this->_vista->usuario->setId('0');
 
+        /* logica */
+        $this->_vista->usuario->setId(0);
+        // lista de roless
         $this->_vista->listaRoles = $this->_vista->usuario->getRol()->lista();
 
         $this->_vista->render('usuario/nuevo');
     }
 
     function editar($id) {
-        $this->_vista->titulo = 'Usuario-Editar';
+        /* script o css a utilizar por la vista */
+        $this->_vista->setJs('bootstrapValidator.min');
+        $this->_vista->setCss('bootstrapValidator.min');
+        $this->_vista->setJs('validarForm', 'usuario');
 
+        /* declarar e inicializar variables */
+        $this->_vista->titulo = 'Usuario-Editar';
+        $this->_vista->errorForm = array();
+        $id = $this->filtrarEntero($id);
         $this->_vista->usuario = new Usuario();
+
+        /* logica */
         $this->_vista->usuario->buscar($id);
 
-        //verificar que exista
+        // comprobar que el registro exista
         if ($this->_vista->usuario->getId() == -1) {
             $this->redireccionar('error/tipo/Registro_NoExiste');
         }
 
+        //lista de roles
         $this->_vista->listaRoles = $this->_vista->usuario->getRol()->lista();
 
         $this->_vista->render('usuario/editar');
     }
 
     function _guardar($id) {
-        $this->_vista->listaError = array();
-        /*
-         * realizar las validaciones
-         * si todo esta correcto ACTUALIZAR
-         * si no entonces devolver los valores a la vista EDITAR o NUEVO
-         */
+        /* declarar e inicializar variables */
+        $this->_vista->errorForm = array();
+        $val = new Validador($_POST);
+
+        /* logica */
+        // V A L I D A C I O N E S    D E L    F O R M U L A R I O
+        // por php si javaScript no tuvo exito
 
         /*
-         * validar Matricula por Get y Post
-         * Evita posibles ataques a la seguridad
-         * PENDIENTE
-         * verificar si matricula 0 es nuevo registro e ignorar
-         * si no entonces verificar que la matricula coincidan
+         * Id:
+         * Debe ser igual por Get y Post
          */
         if ($id != $this->getEntero('Id')) {
             $this->redireccionar('error/tipo/Registro_NoID');
         }
         $id = $this->getEntero('Id');
 
+        /*
+         * Matricula
+         * Requerido
+         * Solo 7 caracteres
+         */
+        $campo = 'Matricula';
+        $val->requerido($campo);
+        $val->cadenaLongitud($campo, '=', 7);
+        $matricula = $val->getValor($campo);
 
         /*
-         * validar Matricula:
-         * No Nulo
-         * PENDIENTE
-         * verificar si id 0 es nuevo registro y verificar que matricula no este registrada
-         * si id no es 0 verificar que la matricula corresponda al id
+         * Nombre (s)
+         * Requerido
+         * Letras
+         * Rango (2,64)
          */
-        $matricula = $this->getTexto('Matricula');
-        if (empty($matricula)) {
-            $this->_vista->listaError[] = 'Matricula Esta Vacio';
-        }
-
-
+        $campo = 'Nombre';
+        $val->requerido($campo);
+        $val->letras($campo);
+        $val->cadenaRango($campo, 2, 64, 1);
+        $nombre = $val->getValor($campo);
 
         /*
-         * Validar Nombre:
-         * No Nulo
-         * Alfanumerico
+         * Apellido (s)
+         * Requerido
+         * Letras
+         * Rango (2,64)
          */
-        $nombre = $this->getTexto('Nombre');
-        if (empty($nombre)) {
-            $this->_vista->listaError[] = 'Nombre Esta Vacio';
-        }
+        $campo = 'Apellido';
+        $val->requerido($campo);
+        $val->letras($campo);
+        $val->cadenaRango($campo, 2, 64, 1);
+        $apellido = $val->getValor($campo);
 
         /*
-         * Validar Apellido:
-         * No Nulo
-         * Alfanumerico
+         * Correo
+         * Requerido
+         * Correo
+         * Longitud Max 64
          */
-        $apellido = $this->getTexto('Apellido');
-        if (empty($apellido)) {
-            $this->_vista->listaError[] = 'Apellido Esta Vacio';
-        }
-
-        /*
-         * Validar Correo:
-         * No Nulo
-         * Tipo Email
-         */
-        $correo = $this->getTexto('Correo');
-        if (empty($correo)) {
-            $this->_vista->listaError[] = 'Correo Esta Vacio';
-        }
-        if (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
-            $this->_vista->listaError[] = 'Correo es Incorrecto';
-        }
-
-        /*
-         * Validar Contraseña:
-         * No Nulo
-         */
-        $contrasena = $this->getTexto('Contrasena');
-        if (empty($contrasena)) {
-            $this->_vista->listaError[] = 'Contrasena Esta Vacio';
-        }
-
-       
-
-        /*
-         * Validar Select-Rol:
-         * No Select
-         */
-        $select_Rol = $this->getEntero('Select-Rol');
-        if ($select_Rol == 0) {
-            $this->_vista->listaError[] = 'Seleccione un rol';
-        }
-
-//        foreach ($_POST as $key => $value) {
-//            echo $key . ': ' . $value . '<br>';
-//        }
-
+        $campo = 'Correo';
+        $val->requerido($campo);
+        $val->email($campo);
+        $val->cadenaLongitud($campo, '<=', 64);
+        $correo = $val->getValor($campo);
 
 
         /*
-         * Existen Errores
+         * Contraseña
+         * Requerido
          */
-        if (count($this->_vista->listaError)) {
-            /*
-             * al encontrar errores hay que redirigir lo ingresado al formulario
-             */
+        $campo = 'Contrasena';
+        $val->requerido($campo);
+        $contrasena = $val->getValor($campo);
+
+
+        /*
+         * Select-Rol:
+         * Requerido
+         * Numerico
+         */
+        $campo = 'Select_Rol';
+        $val->requerido($campo);
+        $val->numerico($campo);     
+        $select_Rol = $val->getValor($campo);
+
+        //errores
+        $this->_vista->errorForm = $val->getErrorLista();
+
+        if (count($this->_vista->errorForm)) {
+            // se encontraron errores
+            /* script o css a utilizar por la vista */
+            $this->_vista->setJs('bootstrapValidator.min');
+            $this->_vista->setCss('bootstrapValidator.min');
+            $this->_vista->setJs('validarForm', 'usuario');
 
             $this->_vista->usuario = new Usuario();
+
             $this->_vista->usuario->setId($id);
             $this->_vista->usuario->setMatricula($matricula);
             $this->_vista->usuario->setNombre($nombre);
             $this->_vista->usuario->setApellido($apellido);
             $this->_vista->usuario->setCorreo($correo);
-            $this->_vista->usuario->setContrasena('');
+            $this->_vista->usuario->setContrasena($contrasena);
             $this->_vista->usuario->getRol()->setId($select_Rol);
-
+            //lista de rol
             $this->_vista->listaRoles = $this->_vista->usuario->getRol()->lista();
 
-            if ($id == 0) {
-                $this->_vista->render('usuario/nuevo');
-            } else {
-                $this->_vista->render('usuario/editar');
-            }
+            //redirigir a la vista
+            $id ?
+                            $this->_vista->render('usuario/editar') :
+                            $this->_vista->render('usuario/nuevo');
         } else {
-
-            //aplicar patron Factory
-            //if matricula == 0 entonces insertar
-            //si no entonces actualziar
-
+            // no se encontraron errores
             $usuario = new Usuario();
+
             $usuario->setNombre($nombre);
             $usuario->setMatricula($matricula);
             $usuario->setNombre($nombre);
@@ -203,11 +217,7 @@ class UsuarioControlador extends Controlador {
 
             if ($id == 0) {
                 //insertar
-                /*
-                 * Validar Repetido:
-                 * No Repetido
-                 */
-
+                // comprobar campo Nombre no repetido
                 if ($usuario->existe($matricula)) {
                     $this->redireccionar('error/tipo/Registro_SiExiste');
                 }
@@ -219,7 +229,8 @@ class UsuarioControlador extends Controlador {
                  * Validar Repetido:
                  * No Repetido
                  */
-                if ($usuario->existe($matricula) != $id) {
+                $existe = $usuario->existe($matricula);
+                if ($existe != $id && $existe != 0) {
                     $this->redireccionar('error/tipo/Registro_SiExiste');
                 }
 
@@ -229,6 +240,33 @@ class UsuarioControlador extends Controlador {
 
             $this->index();
         }
+    }
+
+    function eliminar($id) {
+        $usuario = new Usuario();
+        $usuario->buscar($id);
+
+        // comprobar que el registro exista
+        if ($usuario->getId() == -1) {
+            $this->redireccionar('error/tipo/Registro_NoExiste');
+        }
+
+        $usuario->eliminar($id);
+        $this->redireccionar('usuario/index/');
+    }
+
+    function _comprobarMatricula() {
+        $matricula = $this->getTexto('Matricula');
+        if ($matricula != '') {
+            $usuario = new Usuario();
+
+            $usuario->existe($matricula) ?
+                            $esDisponible = false :
+                            $esDisponible = true;
+        } else {
+            $esDisponible = false;
+        }
+        echo json_encode(array('valid' => $esDisponible));
     }
 
 }
