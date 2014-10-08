@@ -18,18 +18,18 @@
     </thead>
 
     <tbody>
-        <?php foreach ($this->listaUsuarios as $key => $permiso): ?>
+        <?php foreach ($this->listaUsuarios as $key => $permisoRol): ?>
             <tr>
-                <td><?php echo $permiso->getMatricula(); ?></td>
-                <td><?php echo $permiso->getRol()->getNombre(); ?></td>
-                <td><?php echo $permiso->getNombre(); ?></td>
-                <td><?php echo $permiso->getApellido(); ?></td>
-                <td><?php echo $permiso->getCorreo(); ?></td>
-                <td><?php echo $permiso->getContrasena(); ?></td>
+                <td><?php echo $permisoRol->getMatricula(); ?></td>
+                <td><?php echo $permisoRol->getRol()->getNombre(); ?></td>
+                <td><?php echo $permisoRol->getNombre(); ?></td>
+                <td><?php echo $permisoRol->getApellido(); ?></td>
+                <td><?php echo $permisoRol->getCorreo(); ?></td>
+                <td><?php echo $permisoRol->getContrasena(); ?></td>
                 <td>
-                    <a href="<?php echo ROOT . 'usuario/editar/' . $permiso->getId(); ?>">Editar</a> | 
-                    <a href="<?php echo ROOT . 'usuario/mostrar/' . $permiso->getId(); ?>">Mostrar</a> | 
-                    <a href="<?php echo ROOT . 'usuario/eliminar/' . $permiso->getId(); ?>">Eliminar</a>
+                    <a href="<?php echo ROOT . 'usuario/editar/' . $permisoRol->getId(); ?>">Editar</a> | 
+                    <a href="<?php echo ROOT . 'usuario/mostrar/' . $permisoRol->getId(); ?>">Mostrar</a> | 
+                    <a href="<?php echo ROOT . 'usuario/eliminar/' . $permisoRol->getId(); ?>">Eliminar</a>
                 </td>
             </tr>
         <?php endforeach; ?>

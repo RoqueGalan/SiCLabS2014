@@ -171,12 +171,12 @@ class Validador {
     }
 
     /*
-     * Comparar
+     * Comparar campos
      * Compara que dos campos sean identicos
      * ERROR: 103
      */
 
-    function comparar($campo1, $campo2, $insensibleMayusculasMinusculas = false) {
+    function compararCampos($campo1, $campo2, $insensibleMayusculasMinusculas = false) {
         $this->_existe($campo1);
         $this->_existe($campo2);
         if ($this->_lleno($campo1) && $this->_lleno($campo2)) {
@@ -192,6 +192,23 @@ class Validador {
                 }
             }
         }
+    }
+
+    /*
+     * Comparar palabras
+     * Compara que el campo sea igual a alguna palabra del arreglo
+     * ERROR: 109
+     */
+
+    function compararPalabras($campo, $arreglo = array()) {
+        $this->_existe($campo);
+
+        if (!in_array($this->getValor($campo), $arreglo)) {
+            $this->_setError($campo, 'No coincide la palabra', 109);
+            return false;
+        }
+       
+        return 1;
     }
 
     /*

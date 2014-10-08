@@ -64,28 +64,6 @@ class PermisoRol extends Modelo {
         return $lista;
     }
 
-    public function buscar($Id) {
-        $temp = $this->_db->select("SELECT * FROM PermisoRol WHERE `Id` = {$Id} LIMIT 1");
-
-        $rol = new Rol();
-        $permiso = new Permiso();
-
-
-
-        if (count($temp)) {
-            $this->setId($temp[0]['Id']);
-            $this->setRol($rol->buscar($temp[0]['RolId']));
-            $this->setPermiso($permiso->buscar($temp[0]['PermisoId']));
-
-            $this->setEstado($temp[0]['Estado']);
-        } else {
-            //no existe
-            $this->setId(-1);
-        }
-
-        return $this;
-    }
-
     public function existe($rolId, $permisoId) {
         $temp = $this->_db->select("SELECT `Id` FROM PermisoRol WHERE `RolId` = {$rolId} AND `PermisoId` = {$permisoId} LIMIT 1");
 
@@ -97,6 +75,25 @@ class PermisoRol extends Modelo {
         }
     }
 
+    public function buscar($Id) {
+        $temp = $this->_db->select("SELECT * FROM PermisoRol WHERE `Id` = {$Id} LIMIT 1");
+
+        $rol = new Rol();
+        $permiso = new Permiso();
+
+        if (count($temp)) {
+            $this->setId($temp[0]['Id']);
+            $this->setRol($rol->buscar($temp[0]['RolId']));
+            $this->setPermiso($permiso->buscar($temp[0]['PermisoId']));
+
+            $this->setEstado($temp[0]['Estado']);
+        } else {
+            $this->setId(-1);
+        }
+
+        return $this;
+    }
+
     public function insertar() {
         $parametros = array(
             'RolId' => $this->getRol()->getId(),
@@ -104,7 +101,7 @@ class PermisoRol extends Modelo {
             'Estado' => $this->getEstado()
         );
 
-        $this->_db->insert('PermisoRol', $parametros);
+        return $this->_db->insert('PermisoRol', $parametros);
     }
 
     public function actualizar() {
@@ -113,8 +110,6 @@ class PermisoRol extends Modelo {
             'PermisoId' => $this->getPermiso()->getId(),
             'Estado' => $this->getEstado()
         );
-
-
         $donde = "`Id` = '{$this->getId()}'";
 
         $this->_db->update('PermisoRol', $parametros, $donde);

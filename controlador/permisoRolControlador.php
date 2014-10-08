@@ -7,43 +7,48 @@ class PermisoRolControlador extends Controlador {
     }
 
     function index($RolId, $pagina = false) {
-        //preparar el paginador
-        if (!$this->filtrarEntero($pagina)) {
-            $pagina = false;
-        } else {
-            $pagina = (int) $pagina;
-        }
+        /* script o css a utilizar por la vista */
+        $this->_vista->setJs('botonEliminar', 'permisoRol');
+        $this->_vista->setJs('botonEstado', 'permisoRol');
 
-        $RolId = $this->filtrarEntero($RolId);
-        //lista de permisos
+        /* declarar e inicializar variables */
         $this->_vista->titulo = 'PermisoRol-Lista';
-
+        $RolId = $this->filtrarEntero($RolId);
         $rol = new Rol;
-        $rol->buscar($RolId); // buscar el Rol
-        //verificar que el rol exista
+        $permisoRol = new PermisoRol();
+        $paginador = new Paginador();
+
+        /* logica */
+        //Numero de pagina
+        $this->filtrarEntero($pagina) ? $pagina = (int) $pagina : $pagina = false;
+        // buscar el Rol
+        $rol->buscar($RolId);
+        // comprobar que el registro exista
         if ($rol->getId() == -1) {
             $this->redireccionar('error/tipo/Registro_NoExiste');
         }
-
-        $paginador = new Paginador();
-
-        $permisoRol = new PermisoRol();
+        //agregar rol a permisoRol
         $permisoRol->setRol($rol);
-
-
+        //lista roles
         $this->_vista->listaPermisosRol = $paginador->paginar($permisoRol->lista(), $pagina, 10);
+        //numero de pagina a renderizar
         $this->_vista->paginacion = $paginador->getVista('prueba', 'permisoRol/index/' . $rol->getId());
 
         $this->_vista->render('permisoRol/index');
     }
 
-    function mostrar($Id) {
-        //mostrar 
+    function mostrar($id) {
+        /* script o css a utilizar por la vista */
+
+        /* declarar e inicializar variables */
         $this->_vista->titulo = 'PermisoRol-Mostrar';
         $this->_vista->permisoRol = new PermisoRol();
-        $this->_vista->permisoRol->buscar($Id);
+        $id = $this->filtrarEntero($id);
 
-        //verificar que exista
+        /* logica */
+        $this->_vista->permisoRol->buscar($id);
+
+        // comprobar que el registro exista
         if ($this->_vista->permisoRol->getId() == -1) {
             $this->redireccionar('error/tipo/Registro_NoExiste');
         }
@@ -52,29 +57,48 @@ class PermisoRolControlador extends Controlador {
     }
 
     function nuevo() {
+        /* script o css a utilizar por la vista */
+        $this->_vista->setJs('bootstrapValidator.min');
+        $this->_vista->setCss('bootstrapValidator.min');
+        $this->_vista->setJs('validarForm', 'permisoRol');
+
+        /* declarar e inicializar variables */
         $this->_vista->titulo = 'PermisoRol-Nuevo';
-
+        $this->_vista->errorForm = array();
         $this->_vista->permisoRol = new PermisoRol();
-        $this->_vista->permisoRol->setId(0);
-        $this->_vista->permisoRol->setEstado('error');
 
+        /* logica */
+        $this->_vista->permisoRol->setId(0);
+        $this->_vista->permisoRol->setEstado('');
+
+        //llenar los select
         $this->_vista->listaRoles = $this->_vista->permisoRol->getRol()->lista();
         $this->_vista->listaPermisos = $this->_vista->permisoRol->getPermiso()->lista();
 
         $this->_vista->render('permisoRol/nuevo');
     }
 
-    function editar($Id) {
+    function editar($id) {
+        /* script o css a utilizar por la vista */
+        $this->_vista->setJs('bootstrapValidator.min');
+        $this->_vista->setCss('bootstrapValidator.min');
+        $this->_vista->setJs('validarForm', 'permisoRol');
+
+        /* declarar e inicializar variables */
         $this->_vista->titulo = 'PermisoRol-Editar';
-
+        $this->_vista->errorForm = array();
+        $id = $this->filtrarEntero($id);
         $this->_vista->permisoRol = new PermisoRol();
-        $this->_vista->permisoRol->buscar($Id);
 
-        //verificar que exista
+        /* logica */
+        $this->_vista->permisoRol->buscar($id);
+
+        // comprobar que el registro exista
         if ($this->_vista->permisoRol->getId() == -1) {
             $this->redireccionar('error/tipo/Registro_NoExiste');
         }
 
+        //llenar los select
         $this->_vista->listaRoles = $this->_vista->permisoRol->getRol()->lista();
         $this->_vista->listaPermisos = $this->_vista->permisoRol->getPermiso()->lista();
 
@@ -82,17 +106,17 @@ class PermisoRolControlador extends Controlador {
     }
 
     function _guardar($id) {
-        $this->_vista->listaError = array();
+        /* declarar e inicializar variables */
+        $this->_vista->errorForm = array();
+        $val = new Validador($_POST);
+
+        /* logica */
+        // V A L I D A C I O N E S    D E L    F O R M U L A R I O
+        // por php si javaScript no tuvo exito
 
         /*
-         * realizar las validaciones
-         * si todo esta correcto ACTUALIZAR
-         * si no entonces devolver los valores a la vista EDITAR o NUEVO
-         */
-
-        /*
-         * validar Id por Get y Post
-         * Evita posibles ataques a la seguridad
+         * Id:
+         * Debe ser igual por Get y Post
          */
         if ($id != $this->getEntero('Id')) {
             $this->redireccionar('error/tipo/Registro_NoID');
@@ -100,75 +124,72 @@ class PermisoRolControlador extends Controlador {
         $id = $this->getEntero('Id');
 
         /*
-         * Validar Select-Rol:
-         * No Select
+         * Select-Rol:
+         * Requerido
+         * Numerico
          */
-        $select_Rol = $this->getEntero('Select-Rol');
-        if ($select_Rol == 0) {
-            $this->_vista->listaError[] = 'Seleccione un rol';
-        }
+        $campo = 'Select_Rol';
+        $val->requerido($campo);
+        $val->numerico($campo);
+        $select_Rol = $val->getValor($campo);
 
         /*
-         * Validar Select-Permiso:
-         * No Select
+         * Select-Permiso:
+         * Requerido
+         * Numerico
          */
-        $select_Permiso = $this->getEntero('Select-Permiso');
-        if ($select_Permiso == 0) {
-            $this->_vista->listaError[] = 'Seleccione un permiso';
-        }
+        $campo = 'Select_Permiso';
+        $val->requerido($campo);
+        $val->numerico($campo);
+        $select_Permiso = $val->getValor($campo);
 
         /*
-         * Validar Select-Estado:
-         * No Select
+         * Select-Permiso:
+         * Requerido
+         * Solo acepta: 'Activo', 'Inactivo'
          */
-        $select_Estado = $this->getTexto('Select-Estado');
+        $campo = 'Select_Estado';
+        $val->requerido($campo);
+        $val->compararPalabras($campo, $arreglo = array('Activo', 'Inactivo'));
+        $select_Estado = $val->getValor($campo);
 
-        if ($select_Estado == 'error') {
-            $this->_vista->listaError[] = 'Seleccione un estado para el permiso';
-        }
 
-        /*
-         * Existen Errores
-         */
-        if (count($this->_vista->listaError)) {
-            /*
-             * al encontrar errores hay que redirigir lo ingresado al formilario
-             */
+        //errores
+        $this->_vista->errorForm = $val->getErrorLista();
 
+        if (count($this->_vista->errorForm)) {
+            /* script o css a utilizar por la vista */
+            $this->_vista->setJs('bootstrapValidator.min');
+            $this->_vista->setCss('bootstrapValidator.min');
+            $this->_vista->setJs('validarForm', 'permisoRol');
+            // se encontraron errores
             $this->_vista->permisoRol = new PermisoRol();
+            //asignar valores
             $this->_vista->permisoRol->setId($id);
             $this->_vista->permisoRol->getRol()->setId($select_Rol);
             $this->_vista->permisoRol->getPermiso()->setId($select_Permiso);
             $this->_vista->permisoRol->setEstado($select_Estado);
-
+            //llenar los select
             $this->_vista->listaRoles = $this->_vista->permisoRol->getRol()->lista();
             $this->_vista->listaPermisos = $this->_vista->permisoRol->getPermiso()->lista();
-
-            if ($id == 0) {
-                $this->_vista->render('permisoRol/nuevo');
-            } else {
-                $this->_vista->render('permisoRol/editar');
-            }
+            //redirigir a la vista
+            $id ?
+                            $this->_vista->render('permisoRol/editar') :
+                            $this->_vista->render('permisoRol/nuevo');
         } else {
-            //aplicar patron Factory
-            //if id == 0 entonces insertar
-            //si no entonces actualziar
-
+            // no se encontraron errores
             $permisoRol = new PermisoRol();
+
             $permisoRol->getRol()->setId($select_Rol);
             $permisoRol->getPermiso()->setId($select_Permiso);
             $permisoRol->setEstado($select_Estado);
 
             if ($id == 0) {
                 //insertar
-                /*
-                 * Validar Repetido:
-                 * No Repetido
-                 */
+                // comprobar campo Nombre no repetido
                 if ($permisoRol->existe($select_Rol, $select_Permiso)) {
                     $this->redireccionar('error/tipo/Registro_SiExiste');
                 }
-                
 
                 $permisoRol->insertar();
             } else {
@@ -177,33 +198,48 @@ class PermisoRolControlador extends Controlador {
                  * Validar Repetido:
                  * No Repetido
                  */
-                if ($permisoRol->existe($select_Rol, $select_Permiso) != $id) {
+                $existe = $permisoRol->existe($select_Rol, $select_Permiso);
+                if ($existe != $id && $existe != 0) {
                     $this->redireccionar('error/tipo/Registro_SiExiste');
                 }
 
                 $permisoRol->setId($id);
                 $permisoRol->actualizar();
             }
-
-            $this->index($permisoRol->getRol()->getID());
+            $this->redireccionar('permisoRol/index/' . $permisoRol->getRol()->getID());
         }
     }
 
     function eliminar($id) {
-
         $permisoRol = new PermisoRol();
-        
         $permisoRol->buscar($id);
-        
-        //verificar que exista
+
+        // comprobar que el registro exista
         if ($permisoRol->getId() == -1) {
             $this->redireccionar('error/tipo/Registro_NoExiste');
         }
-           
+
         $permisoRol->eliminar($id);
-        $this->index($permisoRol->getRol()->getID());
+        $this->redireccionar('permisoRol/index/' . $permisoRol->getRol()->getID());
     }
-    
- 
+
+    function _comprobarPermisoRol() {
+        $esDisponible = false;
+        $permiso = $this->getEntero('Select_Permiso');
+        $rol = $this->getEntero('Select_Rol');
+        //validar que permiso y rol no esten asignados aun rol
+
+        $permisoRol = new PermisoRol();
+        if ($permisoRol->existe($rol, $permiso)) {
+            $esDisponible = false;
+        } else {
+            $esDisponible = true;
+        }
+
+        if($rol == 0) $esDisponible = false;
+        
+
+        echo json_encode(array('valid' => $esDisponible));
+    }
 
 }

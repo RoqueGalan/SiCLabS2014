@@ -30,15 +30,12 @@ class Database extends PDO {
         $sth->execute();
         return $sth->fetchAll($fetchMode);
     }
-    
-     
-    
-  
 
     /**
      * insert
      * @param string $tabla A name of table to insert into
      * @param string $datos An associative array
+     * @return Id
      */
     public function insert($tabla, $datos = array()) {
         ksort($datos);
@@ -53,6 +50,8 @@ class Database extends PDO {
         }
 
         $sth->execute();
+        
+        return $this->lastInsertId();
     }
 
     /**
