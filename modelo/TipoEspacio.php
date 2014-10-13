@@ -27,7 +27,7 @@ class TipoEspacio extends Modelo {
 
     public function lista() {
         $lista = array();
-        $tempLista = $this->_db->select('SELECT * FROM TipoEspacio');
+        $tempLista = $this->_db->select('SELECT * FROM TipoEspacio ORDER BY `Nombre` ASC');
 
         //crear una lista de objetos, para su facil extracion en las vistas
         foreach ($tempLista as $temp) {
@@ -56,7 +56,6 @@ class TipoEspacio extends Modelo {
         $temp = $this->_db->select("SELECT * FROM TipoEspacio WHERE`Id` = {$id} LIMIT 1");
 
         if (count($temp)) {
-
             $this->setId($temp[0]['Id']);
             $this->setNombre($temp[0]['Nombre']);
         } else {
@@ -78,7 +77,6 @@ class TipoEspacio extends Modelo {
         $parametros = array(
             'Nombre' => $this->getNombre()
         );
-
         $donde = "`Id` = '{$this->getId()}'";
 
         $this->_db->update('TipoEspacio', $parametros, $donde);
