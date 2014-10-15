@@ -18,26 +18,24 @@
     <h4>Espacio</h4>
     <hr />
     <input type="hidden" class="form-control" id="Id" name="Id" placeholder="Id" value="<?php echo $this->espacio->getId(); ?>">
-    
+
     <div class="form-group ">
-        <label for="Nombre" class="col-lg-3 control-label">Nombre</label>
-        <div class="col-lg-5">
+        <label for="Nombre" class="col-sm-3 control-label">Nombre</label>
+        <div class="col-sm-5">
             <input type="text" class="form-control" id="Nombre" name="Nombre" placeholder="Nombre del Espacio" value="<?php echo $this->espacio->getNombre(); ?>">
         </div>
     </div>
-    
-    
-    
+
     <div class="form-group ">
-        <label for="Descripcion" class="col-lg-3 control-label">Descripción</label>
-        <div class="col-lg-5">
-          <textarea class="form-control" id="Descripcion" name="Descripcion" placeholder="Descripcion"><?php echo $this->espacio->getDescripcion(); ?></textarea>
+        <label for="Descripcion" class="col-sm-3 control-label">Descripción</label>
+        <div class="col-sm-5">
+            <textarea class="form-control" id="Descripcion" name="Descripcion" placeholder="Descripcion"><?php echo $this->espacio->getDescripcion(); ?></textarea>
         </div>
     </div>
-    
+
     <div class="form-group ">
-        <label for="Select_TipoEspacio" class="col-lg-3 control-label">Tipo Espacio</label>
-        <div class="col-lg-5">
+        <label for="Select_TipoEspacio" class="col-sm-3 control-label">Tipo Espacio</label>
+        <div class="col-sm-5 selectContainer">
             <select name="Select_TipoEspacio" id="Select_TipoEspacio" class="form-control">
                 <option value="">-- Selecciona Tipo Espacio --</option>
                 <?php
@@ -53,7 +51,7 @@
     </div>
 
     <div class="form-group">
-        <div class="col-lg-9 col-lg-offset-3">
+        <div class="col-sm-5 col-sm-offset-3">
             <input type="submit" class="btn btn-primary" value="Guardar">
         </div>
     </div>
@@ -61,12 +59,7 @@
 </form>
 
 <p>
-  <input type="button" value="Regresar" onclick="history.back(-1)" class="btn btn-link">  
+    <input type="button" value="Regresar" onclick="history.back(-1)" class="btn btn-link">  
 </p>
-
-
-
-
-
 
 
