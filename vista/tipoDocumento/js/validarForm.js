@@ -22,7 +22,7 @@ $(document).ready(function () {
                     stringLength: {
                         min: 2,
                         max: 32,
-                        message: 'Campo longitud Min(4) Max (32) caracteres.'
+                        message: 'Campo longitud Min(2) Max (32) caracteres.'
                     },
                     regexp: {
                         regexp: /^([A-Za-zÑñáéíóúÁÉÍÓÚ ]+)$/,
