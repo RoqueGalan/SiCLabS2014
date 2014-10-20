@@ -57,10 +57,13 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Menú de Espacios <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="<?php echo ROOT . 'tipoEspacio/index'; ?>">Tipos Espacio</a></li>
-                                <li><a href="<?php echo ROOT . 'espacio/index'; ?>">Espacio</a></li>
+                                <li><a href="<?php echo ROOT . 'tipoEspacio/index'; ?>">Tipos Espacios</a></li>
+                                <li><a href="<?php echo ROOT . 'espacio/index'; ?>">Espacios</a></li>
                                 <li class="divider"></li>
                                 <li><a href="<?php echo ROOT . 'noticia/index'; ?>">Noticias</a></li>
+                                <li class="divider"></li>
+                                <li><a href="<?php echo ROOT . 'tipoDocumento/index'; ?>">Tipos Documentos</a></li>
+                                <li><a href="<?php echo ROOT . 'documentoEspacio/index'; ?>">Documentos</a></li>
                             </ul>
                         </li>
 
