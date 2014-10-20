@@ -7,12 +7,12 @@ class Noticia extends Modelo {
     private $_Descripcion;
     private $_Fecha;
     private $_Espacio;
-    
+
     function __construct() {
         parent:: __construct();
         $this->_Espacio = new Espacio();
     }
-        
+
     function getId() {
         return $this->_Id;
     }

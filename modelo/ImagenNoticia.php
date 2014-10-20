@@ -63,9 +63,9 @@ class ImagenNoticia extends Modelo {
 //    private $_Ruta;
 //    private $_NoticiaId;
     // ------------------- metodos de la bd ----------------------
-    public function lista($where = '') {
+    public function lista() {
         $lista = array();
-        $tempLista = $this->_db->select('SELECT * FROM ImagenNoticia ' . $where);
+        $tempLista = $this->_db->select('SELECT * FROM ImagenNoticia ');
 
         //crear una lista de objetos, para su facil extracion en las vistas
         foreach ($tempLista as $temp) {
