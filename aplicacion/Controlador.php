@@ -3,6 +3,7 @@
 class Controlador {
 
     var $_vista;
+
     function __construct() {
         $this->_vista = new Vista();
     }
@@ -41,6 +42,7 @@ class Controlador {
 
         return 0;
     }
+
 //
 //    protected function getSql($datos) {
 //        if (isset($_POST[$datos]) && !empty($_POST[$datos])) {
@@ -73,13 +75,13 @@ class Controlador {
             return 0;
         }
     }
+
 //
 //    protected function getPostParametro($datos) {
 //        if (isset($_POST[$datos])) {
 //            return $_POST[$datos];
 //        }
 //    }
-
 //    public function validarEmail($email) {
 //        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 //            return false;
@@ -87,5 +89,32 @@ class Controlador {
 //
 //        return true;
 //    }
+
+    function subirImagen($campo, $ruta) {
+        $imagen = '';
+        if ($_FILES[$campo]['name']) {
+            $ruta = DIR_ROOT . $ruta;
+
+            $upload = new upload($_FILES[$campo], 'es_Es');
+            $upload->allowed = array('image/*');
+            $upload->file_new_name_body = 'img-' . uniqid();
+            $upload->_mkdir($ruta);
+            $upload->_mkdir($ruta . '/mini');
+            $upload->process($ruta);
+
+            if ($upload->processed) {
+                $thumb = new upload($upload->file_dst_pathname);
+                $thumb->image_resize = true;
+                $thumb->image_ratio_x = true;
+                $thumb->image_y = 100;
+                $thumb->file_name_body_pre = 'mini_';
+                $thumb->process($ruta . 'mini/');
+
+                $imagen = $upload->file_dst_name;
+                $upload->clean();
+            }
+        }
+        return $imagen;
+    }
 
 }

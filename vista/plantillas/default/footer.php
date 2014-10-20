@@ -15,7 +15,6 @@
 <script type="text/javascript" src="<?php echo ROOT; ?>public/js/jquery.min.js"></script>
 <script type="text/javascript" src="<?php echo ROOT; ?>public/js/jquery-ui.min.js"></script>
 <script type="text/javascript" src="<?php echo ROOT; ?>public/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="<?php echo ROOT; ?>public/js/bootstrap-dialog.min.js"></script>
 
 <!-- Insertar aqui los scrips a utilizar en el controlador-->
 <?php

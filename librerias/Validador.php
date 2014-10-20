@@ -207,7 +207,7 @@ class Validador {
             $this->_setError($campo, 'No coincide la palabra', 109);
             return false;
         }
-       
+
         return 1;
     }
 
@@ -356,7 +356,7 @@ class Validador {
     /*
      * alfanumerico
      * verifica que solo sean letras y numeros
-     * ERROR: 108
+     * ERROR: 109
      */
 
     function alfanumerico($campo) {
@@ -367,6 +367,44 @@ class Validador {
                 $this->_setError($campo, 'Solo caracteres alphanumericos', 109);
             }
         }
+    }
+
+    /*
+     * imagen
+     * verifica que la imagen se suba
+     * @param campo
+     * @param ruta
+     * ERROR: 110
+     */
+
+    /**
+     * 
+     * @param string $name Name of the model
+     * @param string $path Location of the models
+     */
+    function imagen($campo, $ruta, $requerido = false) {
+        $imagen = 0;
+        if ($_FILES[$campo]['name']) {
+            $ruta = DIR_ROOT . $ruta;
+
+            $upload = new upload($_FILES[$campo], 'es_Es');
+            $upload->allowed = array('image/*');
+            $upload->file_new_name_body = 'temp-' . uniqid();
+            $upload->_mkdir($ruta);
+            $upload->process($ruta);
+            
+            if ($upload->processed) {
+                @unlink($upload->file_dst_pathname);
+                $imagen = 1;
+            } else {
+                $this->_setError($campo, $upload->error, 110);
+            }
+        } else {
+            if ($requerido && !$this->_lleno('ImagenDefault')) {
+                $this->_setError($campo, 'Imagen Requerida', 110);
+            }
+        }
+        return $imagen;
     }
 
 }

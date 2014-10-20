@@ -42,7 +42,8 @@
 </div>
 
 <p>
-    <a href="<?php echo ROOT . 'espacio/editar/' . $this->espacio->getId(); ?>" class="btn btn-link">Editar</a> |
+    <a href="<?php echo ROOT . 'noticia/editar/' . $this->noticia->getId(); ?>" class="btn btn-link">Editar</a>
+    <a href="<?php echo ROOT . 'imagenNoticia/index/' . $this->noticia->getId(); ?>" class="btn btn-link">Ver Imagenes</a>
     <input type="button" value="Regresar" onclick="history.back(-1)" class="btn btn-link"> 
 </p>
 

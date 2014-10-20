@@ -19,6 +19,16 @@ class Vista {
         }
         require_once DIR_ROOT . 'vista/plantillas/' . $plantilla . '/footer.php';
     }
+    
+    public function renderParcial($nombre, $plantilla = 'default') {
+        //aplicar try para errores
+        $vista = DIR_ROOT . 'vista/' . $nombre . '.php';
+        if (is_readable($vista)) {
+            require_once $vista;
+        } else {
+            header('location:' . ROOT . 'error/tipo/Pagina_NoExiste');
+        }
+    }
 
     public function setJs($javaScript, $vista = false) {
         if ($vista) {
