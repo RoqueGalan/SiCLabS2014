@@ -40,8 +40,8 @@ $(document).ready(function () {
             Imagen: {
                 validators: {                    
                     file: {
-                        extension: 'jpeg,png',
-                        type: 'image/jpeg,image/png',
+                        extension: 'jpeg,jpg,png,tiff',
+                        type: 'image/jpeg,image/png,image/tiff',
                         message: 'La imagen es incorrecta'
                     }
                 }

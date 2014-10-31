@@ -28,7 +28,7 @@ class imagenNoticiaControlador extends Controlador {
         $this->filtrarEntero($pagina) ? $pagina = (int) $pagina : $pagina = false;
 
         //lista Espacio
-        $this->_vista->listaImagenNoticia = $paginador->paginar($imagenNoticia->lista(), $pagina, 5);
+        $this->_vista->listaImagenNoticia = $paginador->paginar($imagenNoticia->lista($noticiaId), $pagina, 5);
         //numero de pagina a renderizar
         $this->_vista->paginacion = $paginador->getVista('prueba', 'imagenNoticia/index/' . $noticiaId);
 

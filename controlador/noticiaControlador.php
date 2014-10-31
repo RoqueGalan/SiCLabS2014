@@ -194,6 +194,16 @@ class noticiaControlador extends Controlador {
             $this->redireccionar('error/tipo/Registro_NoExiste');
         }
 
+        //eliminar la noticia y los archivos de las fotos
+        //listar imagenesNoticia
+        //eliminar las imagenes del disco
+        $imgNoti = new ImagenNoticia();
+        
+        foreach ($imgNoti->lista($id) as $imagenNoticia) {
+            @unlink(DIR_ROOT . $imagenNoticia->getRuta() . $imagenNoticia->getImagen());
+            @unlink(DIR_ROOT . $imagenNoticia->getRuta() . 'mini/mini_' . $imagenNoticia->getImagen());
+        }
+
         $noticia->eliminar($id);
         $this->redireccionar('noticia/index/');
     }
