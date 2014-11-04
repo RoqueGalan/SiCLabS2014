@@ -42,8 +42,6 @@
                 foreach ($this->listaEspacios as $key => $espacio) {
                     if ($espacio->getId() == $this->noticia->getEspacio()->getId())
                         echo "<option value='{$espacio->getId()}' selected>{$espacio->getNombre()}</option>";
-                    else
-                        echo "<option value='{$espacio->getId()}'>{$espacio->getNombre()}</option>";
                 }
                 ?>
             </select>

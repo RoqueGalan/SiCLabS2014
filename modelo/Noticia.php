@@ -53,9 +53,9 @@ class Noticia extends Modelo {
         $this->_Espacio = $Espacio;
     }
 
-    public function lista() {
+    public function lista($where) {
         $lista = array();
-        $tempLista = $this->_db->select('SELECT * FROM Noticia ORDER BY `Fecha` ASC');
+        $tempLista = $this->_db->select("SELECT * FROM Noticia WHERE `EspacioId` = {$where} ORDER BY `Fecha` ASC");
 
         //crear una lista de objetos, para su facil extracion en las vistas
 

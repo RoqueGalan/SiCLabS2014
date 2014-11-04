@@ -29,13 +29,15 @@
             Tipo Espacio
         </dt>
         <dd>
-            <?php echo $this->espacio->getTipoEspacio()->getId(); ?>
+            <?php echo $this->espacio->getTipoEspacio()->getNombre(); ?>
         </dd>
     </dl>
 </div>
 
 <p>
     <a href="<?php echo ROOT . 'espacio/editar/' . $this->espacio->getId(); ?>" class="btn btn-link">Editar</a> |
+    <a href="<?php echo ROOT . 'noticia/index/' . $this->espacio->getId(); ?>" class="btn btn-link">Ver Noticias</a> |
+    <a href="<?php echo ROOT . 'documentoEspacio/index/' . $this->espacio->getId(); ?>" class="btn btn-link">Ver Documentos</a> |
     <input type="button" value="Regresar" onclick="history.back(-1)" class="btn btn-link"> 
 </p>
 

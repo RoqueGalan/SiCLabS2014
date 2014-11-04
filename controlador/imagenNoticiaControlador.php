@@ -9,6 +9,7 @@ class imagenNoticiaControlador extends Controlador {
     function index($noticiaId, $pagina = false) {
         /* script o css a utilizar por la vista */
         $this->_vista->setJs('botonEliminar', 'ImagenNoticia');
+        $this->_vista->setJs('abrirImagenPop');
 
         /* declarar e inicializar variables */
         $this->_vista->titulo = 'ImagenNoticia-Lista';

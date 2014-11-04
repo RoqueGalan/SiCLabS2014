@@ -117,4 +117,22 @@ class Controlador {
         return $imagen;
     }
 
+    function subirArchivo($campo, $ruta) {
+        $archivo = 0;
+        if ($_FILES[$campo]['name']) {
+            $ruta = DIR_ROOT . $ruta;
+
+            $upload = new upload($_FILES[$campo], 'es_Es');
+            $upload->allowed = array('application/*');
+            $upload->file_new_name_body = 'doc-' . uniqid();
+            $upload->_mkdir($ruta);
+            $upload->process($ruta);
+
+            if ($upload->processed) {
+                $archivo = $upload->file_dst_name;
+            }
+        }
+        return $archivo;
+    }
+
 }

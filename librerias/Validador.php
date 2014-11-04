@@ -379,8 +379,9 @@ class Validador {
 
     /**
      * 
-     * @param string $name Name of the model
-     * @param string $path Location of the models
+     * @param string $campo
+     * @param string $ruta
+     * @param string $requerido
      */
     function imagen($campo, $ruta, $requerido = false) {
         $imagen = 0;
@@ -405,6 +406,47 @@ class Validador {
             }
         }
         return $imagen;
+    }
+    
+    
+    /*
+     * archivo
+     * verifica que la imagen se suba
+     * @param campo
+     * @param ruta
+     * ERROR: 111
+     */
+
+    /**
+     * 
+     * @param string $campo nombre del Campo del formulario
+     * @param string $ruta ruta donde se guardara el archivo
+     * @param string $requerido si es requerido el archivo
+     * 
+     */
+    function archivo($campo, $ruta, $requerido = false) {
+        $archivo = 0;
+        if ($_FILES[$campo]['name']) {
+            $ruta = DIR_ROOT . $ruta;
+
+            $upload = new upload($_FILES[$campo], 'es_Es');
+            $upload->allowed = array('application/*');
+            $upload->file_new_name_body = 'temp-' . uniqid();
+            $upload->_mkdir($ruta);
+            $upload->process($ruta);
+            
+            if ($upload->processed) {
+                @unlink($upload->file_dst_pathname);
+                $archivo = 1;
+            } else {
+                $this->_setError($campo, $upload->error, 111);
+            }
+        } else {
+            if ($requerido && !$this->_lleno('DocumentoDefault')) {
+                $this->_setError($campo, 'Archivo Requerido', 111);
+            }
+        }
+        return $archivo;
     }
 
 }

@@ -53,18 +53,8 @@
                     <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Quitar</a>
                 </div>
             </div>
-
-
-
-
         </div>
     </div>
-
-
-
-
-
-
 
 
     <div class="form-group">
@@ -79,4 +69,13 @@
     <input type="button" value="Regresar" onclick="history.back(-1)" class="btn btn-link">  
 </p>
 
+
+
+<!-- Modal -->
+<div id="ModalImagenPop" class="modal fade" role="dialog" aria-labelledby="ImagenPop" aria-hidden="true" style="width: 100%;">
+    <div class="modal-body">
+        <img src="#" class="center-block" style="max-width:80%; height: auto; max-height: 60%; "/>
+        <button type="button" class="btn btn-danger center-block" data-dismiss="modal" aria-hidden="true">Cerrar [×]</button>
+    </div>
+</div>
 

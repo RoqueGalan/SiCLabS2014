@@ -6,23 +6,31 @@ class noticiaControlador extends Controlador {
         parent::__construct();
     }
 
-    function index($pagina = false) {
+    function index($EspacioId, $pagina = false) {
         /* script o css a utilizar por la vista */
         $this->_vista->setJs('botonEliminar', 'noticia');
 
         /* declarar e inicializar variables */
         $this->_vista->titulo = 'Noticia-Lista';
+        $EspacioId = $this->filtrarEntero($EspacioId);
         $noticia = new Noticia();
         $paginador = new Paginador();
 
         /* logica */
         //Numero de pagina
         $this->filtrarEntero($pagina) ? $pagina = (int) $pagina : $pagina = false;
-
+        // buscar el Rol
+        $noticia->getEspacio()->buscar($EspacioId);
+        // comprobar que el registro exista
+        if ($noticia->getEspacio()->getId() == -1) {
+            $this->redireccionar('error/tipo/Registro_NoExiste');
+        }
+        //id Espacio
+        $this->_vista->espacio = $noticia->getEspacio()->getId();
         //lista Noticias
-        $this->_vista->listaNoticias = $paginador->paginar($noticia->lista(), $pagina, 10);
+        $this->_vista->listaNoticias = $paginador->paginar($noticia->lista($EspacioId), $pagina, 10);
         //numero de pagina a renderizar
-        $this->_vista->paginacion = $paginador->getVista('prueba', 'noticia/index');
+        $this->_vista->paginacion = $paginador->getVista('prueba', 'noticia/index/' . $noticia->getEspacio()->getId());
 
         $this->_vista->render('noticia/index');
     }
@@ -46,7 +54,7 @@ class noticiaControlador extends Controlador {
         $this->_vista->render("noticia/mostrar");
     }
 
-    function nuevo() {
+    function nuevo($EspacioId) {
         /* script o css a utilizar por la vista */
         $this->_vista->setJs('bootstrapValidator.min');
         $this->_vista->setCss('bootstrapValidator.min');
@@ -54,11 +62,18 @@ class noticiaControlador extends Controlador {
 
         /* declarar e inicializar variables */
         $this->_vista->titulo = 'Noticia-Nuevo';
+        $EspacioId = $this->filtrarEntero($EspacioId);
         $this->_vista->errorForm = array();
         $this->_vista->noticia = new Noticia();
-
+        
         /* logica */
+        $this->_vista->noticia->getEspacio()->buscar($EspacioId);
+        // comprobar que el registro exista
+        if ($this->_vista->noticia->getEspacio()->getId() == '-1') {
+            $this->redireccionar('error/tipo/Registro_NoExiste');
+        }
         $this->_vista->noticia->setId(0);
+
         // lista de espacios
         $this->_vista->listaEspacios = $this->_vista->noticia->getEspacio()->lista();
 
@@ -181,7 +196,7 @@ class noticiaControlador extends Controlador {
                 $noticia->actualizar();
             }
 
-            $this->redireccionar('noticia/index');
+            $this->redireccionar("noticia/index/{$noticia->getEspacio()->getId()}");
         }
     }
 
@@ -198,14 +213,14 @@ class noticiaControlador extends Controlador {
         //listar imagenesNoticia
         //eliminar las imagenes del disco
         $imgNoti = new ImagenNoticia();
-        
+
         foreach ($imgNoti->lista($id) as $imagenNoticia) {
             @unlink(DIR_ROOT . $imagenNoticia->getRuta() . $imagenNoticia->getImagen());
             @unlink(DIR_ROOT . $imagenNoticia->getRuta() . 'mini/mini_' . $imagenNoticia->getImagen());
         }
 
         $noticia->eliminar($id);
-        $this->redireccionar('noticia/index/');
+        $this->redireccionar("noticia/index/{$noticia->getEspacio()->getId()}");
     }
 
 }

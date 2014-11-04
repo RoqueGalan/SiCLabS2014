@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).ready(function() {
     $('#FormRol').bootstrapValidator({
         // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
         feedbackIcons: {
@@ -26,9 +26,8 @@ $(document).ready(function () {
                     // se envia { Nombre: 'el valor' } para validarlo
                     remote: {
                         message: 'Registro ya existe.',
-                        type : 'POST',
-                        url: 'http://192.168.0.3/SiCLabS2014/rol/_comprobarNombre/',
-                        
+                        type: 'POST',
+                        url: ROOT + 'rol/_comprobarNombre/',
                     }
                 }
             }

@@ -1,0 +1,1 @@
+var ROOT = "http://localhost/SiCLabS2014/";

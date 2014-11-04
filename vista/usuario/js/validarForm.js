@@ -32,7 +32,7 @@ $(document).ready(function () {
                     remote: {
                         message: 'Registro ya existe.',
                         type: 'POST',
-                        url: 'http://192.168.0.3/SiCLabS2014/usuario/_comprobarMatricula/',
+                        url: ROOT + 'usuario/_comprobarMatricula/',
                     }
                 }
             },

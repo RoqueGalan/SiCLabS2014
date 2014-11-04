@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).ready(function() {
     $('#FormTipoDocumento').bootstrapValidator({
         // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
         feedbackIcons: {
@@ -33,7 +33,7 @@ $(document).ready(function () {
                     remote: {
                         message: 'Registro ya existe.',
                         type: 'POST',
-                        url: 'http://192.168.0.3/SiCLabS2014/tipoDocumento/_comprobarNombre/',
+                        url: ROOT + 'tipoDocumento/_comprobarNombre/',
                     }
                 }
             }
