@@ -1,6 +1,6 @@
 <?php
 
-class TipoEspacioControlador extends Controlador {
+class CarreraControlador extends Controlador {
 
     function __construct() {
         parent::__construct();
@@ -8,81 +8,80 @@ class TipoEspacioControlador extends Controlador {
 
     function index($pagina = false) {
         /* script o css a utilizar por la vista */
-        $this->_vista->setJs('botonEliminar', 'tipoEspacio');
+        $this->_vista->setJs('botonEliminar', 'carrera');
 
         /* declarar e inicializar variables */
-        $this->_vista->titulo = 'TipoEspacio-Lista';
-        $tipoEspacio = new TipoEspacio();
+        $this->_vista->titulo = 'Carrera-Lista';
+        $carrera = new Carrera();
         $paginador = new Paginador();
 
         /* logica */
         //Numero de pagina
         $this->filtrarEntero($pagina) ? $pagina = (int) $pagina : $pagina = false;
 
-        //lista Tipo Espacio
-        $this->_vista->listaTiposEspacio = $paginador->paginar($tipoEspacio->lista(), $pagina, 10);
+        //lista carrera
+        $this->_vista->listaCarreras = $paginador->paginar($carrera->lista(), $pagina, 10);
         //numero de pagina a renderizar
-        $this->_vista->paginacion = $paginador->getVista('prueba', 'tipoEspacio/index');
+        $this->_vista->paginacion = $paginador->getVista('prueba', 'carrera/index');
 
-        $this->_vista->render('tipoEspacio/index');
+        $this->_vista->render('carrera/index');
     }
 
     function mostrar($Id) {
         /* script o css a utilizar por la vista */
 
         /* declarar e inicializar variables */
-        $this->_vista->titulo = 'TipoEspacio-Mostrar';
-        $this->_vista->tipoEspacio = new TipoEspacio();
+        $this->_vista->titulo = 'Carrera-Mostrar';
+        $this->_vista->carrera = new Carrera();
 
         /* logica */
-        $this->_vista->tipoEspacio->buscar($Id);
+        $this->_vista->carrera->buscar($Id);
 
         // comprobar que el registro exista
-        if ($this->_vista->tipoEspacio->getId() == -1) {
+        if ($this->_vista->carrera->getId() == -1) {
             $this->redireccionar('error/tipo/Registro_NoExiste');
         }
 
-        $this->_vista->render("tipoEspacio/mostrar");
+        $this->_vista->render("carrera/mostrar");
     }
 
     function nuevo() {
         /* script o css a utilizar por la vista */
         $this->_vista->setJs('bootstrapValidator.min');
         $this->_vista->setCss('bootstrapValidator.min');
-        $this->_vista->setJs('validarForm', 'tipoEspacio');
+        $this->_vista->setJs('validarForm', 'carrera');
 
         /* declarar e inicializar variables */
-        $this->_vista->titulo = 'TipoEspacio-Nuevo';
+        $this->_vista->titulo = 'Carrera-Nuevo';
         $this->_vista->errorForm = array();
-        $this->_vista->tipoEspacio = new TipoEspacio();
+        $this->_vista->carrera = new Carrera();
 
         /* logica */
-        $this->_vista->tipoEspacio->setId(0);
-
-        $this->_vista->render('tipoEspacio/nuevo');
+        $this->_vista->carrera->setId(0);
+        $this->_vista->render('carrera/nuevo');
     }
 
     function editar($id) {
         /* script o css a utilizar por la vista */
         $this->_vista->setJs('bootstrapValidator.min');
         $this->_vista->setCss('bootstrapValidator.min');
-        $this->_vista->setJs('validarForm', 'tipoEspacio');
+        $this->_vista->setJs('validarForm', 'carrera');
 
         /* declarar e inicializar variables */
-        $this->_vista->titulo = 'TipoEspacio-Editar';
+        $this->_vista->titulo = 'Carrera-Editar';
         $this->_vista->errorForm = array();
         $id = $this->filtrarEntero($id);
-        $this->_vista->tipoEspacio = new TipoEspacio();
+        $this->_vista->carrera = new Carrera();
 
         /* logica */
-        $this->_vista->tipoEspacio->buscar($id);
+        $this->_vista->carrera->buscar($id);
 
         // comprobar que el registro exista
-        if ($this->_vista->tipoEspacio->getId() == -1) {
+        if ($this->_vista->carrera->getId() == -1) {
             $this->redireccionar('error/tipo/Registro_NoExiste');
         }
 
-        $this->_vista->render('tipoEspacio/editar');
+        $this->_vista->render('carrera/editar');
     }
 
     function _guardar($id) {
@@ -107,12 +106,12 @@ class TipoEspacioControlador extends Controlador {
          * Nombre (s)
          * Requerido
          * Letras
-         * Rango (2,32)
+         * Rango (2,64)
          */
         $campo = 'Nombre';
         $val->requerido($campo);
         $val->letras($campo);
-        $val->cadenaRango($campo, 2, 32, 1);
+        $val->cadenaRango($campo, 2, 64, 1);
         $nombre = $val->getValor($campo);
 
         //errores
@@ -123,66 +122,66 @@ class TipoEspacioControlador extends Controlador {
             /* script o css a utilizar por la vista */
             $this->_vista->setJs('bootstrapValidator.min');
             $this->_vista->setCss('bootstrapValidator.min');
-            $this->_vista->setJs('validarForm', 'tipoEspacio');
+            $this->_vista->setJs('validarForm', 'carrera');
 
-            $this->_vista->tipoEspacio = new TipoEspacio();
+            $this->_vista->carrera = new Carrera();
 
-            $this->_vista->tipoEspacio->setId($id);
-            $this->_vista->tipoEspacio->setNombre($nombre);
+            $this->_vista->carrera->setId($id);
+            $this->_vista->carrera->setNombre($nombre);
 
             //redirigir a la vista
             $id ?
-                            $this->_vista->render('tipoEspacio/editar') :
-                            $this->_vista->render('tipoEspacio/nuevo');
+                            $this->_vista->render('carrera/editar') :
+                            $this->_vista->render('carrera/nuevo');
         } else {
             // no se encontraron errores
-            $tipoEspacio = new TipoEspacio();
-            
-            $tipoEspacio->setNombre($nombre);
+            $carrera = new Carrera();
+
+            $carrera->setNombre($nombre);
 
             if ($id == 0) {
                 //insertar
                 // comprobar campo Nombre no repetido
-                if ($tipoEspacio->existe($nombre)) {
+                if ($carrera->existe($nombre)) {
                     $this->redireccionar('error/tipo/Registro_SiExiste');
                 }
 
-                $tipoEspacio->insertar();
+                $carrera->insertar();
             } else {
                 //actualizar
                 // comprobar campo Nombre no repetido
-                $existe = $tipoEspacio->existe($nombre);
+                $existe = $carrera->existe($nombre);
                 if ($existe != $id && $existe != 0) {
                     $this->redireccionar('error/tipo/Registro_SiExiste');
                 }
 
-                $tipoEspacio->setId($id);
-                $tipoEspacio->actualizar();
+                $carrera->setId($id);
+                $carrera->actualizar();
             }
 
-            $this->redireccionar('tipoEspacio/index/');
+            $this->redireccionar("carrera/index/");
         }
     }
 
     function eliminar($id) {
-        $tipoEspacio = new TipoEspacio();
-        $tipoEspacio->buscar($id);
+        $carrera = new Carrera();
+        $carrera->buscar($id);
 
         // comprobar que el registro exista
-        if ($tipoEspacio->getId() == -1) {
+        if ($carrera->getId() == -1) {
             $this->redireccionar('error/tipo/Registro_NoExiste');
         }
 
-        $tipoEspacio->eliminar($id);
-        $this->redireccionar('tipoEspacio/index/');
+        $carrera->eliminar($id);
+        $this->redireccionar('carrera/index/');
     }
 
     function _comprobarNombre() {
         $nombre = $this->getTexto('Nombre');
         if ($nombre != '') {
-            $tipoEspacio = new TipoEspacio();
+            $carrera = new Carrera();
 
-            $tipoEspacio->existe($nombre) ?
+            $carrera->existe($nombre) ?
                             $esDisponible = false :
                             $esDisponible = true;
         } else {
