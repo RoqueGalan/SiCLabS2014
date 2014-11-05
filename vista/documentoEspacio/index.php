@@ -1,7 +1,7 @@
 <h2>Index</h2>
 
 <p>
-    <a href="<?php echo ROOT . 'documentoEspacio/nuevo/'. $this->espacio; ?>" class="btn btn-link">Nuevo Documento</a>
+    <a href="<?php echo ROOT . 'documentoEspacio/nuevo/' . $this->espacio; ?>" class="btn btn-link">Nuevo Documento</a>
 </p>
 
 <table class="table table-hover table-striped">
@@ -16,7 +16,11 @@
     <tbody>
         <?php foreach ($this->listaDocumentos as $key => $documento): ?>
             <tr>
-                <td><?php echo $documento->getDocumento(); ?></td>
+                <td>
+                    <a href="#" class="documentoPop" data-img-url="<?php echo ROOT . $documento->getRuta() . $documento->getDocumento(); ?>">
+                        <?php echo $documento->getDocumento(); ?>
+                    </a>
+                </td>
                 <td><?php echo $documento->getTipoDocumento()->getNombre(); ?></td>
                 <td><?php echo $documento->getEspacio()->getNombre(); ?></td>
                 <td>
@@ -47,3 +51,12 @@
 <p>
     <input type="button" value="Regresar" onclick="history.back(-1)" class="btn btn-link">  
 </p>
+
+<!-- Modal Documento Pop -->
+<div id="ModalDocumentoPop" class="modal fade" role="dialog" aria-labelledby="DocumentoPop" aria-hidden="true" style="width: 100%;">
+    <div class="modal-body">
+        <button type="button" class="btn btn-danger center-block" data-dismiss="modal" aria-hidden="true">Cerrar [×]</button>
+        <iframe scrolling="auto" class="center-block" src="#" frameborder="0" height="700" width="900"></iframe>	
+        <button type="button" class="btn btn-danger center-block" data-dismiss="modal" aria-hidden="true">Cerrar [×]</button>
+    </div>
+</div>

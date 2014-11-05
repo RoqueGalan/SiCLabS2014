@@ -18,7 +18,7 @@
         <?php foreach ($this->listaImagenNoticia as $key => $imagenNoticia): ?>
             <tr>
                 <td>
-                    <a href="#" class="imagenPop" data-toggle="modal" data-target="#ModalImagenPop" data-img-url="<?php echo ROOT . $imagenNoticia->getRuta() . $imagenNoticia->getImagen(); ?>">
+                    <a href="#" class="imagenPop" data-img-url="<?php echo ROOT . $imagenNoticia->getRuta() . $imagenNoticia->getImagen(); ?>">
                         <img src="<?php echo ROOT . $imagenNoticia->getRuta() . '/mini/mini_' . $imagenNoticia->getImagen(); ?>" class="img-thumbnail" />
                     </a>
                 </td>
@@ -59,7 +59,7 @@
 <!-- Modal -->
 <div id="ModalImagenPop" class="modal fade" role="dialog" aria-labelledby="ImagenPop" aria-hidden="true" style="width: 100%;">
     <div class="modal-body">
-        <img src="#" class="center-block" style="max-width:80%; height: auto; max-height: 60%; "/>
+        <img src="#" class="center-block" style="max-width:90%; height: auto; max-height: 70%; "/>
         <button type="button" class="btn btn-danger center-block" data-dismiss="modal" aria-hidden="true">Cerrar [×]</button>
     </div>
 </div>

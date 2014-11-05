@@ -9,6 +9,7 @@ class documentoEspacioControlador extends Controlador {
     function index($EspacioId, $pagina = false) {
         /* script o css a utilizar por la vista */
         $this->_vista->setJs('botonEliminar', 'documentoEspacio');
+        $this->_vista->setJs('abrirDocumentoPop');
 
         /* declarar e inicializar variables */
         $this->_vista->titulo = 'DocumentoEspacio-Lista';

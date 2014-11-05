@@ -41,7 +41,7 @@
 
             <div class="fileinput fileinput-new" data-provides="fileinput">
                 <div class="fileinput-new thumbnail" style="height: 100px;">
-                    <img  alt="Sin Imagen" src="<?php echo ROOT . 'public/img/noticia/mini/mini_' . $this->imagenNoticia->getImagen(); ?>">
+                    <img  alt="Sin Imagen" src="<?php echo ROOT . $this->imagenNoticia->getRuta() . 'mini/mini_' . $this->imagenNoticia->getImagen(); ?>">                   
                 </div>
                 <div class="fileinput-preview fileinput-exists thumbnail" style="height: 100px;"></div>
                 <div>
@@ -55,7 +55,6 @@
             </div>
         </div>
     </div>
-
 
     <div class="form-group">
         <div class="col-sm-5 col-sm-offset-3">

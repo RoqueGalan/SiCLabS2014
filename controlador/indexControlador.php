@@ -15,6 +15,12 @@ class IndexControlador extends Controlador {
         $this->_vista->render('index/index');
        
     }
+    
+    function descarga() {
+        //vista sin cabecera y pie
+        $this->_vista->renderParcial('index/descarga');
+       
+    }
 
     
 

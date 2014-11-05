@@ -36,8 +36,8 @@
         Imagen
         </dt>
         <dd>
-            <a href="<?php echo ROOT . 'public/img/noticia/' . $this->imagenNoticia->getImagen(); ?>">
-                <img src="<?php echo ROOT . 'public/img/noticia/mini/mini_' . $this->imagenNoticia->getImagen(); ?>" class="img-thumbnail" />
+            <a href="#" class="imagenPop" data-img-url="<?php echo ROOT . $this->imagenNoticia->getRuta() . $this->imagenNoticia->getImagen(); ?>">
+                <img src="<?php echo ROOT . $this->imagenNoticia->getRuta() . 'mini/mini_' . $this->imagenNoticia->getImagen(); ?>" class="img-thumbnail" />
             </a>
         </dd>
     </dl>
@@ -48,3 +48,10 @@
     <input type="button" value="Regresar" onclick="history.back(-1)" class="btn btn-link"> 
 </p>
 
+<!-- Modal -->
+<div id="ModalImagenPop" class="modal fade" role="dialog" aria-labelledby="ImagenPop" aria-hidden="true" style="width: 100%;">
+    <div class="modal-body">
+        <img src="#" class="center-block" style="max-width:90%; height: auto; max-height: 70%; "/>
+        <button type="button" class="btn btn-danger center-block" data-dismiss="modal" aria-hidden="true">Cerrar [×]</button>
+    </div>
+</div>

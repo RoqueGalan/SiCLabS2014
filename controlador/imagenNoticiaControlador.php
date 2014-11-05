@@ -38,7 +38,7 @@ class imagenNoticiaControlador extends Controlador {
 
     function mostrar($id) {
         /* script o css a utilizar por la vista */
-
+        $this->_vista->setJs('abrirImagenPop');
         /* declarar e inicializar variables */
         $this->_vista->titulo = 'ImagenNoticia-Mostrar';
         $this->_vista->imagenNoticia = new ImagenNoticia();

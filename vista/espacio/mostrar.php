@@ -38,6 +38,7 @@
     <a href="<?php echo ROOT . 'espacio/editar/' . $this->espacio->getId(); ?>" class="btn btn-link">Editar</a> |
     <a href="<?php echo ROOT . 'noticia/index/' . $this->espacio->getId(); ?>" class="btn btn-link">Ver Noticias</a> |
     <a href="<?php echo ROOT . 'documentoEspacio/index/' . $this->espacio->getId(); ?>" class="btn btn-link">Ver Documentos</a> |
+    <a href="<?php echo ROOT . 'equipo/index/' . $this->espacio->getId(); ?>" class="btn btn-link">Ver Equipo</a> |
     <input type="button" value="Regresar" onclick="history.back(-1)" class="btn btn-link"> 
 </p>
 
