@@ -68,6 +68,7 @@
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="<?php echo ROOT . 'carrera/index'; ?>">Carreras</a></li>
                                 <li><a href="<?php echo ROOT . 'ciclo/index'; ?>">Ciclos</a></li>
+                                <li><a href="<?php echo ROOT . 'grupo/index'; ?>">Grupos</a></li>
                                 
                             </ul>
                         </li>
