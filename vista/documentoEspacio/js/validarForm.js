@@ -1,39 +1,41 @@
 $(document).ready(function () {
-    $('#FormNoticia').bootstrapValidator({
+    $('#FormDocumentoEspacio').bootstrapValidator({
         fields: {
             /*
-             * Titulo
+             * Documento:
              * Requerido
-             * Alfanumerico
-             * Rango (2,256)
+             * *Todo tipo de documentos
              */
-            Titulo: {
+            Documento: {
                 message: 'Campo Invalido.',
                 validators: {
                     notEmpty: {
                         message: 'Campo requerido.'
                     },
-                    stringLength: {
-                        min: 2,
-                        max: 256,
-                        message: 'Campo longitud Min(2) Max (256) caracteres.'
-                    },
-                    regexp: {
-                        regexp: /^([A-Za-zÑñáéíóúÁÉÍÓÚ0-9 ]+)$/,
-                        message: 'Campo con caracteres invalidos.'
+                    file: {
+                        extension: 'pdf',
+                        type: 'application/pdf',
+                        message: 'El Documento es incorrecto'
                     }
                 }
             },
             /*
-             * Select_Espacio:
+             * Select_TipoDocumento:
              * Requerido
              * Numerico
+             * Solo 1 tipo por espacio
              */
-            Select_Espacio: {
+            Select_TipoDocumento: {
                 message: 'El Campo invalido.',
                 validators: {
                     notEmpty: {
                         message: 'Campo requerido.'
+                    },
+                    // Envia { Select_Rol, Select_Permiso'} al back-end
+                    remote: {
+                        message: 'El tipo de documento ya existe',
+                        type: 'POST',
+                        url: ROOT + 'documentoEspacio/_comprobarDocumentoEspacio/'+ $('#EspacioId').val()
                     }
                 }
             }

@@ -117,6 +117,7 @@
         <div class="col-sm-5">
             <input type="file" name="Documento" id="Documento">
             <p class="help-block">Documentación del equipo</p>
+            <p class="help-block">Para que sea pueda visualizar tiene que ser PDF</p>
         </div>
         
     </div>

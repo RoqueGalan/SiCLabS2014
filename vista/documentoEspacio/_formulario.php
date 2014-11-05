@@ -20,22 +20,19 @@
     <input type="hidden" class="form-control" id="Id" name="Id" value="<?php echo $this->documento->getId(); ?>">
     <input type="hidden" class="form-control" id="EspacioId" name="EspacioId" value="<?php echo $this->documento->getEspacio()->getId(); ?>">
 
-
-
-
     <div class="form-group ">
         <input type="hidden" name="DocumentoDefault" id="DocumentoDefault" value="<?php echo $this->documento->getDocumento(); ?>">
 
         <label for="Documento" class="col-sm-3 control-label">Documento</label>
         <div class="col-sm-5">
             <input type="file" name="Documento" id="Documento">
+            <p class="help-block">Solo documentos en formato .PDF</p>
         </div>
     </div>
-
-
+    
     <div class="form-group ">
-        <label for="Select_TipoDocumento" class="col-sm-3 control-label">Tipo Documento</label>
-        <div class="col-sm-5 selectContainer">
+        <label for="Select_TipoDocumento" class="col-lg-3 control-label">Tipo Documento</label>
+        <div class="col-lg-5">
             <select name="Select_TipoDocumento" id="Select_TipoDocumento" class="form-control">
                 <option value="">-- Selecciona Tipo Documento --</option>
                 <?php
@@ -49,12 +46,6 @@
             </select>
         </div>
     </div>
-
-
-
-
-
-
 
     <div class="form-group">
         <div class="col-sm-5 col-sm-offset-3">

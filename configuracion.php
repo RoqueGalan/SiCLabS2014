@@ -1,7 +1,7 @@
 <?php
 
 // Always provide a TRAILING SLASH (/) AFTER A PATH
-define('ROOT', 'http://192.168.0.11/SiCLabS2014/');
+define('ROOT', 'http://localhost/SiCLabS2014/');
 define('DIR_ROOT' , realpath(dirname(__FILE__)) . '/');
 
 

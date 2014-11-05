@@ -341,5 +341,23 @@ class equipoControlador extends Controlador {
             $this->redireccionar("equipo/index/{$equipo->getEspacio()->getId()}");
         }
     }
+    
+    function eliminar($id) {
+        $equipo = new Equipo();
+        $equipo->buscar($id);
+
+        // comprobar que el registro exista
+        if ($equipo->getId() == -1) {
+            $this->redireccionar('error/tipo/Registro_NoExiste');
+        }
+
+        $equipo->eliminar($id);
+        //eliminar los archivos del disco
+        @unlink(DIR_ROOT . $equipo->getRutaImg() . $equipo->getImagen());
+        @unlink(DIR_ROOT . $equipo->getRutaImg(). 'mini/mini_'. $equipo->getImagen());
+        @unlink(DIR_ROOT . $equipo->getRutaDoc() . $equipo->getDocumento());
+
+        $this->redireccionar('equipo/index/' . $equipo->getEspacio()->getId());
+    }
 
 }

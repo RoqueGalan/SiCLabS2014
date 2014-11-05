@@ -68,16 +68,16 @@ class DocumentoEspacio extends Modelo {
         return $lista;
     }
 
-    //    public function existe($titulo) {
-//        $temp = $this->_db->select("SELECT Id FROM Noticia WHERE `Titulo` = '{$titulo}' LIMIT 1");
-//
-//        if (count($temp)) {
-//            //existe verdadero
-//            return $temp[0]['Id'];
-//        } else {
-//            return 0;
-//        }
-//    }
+    public function existe($espacioId, $tipoDocumentoId) {
+        $temp = $this->_db->select("SELECT Id FROM DocumentoEspacio WHERE `EspacioId` = '{$espacioId}' AND `TipoDocumentoId` = '{$tipoDocumentoId}' LIMIT 1");
+
+        if (count($temp)) {
+            //existe verdadero
+            return $temp[0]['Id'];
+        } else {
+            return 0;
+        }
+    }
 
     public function buscar($id) {
         $temp = $this->_db->select("SELECT * FROM DocumentoEspacio WHERE `Id` = '{$id}' LIMIT 1");
@@ -85,7 +85,7 @@ class DocumentoEspacio extends Modelo {
         if (count($temp)) {
             $this->setId($temp[0]['Id']);
             $this->setDocumento($temp[0]['Documento']);
-            $this->getTipoDocumento()->buscar($temp[0]['TipoDocumentoId']);                    
+            $this->getTipoDocumento()->buscar($temp[0]['TipoDocumentoId']);
             $this->getEspacio()->buscar($temp[0]['EspacioId']);
         } else {
             $this->setId('-1');
@@ -93,8 +93,7 @@ class DocumentoEspacio extends Modelo {
 
         return $this;
     }
-    
-    
+
     public function insertar() {
         $parametros = array(
             'Documento' => $this->getDocumento(),
@@ -104,7 +103,7 @@ class DocumentoEspacio extends Modelo {
 
         return $this->_db->insert('DocumentoEspacio', $parametros);
     }
-    
+
     public function actualizar() {
         $parametros = array(
             'Documento' => $this->getDocumento(),
@@ -119,6 +118,5 @@ class DocumentoEspacio extends Modelo {
     public function eliminar($id) {
         $this->_db->delete('DocumentoEspacio', "`Id` = {$id}");
     }
-
 
 }

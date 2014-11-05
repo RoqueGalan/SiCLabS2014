@@ -218,4 +218,22 @@ class documentoEspacioControlador extends Controlador {
         $this->redireccionar('documentoEspacio/index/' . $documento->getEspacio()->getId());
     }
 
+    function _comprobarDocumentoEspacio($espacioId) {
+        $esDisponible = false;
+        $tipoDocumentoId = $this->getEntero('Select_TipoDocumento');
+        //validar que tipo documento no exista en espaio
+
+        $documento = new DocumentoEspacio();
+        if ($documento->existe($espacioId, $tipoDocumentoId)) {
+            $esDisponible = false;
+        } else {
+            $esDisponible = true;
+        }
+
+        if ($tipoDocumentoId == 0)
+            $esDisponible = false;
+
+        echo json_encode(array('valid' => $esDisponible));
+    }
+
 }

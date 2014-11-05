@@ -148,7 +148,7 @@ $(document).ready(function () {
                     file: {
                         extension: 'doc,docx,dotx,pdf,potx,ppsx,ppt,pptx,rar,zip,txt,xlam,xls,xlsb,xlsx,xltx',
                         type: 'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.openxmlformats-officedocument.wordprocessingml.template,application/pdf,application/vnd.openxmlformats-officedocument.presentationml.template,application/vnd.openxmlformats-officedocument.presentationml.slideshow,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,application/x-rar-compressed,application/zip,text/plain,application/vnd.ms-excel.addin.macroEnabled.12,application/vnd.ms-excel,application/vnd.ms-excel.sheet.binary.macroEnabled.12,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.openxmlformats-officedocument.spreadsheetml.template',
-                        message: 'La imagen es incorrecta'
+                        message: 'El Documento es incorrecto'
                     }
                 }
             },
