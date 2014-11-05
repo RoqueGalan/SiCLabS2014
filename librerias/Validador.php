@@ -227,7 +227,7 @@ class Validador {
                 }
             } else {
                 if (!($longitudReal <= $max && $longitudReal >= $min)) {
-                    $this->_setError($campo, 'Longitud debe estar en el rando de Min ' . $min . ' y Max ' . $max, 104);
+                    $this->_setError($campo, 'Longitud debe estar en el rango de Min ' . $min . ' y Max ' . $max, 104);
                 }
             }
         }
