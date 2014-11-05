@@ -1,6 +1,5 @@
 $(document).ready(function () {
     $('#FormEspacio').bootstrapValidator({
-
         fields: {
             /*
              * Nombre

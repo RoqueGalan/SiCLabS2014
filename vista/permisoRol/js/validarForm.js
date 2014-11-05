@@ -1,11 +1,6 @@
 $(document).ready(function() {
     $('#FormPermisoRol')
             .bootstrapValidator({
-                feedbackIcons: {
-                    valid: 'fa fa-2x fa-check',
-                    invalid: 'fa fa-2x fa-times',
-                    validating: 'fa fa-2x fa-refresh fa-spin'
-                },
                 fields: {
                     Select_Rol: {
                         message: 'El Campo invalido.',
