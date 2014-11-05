@@ -40,6 +40,7 @@
     <a href="<?php echo ROOT . 'documentoEspacio/index/' . $this->espacio->getId(); ?>" class="btn btn-link">Ver Documentos</a> |
     <a href="<?php echo ROOT . 'equipo/index/' . $this->espacio->getId(); ?>" class="btn btn-link">Ver Equipo</a> |
     <a href="<?php echo ROOT . 'software/index/' . $this->espacio->getId(); ?>" class="btn btn-link">Ver Software</a> |
+    <a href="<?php echo ROOT . 'mobiliario/index/' . $this->espacio->getId(); ?>" class="btn btn-link">Ver Mobiliario</a> |
     <input type="button" value="Regresar" onclick="history.back(-1)" class="btn btn-link"> 
 </p>
 
