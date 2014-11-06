@@ -27,7 +27,7 @@ $(document).ready(function() {
                     remote: {
                         message: 'Registro ya existe.',
                         type: 'POST',
-                        url: ROOT + 'carrera/_comprobarNombre/',
+                        url: ROOT + 'carrera/_comprobarNombre/'
                     }
                 }
             }

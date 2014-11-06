@@ -69,6 +69,8 @@
                                 <li><a href="<?php echo ROOT . 'carrera/index'; ?>">Carreras</a></li>
                                 <li><a href="<?php echo ROOT . 'ciclo/index'; ?>">Ciclos</a></li>
                                 <li><a href="<?php echo ROOT . 'grupo/index'; ?>">Grupos</a></li>
+                                <li class="divider"></li>
+                                <li><a href="<?php echo ROOT . 'uda/index'; ?>">UDAS</a></li>
                                 
                             </ul>
                         </li>
