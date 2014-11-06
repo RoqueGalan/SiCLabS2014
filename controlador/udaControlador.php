@@ -163,14 +163,26 @@ class udaControlador extends Controlador {
 
             if ($id == 0) {
                 //insertar
+                // comprobar campo Uda no repetido en Carrera
+                if ($uda->existe($nombre, $select_Carrera)) {
+                    $this->redireccionar('error/tipo/Registro_SiExiste');
+                }
                 $uda->insertar();
             } else {
                 //actualizar
+                /*
+                 * Validar Repetido:
+                 * No Repetido
+                 */
+                $existe = $uda->existe($nombre, $select_Carrera);
+                if ($existe != $id && $existe != 0) {
+                    $this->redireccionar('error/tipo/Registro_SiExiste');
+                }
                 $uda->setId($id);
                 $uda->actualizar();
             }
 
-            $this->index();
+            $this->redireccionar('uda/index/');
         }
     }
 
@@ -191,7 +203,7 @@ class udaControlador extends Controlador {
         $esDisponible = false;
         $nombre = $this->getTexto('Nombre');
         $carreraId = $this->getEntero('Select_Carrera');
-        
+
         //validar que nombre esten asignados a una carrera
         $uda = new Uda();
         if ($uda->existe($nombre, $carreraId)) {
