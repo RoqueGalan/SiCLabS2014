@@ -70,7 +70,9 @@
                                 <li><a href="<?php echo ROOT . 'ciclo/index'; ?>">Ciclos</a></li>
                                 <li><a href="<?php echo ROOT . 'grupo/index'; ?>">Grupos</a></li>
                                 <li class="divider"></li>
-                                <li><a href="<?php echo ROOT . 'uda/index'; ?>">UDAS</a></li>
+                                <li><a href="<?php echo ROOT . 'uda/index'; ?>">Udas</a></li>
+                                <li class="divider"></li>
+                                <li><a href="<?php echo ROOT . 'curso/index'; ?>">Cursos</a></li>
                                 
                             </ul>
                         </li>
