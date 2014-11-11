@@ -1,7 +1,7 @@
 <h2>Detalles</h2>
 
 <div>
-    <h4>Curso</h4>
+    <h4>Curso: <?php echo $this->curso->getEspacio()->getNombre(); ?></h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>

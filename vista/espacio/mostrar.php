@@ -41,6 +41,7 @@
     <a href="<?php echo ROOT . 'equipo/index/' . $this->espacio->getId(); ?>" class="btn btn-link">Ver Equipo</a> |
     <a href="<?php echo ROOT . 'software/index/' . $this->espacio->getId(); ?>" class="btn btn-link">Ver Software</a> |
     <a href="<?php echo ROOT . 'mobiliario/index/' . $this->espacio->getId(); ?>" class="btn btn-link">Ver Mobiliario</a> |
+    <a href="<?php echo ROOT . 'curso/index/' . $this->espacio->getId(); ?>" class="btn btn-link">Ver Cursos</a> |
     <input type="button" value="Regresar" onclick="history.back(-1)" class="btn btn-link"> 
 </p>
 

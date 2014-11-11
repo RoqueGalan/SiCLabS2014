@@ -28,6 +28,19 @@ $(document).ready(function () {
                 }
             },
             /*
+             * Select_Espacio:
+             * Requerido
+             * Numerico
+             */
+            Select_Espacio: {
+                message: 'El Campo invalido.',
+                validators: {
+                    notEmpty: {
+                        message: 'Campo requerido.'
+                    }
+                }
+            },
+            /*
              * Select_Uda:
              * Requerido
              * Numerico
@@ -46,8 +59,9 @@ $(document).ready(function () {
                         data: function (validator) {
                             return {
                                 Select_Grupo: validator.getFieldElements('Select_Grupo').val(),
-                                Select_Ciclo: validator.getFieldElements('Select_Ciclo').val()
-                                
+                                Select_Ciclo: validator.getFieldElements('Select_Ciclo').val(),
+                                Select_Espacio: validator.getFieldElements('Select_Espacio').val()
+
                             };
                         }
                     }
@@ -60,7 +74,11 @@ $(document).ready(function () {
         // Revalidar cuando cambia
         $('#FormCurso').bootstrapValidator('revalidateField', 'Select_Uda');
     });
-     $('#Select_Ciclo').on('change', function (e) {
+    $('#Select_Ciclo').on('change', function (e) {
+        // Revalidar cuando cambia
+        $('#FormCurso').bootstrapValidator('revalidateField', 'Select_Uda');
+    });
+    $('#Select_Espacio').on('change', function (e) {
         // Revalidar cuando cambia
         $('#FormCurso').bootstrapValidator('revalidateField', 'Select_Uda');
     });

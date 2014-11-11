@@ -7,12 +7,22 @@ class Curso extends Modelo {
     private $_Grupo;
     private $_Ciclo;
     private $_Descripcion;
+    private $_Espacio;
 
     function __construct() {
         parent:: __construct();
         $this->_Uda = new Uda();
         $this->_Grupo = new Grupo();
         $this->_Ciclo = new Ciclo();
+        $this->_Espacio = new Espacio();
+    }
+
+    function getEspacio() {
+        return $this->_Espacio;
+    }
+
+    function setEspacio($Espacio) {
+        $this->_Espacio = $Espacio;
     }
 
     function getId() {
@@ -55,9 +65,9 @@ class Curso extends Modelo {
         $this->_Descripcion = $Descripcion;
     }
 
-    public function lista() {
+    public function lista($espacioId, $where = '') {
         $lista = array();
-        $tempLista = $this->_db->select("SELECT * FROM Curso");
+        $tempLista = $this->_db->select("SELECT * FROM Curso WHERE `EspacioId` = {$espacioId} {$where}");
 
         //crear una lista de objetos, para su facil extracion en las vistas
 
@@ -68,6 +78,7 @@ class Curso extends Modelo {
             $curso->getGrupo()->buscar($temp['GrupoId']);
             $curso->getCiclo()->buscar($temp['CicloId']);
             $curso->setDescripcion($temp['Descripcion']);
+            $curso->getEspacio()->buscar($temp['EspacioId']);
 
             $lista[] = $curso;
         }
@@ -75,8 +86,8 @@ class Curso extends Modelo {
         return $lista;
     }
 
-    public function existe($uda, $grupo, $ciclo) {
-        $temp = $this->_db->select("SELECT Id FROM Curso WHERE `UdaId` = '{$uda}' AND `GrupoId` = '{$grupo}' AND `CicloId` = '{$ciclo}' LIMIT 1");
+    public function existe($uda, $grupo, $ciclo, $espacio) {
+        $temp = $this->_db->select("SELECT Id FROM Curso WHERE `UdaId` = '{$uda}' AND `GrupoId` = '{$grupo}' AND `CicloId` = '{$ciclo}' AND `EspacioId` = '{$espacio}' LIMIT 1");
 
         if (count($temp)) {
             //existe verdadero
@@ -95,6 +106,7 @@ class Curso extends Modelo {
             $this->getGrupo()->buscar($temp[0]['GrupoId']);
             $this->getCiclo()->buscar($temp[0]['CicloId']);
             $this->setDescripcion($temp[0]['Descripcion']);
+            $this->getEspacio()->buscar($temp[0]['EspacioId']);
         } else {
             $this->setId('-1');
         }
@@ -107,7 +119,8 @@ class Curso extends Modelo {
             'UdaId' => $this->getUda()->getId(),
             'GrupoId' => $this->getGrupo()->getId(),
             'CicloId' => $this->getCiclo()->getId(),
-            'Descripcion' => $this->getDescripcion()
+            'Descripcion' => $this->getDescripcion(),
+            'EspacioId' => $this->getEspacio()->getId()
         );
 
         return $this->_db->insert('Curso', $parametros);
@@ -118,7 +131,8 @@ class Curso extends Modelo {
             'UdaId' => $this->getUda()->getId(),
             'GrupoId' => $this->getGrupo()->getId(),
             'CicloId' => $this->getCiclo()->getId(),
-            'Descripcion' => $this->getDescripcion()
+            'Descripcion' => $this->getDescripcion(),
+            'EspacioId' => $this->getEspacio()->getId()
         );
         $donde = "`Id` = '{$this->getId()}'";
 

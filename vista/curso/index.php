@@ -1,7 +1,8 @@
 <h2>Index</h2>
+<h3><?php echo $this->espacio->getNombre(); ?></h3>
 
 <p>
-    <a href="<?php echo ROOT . 'curso/nuevo'; ?>" class="btn btn-link">Nuevo Curso</a>
+    <a href="<?php echo ROOT . 'curso/nuevo/'. $this->espacio->getId(); ?>" class="btn btn-link">Nuevo Curso</a>
 </p>
 
 <table class="table table-hover table-striped">

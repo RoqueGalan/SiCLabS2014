@@ -76,6 +76,20 @@
             <input type="text" class="form-control" name="Descripcion" id="Descripcion" placeholder="Descripción" value="<?php echo $this->curso->getDescripcion(); ?>"/>
         </div>
     </div>
+    
+    <div class="form-group ">
+        <label for="Select_Espacio" class="col-sm-3 control-label">Espacio</label>
+        <div class="col-sm-5 selectContainer">
+            <select name="Select_Espacio" id="Select_Espacio" class="form-control">
+                <?php
+                foreach ($this->listaEspacios as $key => $espacio) {
+                    if ($espacio->getId() == $this->curso->getEspacio()->getId())
+                        echo "<option value='{$espacio->getId()}' selected>{$espacio->getNombre()}</option>";
+                }
+                ?>
+            </select>
+        </div>
+    </div>
 
     <div class="form-group">
         <div class="col-sm-5 col-sm-offset-3">
