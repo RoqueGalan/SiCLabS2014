@@ -393,7 +393,7 @@ class Validador {
             $upload->file_new_name_body = 'temp-' . uniqid();
             $upload->_mkdir($ruta);
             $upload->process($ruta);
-            
+
             if ($upload->processed) {
                 @unlink($upload->file_dst_pathname);
                 $imagen = 1;
@@ -407,8 +407,7 @@ class Validador {
         }
         return $imagen;
     }
-    
-    
+
     /*
      * archivo
      * verifica que la imagen se suba
@@ -434,7 +433,7 @@ class Validador {
             $upload->file_new_name_body = 'temp-' . uniqid();
             $upload->_mkdir($ruta);
             $upload->process($ruta);
-            
+
             if ($upload->processed) {
                 @unlink($upload->file_dst_pathname);
                 $archivo = 1;
@@ -447,6 +446,58 @@ class Validador {
             }
         }
         return $archivo;
+    }
+
+    /*
+     * tiempo
+     * verifica que sea tiempo
+     * ERROR: 112
+     */
+
+    function tiempo($campo) {
+        $this->_existe($campo);
+        if ($this->_lleno($campo)) {
+            $valor = $this->getValor($campo);
+            if (!preg_match('/^([0-1][0-9]|[2][0-3])[\:]([0-5][0-9])$/', $valor)) {
+                $this->_setError($campo, 'Solo tiempo', 112);
+            }
+        }
+    }
+
+    /*
+     * rango Tiempo
+     * verifica que sea tiempo
+     * ERROR: 113
+     */
+
+    function rangoTiempo($inicioHora, $finHora, $campo) {
+        $this->_existe($campo);
+        $t = new Tiempo();
+        if (!$t->checarRango($inicioHora, $finHora, $this->getValor($campo))) {
+            $this->_setError($campo, 'Tiempo fuera de rango', 113);
+        }
+    }
+
+    /*
+     * Tiempo primero menor
+     * verifica que sea tiempo
+     * ERROR: 114
+     */
+
+    function menorTiempo($campo1, $campo2) {
+        $this->_existe($campo1);
+        $this->_existe($campo2);
+        if ($this->_lleno($campo1) && $this->_lleno($campo2)) {
+            $t = new Tiempo();
+            
+            $tiempo1 = $t->horaEnSegundos($this->getValor($campo1));
+            $tiempo2 = $t->horaEnSegundos($this->getValor($campo2));
+            
+            if($tiempo1 >= $tiempo2){
+                $this->_setError($campo1, 'Tiempos desbalanceados', 114);
+            }
+
+        }
     }
 
 }
