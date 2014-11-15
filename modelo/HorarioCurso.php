@@ -56,7 +56,7 @@ class HorarioCurso extends Modelo {
     // ------------------- metodos de la bd ----------------------
     public function lista($cursoId, $where = '') {
         $lista = array();
-        $tempLista = $this->_db->select("SELECT * FROM HorarioCurso WHERE `CursoId` = {$cursoId} {$where} ORDER BY 'Dia' DESC, 'Inicio' DESC");
+        $tempLista = $this->_db->select("SELECT * FROM HorarioCurso WHERE `CursoId` = {$cursoId} {$where} ORDER BY `Inicio`");
 
         //crear una lista de objetos, para su facil extracion en las vistas
         foreach ($tempLista as $temp) {

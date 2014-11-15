@@ -145,7 +145,7 @@ class horarioCursoControlador extends Controlador {
         $campo = 'Inicio';
         $val->requerido($campo);
         $val->tiempo($campo);
-        $val->rangoTiempo('07:00:00', '09:00:00', $campo);
+        $val->rangoTiempo('07:00:00', '21:00:00', $campo);
         $val->menorTiempo($campo, 'Fin');
         $inicio = $val->getValor($campo);
 
@@ -158,7 +158,7 @@ class horarioCursoControlador extends Controlador {
         $campo = 'Fin';
         $val->requerido($campo);
         $val->tiempo($campo);
-        $val->rangoTiempo('07:00:00', '09:00:00', $campo);
+        $val->rangoTiempo('07:00:00', '21:00:00', $campo);
         $fin = $val->getValor($campo);
 
         /*
@@ -238,6 +238,65 @@ class horarioCursoControlador extends Controlador {
         $horario->eliminar($id);
 
         $this->redireccionar("horarioCurso/index/{$horario->getCurso()->getId()}");
+    }
+
+    function _comprobar($id) {
+        $val = new Validador($_POST);
+        $esDisponible = false;
+
+        /*
+         * 1
+         * Inicio:
+         * Rango: 7:00 a 21:00
+         * Menor a Fin (Inicio, Fin)
+         * Horario No repetido (inicio, fin, dia, EspacioId)
+         */
+        if ($id == '1') {
+            //Rango
+            $val->rangoTiempo('07:00:00', '21:00:00', 'Inicio');
+            //Menor a Fin
+            $val->menorTiempo('Inicio', 'Fin');
+            //Select_Dia lleno
+            $val->requerido('Select_Dia');
+            $val->compararPalabras('Select_Dia', $arreglo = array('Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'));
+            //Select_Curso lleno
+            $val->requerido('Select_Curso');
+            $val->numerico('Select_Curso');
+
+            //Horario No Repetido
+            if (!count($val->getErrorLista())) {
+                $cursoId = $val->getValor('Select_Curso');
+                $horario = new HorarioCurso();
+                $horario->getCurso()->buscar($cursoId);
+
+                $inicio = $val->getValor('Inicio');
+                $fin = $val->getValor('Fin');
+                $dia = $val->getValor('Select_Dia');
+                if (!$horario->existe($inicio, $fin, $dia, $horario->getCurso()->getEspacio()->getId())) {
+                    $esDisponible = true;
+                }
+            }
+        } else {
+            /*
+             * 2
+             * Fin:
+             * Rango: 7:00 a 21:00
+             */
+            if ($id == '2') {
+                //Rango
+                $val->rangoTiempo('07:00:00', '21:00:00', 'Fin');
+                //Menor a Fin
+                $val->menorTiempo('Inicio', 'Fin');
+                if (!count($val->getErrorLista())) {
+                    $esDisponible = true;
+                }
+            } else {
+                $esDisponible = false;
+            }
+        }
+
+
+        echo json_encode(array('valid' => $esDisponible));
     }
 
 }
