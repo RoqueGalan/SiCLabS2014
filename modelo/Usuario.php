@@ -22,7 +22,7 @@ class Usuario extends Modelo {
     function setId($Id) {
         $this->_Id = $Id;
     }
- 
+
     function getMatricula() {
         return $this->_Matricula;
     }
@@ -42,8 +42,6 @@ class Usuario extends Modelo {
     function getContrasena() {
         return $this->_Contrasena;
     }
-
-    
 
     function getRol() {
         return $this->_Rol;
@@ -152,6 +150,33 @@ class Usuario extends Modelo {
 
     public function eliminar($id) {
         $this->_db->delete('Usuario', "`Id` = {$id}");
+    }
+
+    public function filtro($parametros, $tipo) {
+        $donde = '';
+        switch ($tipo) {
+            case 'NombreCompleto':
+                $nombre = $parametros['nombre'];
+                $apellido = $parametros['apellido'];
+                $donde = "WHERE `Nombre` LIKE '%{$nombre}%' AND `Apellido` LIKE '%{$apellido}%'";
+                break;
+            case 'Matricula':
+                $matricula = $parametros['matricula'];
+                $donde = "WHERE `Matricula` LIKE '%{$matricula}%'";
+                break;
+            case 'Rol':
+                $rol = $parametros['rol'];
+                $donde = "WHERE `RolId` = '{$rol}'";
+                break;
+
+            default:
+                $donde = '';
+                break;
+        }
+
+        $lista = $this->_db->select("SELECT Id,Matricula,Nombre,Apellido,RolId FROM Usuario {$donde} ORDER BY `Matricula`");
+
+        return $lista;
     }
 
 }

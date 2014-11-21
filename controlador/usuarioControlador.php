@@ -172,7 +172,7 @@ class UsuarioControlador extends Controlador {
          */
         $campo = 'Select_Rol';
         $val->requerido($campo);
-        $val->numerico($campo);     
+        $val->numerico($campo);
         $select_Rol = $val->getValor($campo);
 
         //errores
@@ -267,6 +267,35 @@ class UsuarioControlador extends Controlador {
             $esDisponible = false;
         }
         echo json_encode(array('valid' => $esDisponible));
+    }
+
+    function _buscarFiltro($id) {
+        $usuario = new Usuario();
+
+        switch ($id) {
+            case 'NombreCompleto':
+                $parametros = array(
+                    'nombre' => $this->getTexto('B_Nombre'),
+                    'apellido' => $this->getTexto('B_Apellido')
+                );
+                echo json_encode($usuario->filtro($parametros, 'NombreCompleto'));
+                break;
+            case 'Matricula':
+                $parametros = array(
+                    'matricula' => $this->getTexto('B_Matricula')
+                );
+                echo json_encode($usuario->filtro($parametros, 'Matricula'));
+                break;
+            case 'Rol':
+                $parametros = array(
+                    'rol' => $this->getTexto('B_Rol')
+                );
+                echo json_encode($usuario->filtro($parametros, 'Rol'));
+                break;
+
+            default:
+                break;
+        }
     }
 
 }

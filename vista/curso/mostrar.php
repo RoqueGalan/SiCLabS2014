@@ -44,6 +44,8 @@
 <p>
     <a href="<?php echo ROOT . 'curso/editar/' . $this->curso->getId(); ?>" class="btn btn-link">Editar</a> |
     <a href="<?php echo ROOT . 'horarioCurso/index/' . $this->curso->getId(); ?>" class="btn btn-link">Ver Horario</a> |
+    <a href="<?php echo ROOT . 'impartir/index/' . $this->curso->getId(); ?>" class="btn btn-link">Ver Impartir</a> |
+    <a href="<?php echo ROOT . 'cursar/index/' . $this->curso->getId(); ?>" class="btn btn-link">Ver Cursar</a> |
     
     <input type="button" value="Regresar" onclick="history.back(-1)" class="btn btn-link"> 
 </p>
