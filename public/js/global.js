@@ -1,1 +1,1 @@
-var ROOT = "http://localhost/SiCLabS2014/";
+var ROOT = "http://localhost/SiCLabS2015/";

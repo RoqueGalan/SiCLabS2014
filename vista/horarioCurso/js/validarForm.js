@@ -29,7 +29,7 @@ $(document).ready(function () {
                     remote: {
                         message: 'Error de hora',
                         type: 'POST',
-                        url: 'http://localhost/SiCLabS2014/horarioCurso/_comprobar/2',
+                        url: ROOT + 'horarioCurso/_comprobar/2',
                         data: function (validator) {
                             return {
                                 Inicio: validator.getFieldElements('Inicio').val()
@@ -68,7 +68,7 @@ $(document).ready(function () {
                     remote: {
                         message: 'Error de hora',
                         type: 'POST',
-                        url: 'http://localhost/SiCLabS2014/horarioCurso/_comprobar/1',
+                        url: ROOT + 'horarioCurso/_comprobar/1',
                         data: function (validator) {
                             return {
                                 Select_Curso: validator.getFieldElements('Select_Curso').val(),

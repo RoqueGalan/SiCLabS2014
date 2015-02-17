@@ -1,14 +1,15 @@
 <h2>Index</h2>
-<h3><?php echo $this->curso->getUda()->getNombre() .' | ' .$this->curso->getCiclo()->getNombre(); ?></h3>
+<h3><?php echo $this->curso->getUda()->getNombre() . ' | ' . $this->curso->getCiclo()->getNombre(); ?></h3>
 
 <p>
-    <a href="<?php echo ROOT . 'impartir/nuevo/'. $this->curso->getEspacio()->getId(); ?>" class="btn btn-link">Nuevo Impartir</a>
+    <a href="<?php echo ROOT . 'impartir/nuevo/' . $this->curso->getId(); ?>" class="btn btn-link">Nuevo Impartir</a>
 </p>
 
 <table class="table table-hover table-striped">
     <thead>
         <tr>
             <th>Curso</th>
+            <th>Rol</th>
             <th>Usuario</th>
         </tr>
     </thead>
@@ -17,7 +18,8 @@
         <?php foreach ($this->listaImpartir as $key => $impartir): ?>
             <tr>
                 <td><?php echo $impartir->getCurso()->getUda()->getNombre(); ?></td>
-                <td><?php echo $impartir->getUsuario()->getMatricula(); ?></td>
+                <td><?php echo $impartir->getUsuario()->getRol()->getNombre(); ?></td>
+                <td><?php echo $impartir->getUsuario()->getNombre() . " " . $impartir->getUsuario()->getApellido(); ?></td>
                 <td>
                     <div class="btn-group btn-group-sm ">
                         <a href="<?php echo ROOT . 'impartir/editar/' . $impartir->getId(); ?>" class="btn btn-default"><i class="fa fa-lg fa-edit"></i></a> 

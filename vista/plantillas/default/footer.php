@@ -7,7 +7,7 @@
         |
         Sistema de Control de Laboratorios y Salas de Cómputo
         |
-        <b>2009-2014</b></p>
+        <b>2009-2015</b></p>
 </footer>
 </div>
 

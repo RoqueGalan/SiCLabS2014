@@ -55,7 +55,7 @@ $(document).ready(function () {
                     remote: {
                         message: 'UDA ya asignada al grupo y ciclo',
                         type: 'POST',
-                        url: 'http://localhost/SiCLabS2014/curso/_comprobar/',
+                        url: ROOT + 'curso/_comprobar/',
                         data: function (validator) {
                             return {
                                 Select_Grupo: validator.getFieldElements('Select_Grupo').val(),

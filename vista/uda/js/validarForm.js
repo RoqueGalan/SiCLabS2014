@@ -35,7 +35,7 @@ $(document).ready(function () {
                         message: 'El Nombre ya esta asignado a la Carrera',
                         type: 'POST',
                         //url: ROOT + 'uda/_comprobar/' + $('#Select_Carrera').val()
-                        url: 'http://localhost/SiCLabS2014/uda/_comprobar/',
+                        url: ROOT + 'uda/_comprobar/',
                         data: function (validator) {
                             return {
                                 Select_Carrera: validator.getFieldElements('Select_Carrera').val()

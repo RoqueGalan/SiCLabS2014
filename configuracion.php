@@ -1,7 +1,7 @@
 <?php
 
-// Always provide a TRAILING SLASH (/) AFTER A PATH
-define('ROOT', 'http://localhost/SiCLabS2014/');
+// Simpre colocar el slash / al final
+define('ROOT', 'http://localhost/SiCLabS2015/');
 define('DIR_ROOT' , realpath(dirname(__FILE__)) . '/');
 
 
@@ -16,9 +16,8 @@ define('DB_NAME', 'bd_siclabs');
 define('DB_USER', 'root');
 define('DB_PASS', '');
 
-// The sitewide hashkey, do not change this because its used for passwords!
-// This is for other hash keys... Not sure yet
+// Llave unica para la generacion de cifrados
 define('HASH_GENERAL_KEY', 'SiCLabS2014b');
 
-// This is for database passwords only
+// Llave para conreaseñas
 define('HASH_PASSWORD_KEY', 'Cr34d0p0rR0qu3Ga14n_kdfue34562lsmcd');
