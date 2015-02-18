@@ -3,20 +3,21 @@
 class Uda extends Modelo {
 
     private $_Id;
-    private $_Nombre;
+    private $_Asignatura;
     private $_Carrera;
 
     function __construct() {
         parent:: __construct();
         $this->_Carrera = new Carrera();
+        $this->_Asignatura = new Asignatura();
     }
 
     function getId() {
         return $this->_Id;
     }
 
-    function getNombre() {
-        return $this->_Nombre;
+    function getAsignatura() {
+        return $this->_Asignatura;
     }
 
     function getCarrera() {
@@ -27,8 +28,8 @@ class Uda extends Modelo {
         $this->_Id = $Id;
     }
 
-    function setNombre($Nombre) {
-        $this->_Nombre = $Nombre;
+    function setAsignatura($Asignatura) {
+        $this->_Asignatura = $Asignatura;
     }
 
     function setCarrera($Carrera) {
@@ -37,14 +38,14 @@ class Uda extends Modelo {
 
     public function lista() {
         $lista = array();
-        $tempLista = $this->_db->select("SELECT * FROM Uda ORDER BY `Nombre` ASC");
+        $tempLista = $this->_db->select("SELECT * FROM Uda ORDER BY `CarreraId` ASC");
 
         //crear una lista de objetos, para su facil extracion en las vistas
 
         foreach ($tempLista as $temp) {
             $uda = new Uda();
             $uda->setId($temp['Id']);
-            $uda->setNombre($temp['Nombre']);
+            $uda->getAsignatura()->buscar($temp['AsignaturaId']);
             $uda->getCarrera()->buscar($temp['CarreraId']);
 
             $lista[] = $uda;
@@ -53,8 +54,8 @@ class Uda extends Modelo {
         return $lista;
     }
 
-    public function existe($nombre, $carreraId) {
-        $temp = $this->_db->select("SELECT Id FROM Uda WHERE `Nombre` = '{$nombre}' AND `CarreraId` = '{$carreraId}' LIMIT 1");
+    public function existe($asignaturaId, $carreraId) {
+        $temp = $this->_db->select("SELECT Id FROM Uda WHERE `AsignaturaId` = '{$asignaturaId}' AND `CarreraId` = '{$carreraId}' LIMIT 1");
 
         if (count($temp)) {
             //existe verdadero
@@ -69,7 +70,7 @@ class Uda extends Modelo {
 
         if (count($temp)) {
             $this->setId($temp[0]['Id']);
-            $this->setNombre($temp[0]['Nombre']);
+            $this->getAsignatura()->buscar($temp[0]['AsignaturaId']);
             $this->getCarrera()->buscar($temp[0]['CarreraId']);
         } else {
             $this->setId('-1');
@@ -80,7 +81,7 @@ class Uda extends Modelo {
     
     public function insertar() {
         $parametros = array(
-            'Nombre' => $this->getNombre(),
+            'AsignaturaId' => $this->getAsignatura()->getId(),
             'CarreraId' => $this->getCarrera()->getId()
         );
 
@@ -89,7 +90,7 @@ class Uda extends Modelo {
     
     public function actualizar() {
         $parametros = array(
-            'Nombre' => $this->getNombre(),
+            'AsignaturaId' => $this->getAsignatura()->getId(),
             'CarreraId' => $this->getCarrera()->getId()
         );
         $donde = "`Id` = '{$this->getId()}'";

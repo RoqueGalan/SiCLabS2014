@@ -15,7 +15,7 @@
     <tbody>
         <?php foreach ($this->listaUdas as $key => $uda): ?>
             <tr>
-                <td><?php echo $uda->getNombre(); ?></td>
+                <td><?php echo $uda->getAsignatura()->getNombre(); ?></td>
                 <td><?php echo $uda->getCarrera()->getNombre(); ?></td>
                 <td>
                     <div class="btn-group btn-group-sm ">

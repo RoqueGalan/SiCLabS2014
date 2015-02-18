@@ -15,7 +15,7 @@
             Nombre
         </dt>
         <dd>
-            <?php echo $this->uda->getNombre(); ?>
+            <?php echo $this->uda->getAsignatura()->getNombre(); ?>
         </dd>
         
         <dt>

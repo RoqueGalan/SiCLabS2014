@@ -15,7 +15,8 @@ $(document).ready(function() {
                                 url: ROOT + 'permisoRol/_comprobarPermisoRol/',
                                 data: function(validator) {
                                     return {
-                                        Select_Permiso: validator.getFieldElements('Select_Permiso').val()
+                                        Select_Permiso: validator.getFieldElements('Select_Permiso').val(),
+                                        Id: validator.getFieldElements('Id').val()
                                     };
                                 }
                             }
@@ -34,7 +35,8 @@ $(document).ready(function() {
                                 url: ROOT + 'permisoRol/_comprobarPermisoRol/',
                                 data: function(validator) {
                                     return {
-                                        Select_Rol: validator.getFieldElements('Select_Rol').val()
+                                        Select_Rol: validator.getFieldElements('Select_Rol').val(),
+                                        Id: validator.getFieldElements('Id').val()
                                     };
                                 }
                             }

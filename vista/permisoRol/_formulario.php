@@ -29,8 +29,6 @@
                 foreach ($this->listaRoles as $key => $rol) {
                     if ($rol->getId() == $this->permisoRol->getRol()->getId())
                         echo "<option value='{$rol->getId()}' selected>{$rol->getNombre()}</option>";
-                    else
-                        echo "<option value='{$rol->getId()}'>{$rol->getNombre()}</option>";
                 }
                 ?>
             </select>

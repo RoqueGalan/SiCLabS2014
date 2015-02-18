@@ -233,7 +233,8 @@ class UsuarioControlador extends Controlador {
                 if ($existe != $id && $existe != 0) {
                     $this->redireccionar('error/tipo/Registro_SiExiste');
                 }
-
+                
+               
                 $usuario->setId($id);
                 $usuario->actualizar();
             }
@@ -257,15 +258,29 @@ class UsuarioControlador extends Controlador {
 
     function _comprobarMatricula() {
         $matricula = $this->getTexto('Matricula');
-        if ($matricula != '') {
-            $usuario = new Usuario();
+        $UsuarioId = $this->getEntero('Id');
 
-            $usuario->existe($matricula) ?
-                            $esDisponible = false :
-                            $esDisponible = true;
-        } else {
+        if ($matricula == '') {
             $esDisponible = false;
+        } else {
+            $usuario = new Usuario();
+            if ($usuario->existe($matricula)) {
+                //usuario existe
+                if ($UsuarioId != 0) {
+                    $usuario->buscar($UsuarioId);
+                    ($usuario->getMatricula() == $matricula) ?
+                        $esDisponible = true:
+                        $esDisponible = false;   
+                }else{
+                    $esDisponible = false;
+                }
+                
+            } else {
+                //usuario no existe
+                $esDisponible = true;
+            }
         }
+
         echo json_encode(array('valid' => $esDisponible));
     }
 

@@ -14,22 +14,15 @@
     </div>
 <?php endif; ?>
 
-<form class="form-horizontal" id="FormCarrera" method="post" action="<?php echo ROOT; ?>carrera/_guardar/<?php echo $this->carrera->getId(); ?>" autocomplete="off">
-    <h4>Carrera</h4>
+<form class="form-horizontal" id="FormAsignatura" method="post" action="<?php echo ROOT; ?>asignatura/_guardar/<?php echo $this->asignatura->getId(); ?>" autocomplete="off">
+    <h4>Asignatura</h4>
     <hr />
-    <input type="hidden" name="Id" value="<?php echo $this->carrera->getId(); ?>" readonly />
+    <input type="hidden" name="Id" value="<?php echo $this->asignatura->getId(); ?>" readonly />
 
     <div class="form-group ">
         <label for="Nombre" class="col-lg-3 control-label">Nombre</label>
         <div class="col-lg-5">
-            <input type="text" class="form-control" id="Nombre" name="Nombre" placeholder="Nombre de la carrera" value="<?php echo $this->carrera->getNombre(); ?>">
-        </div>
-    </div>
-    
-    <div class="form-group ">
-        <label for="Siglas" class="col-lg-3 control-label">Siglas</label>
-        <div class="col-lg-5">
-            <input type="text" class="form-control" id="Siglas" name="Siglas" placeholder="Siglas de la carrera" value="<?php echo $this->carrera->getSiglas(); ?>">
+            <input type="text" class="form-control" id="Nombre" name="Nombre" placeholder="Nombre de la asignatura" value="<?php echo $this->asignatura->getNombre(); ?>">
         </div>
     </div>
 

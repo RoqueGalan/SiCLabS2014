@@ -27,9 +27,9 @@
                 <?php
                 foreach ($this->listaUdas as $key => $uda) {
                     if ($uda->getId() == $this->curso->getUda()->getId())
-                        echo "<option value='{$uda->getId()}' selected>{$uda->getNombre()}</option>";
+                        echo "<option value='{$uda->getId()}' selected>{$uda->getCarrera()->getSiglas()} - {$uda->getAsignatura()->getNombre()}</option>";
                     else
-                        echo "<option value='{$uda->getId()}'>{$uda->getNombre()}</option>";
+                        echo "<option value='{$uda->getId()}'>{$uda->getCarrera()->getSiglas()} - {$uda->getAsignatura()->getNombre()}</option>";
                 }
                 ?>
             </select>

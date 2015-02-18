@@ -6,39 +6,28 @@ $(document).ready(function () {
                 validators: {
                     notEmpty: {
                         message: 'Campo requerido.'
-                    }
+                    }                    
                 }
             },
             /*
              * Nombre
              * Requerido
-             * Letras
-             * Rango (2,64)
              */
-            Nombre: {
+            Select_Asignatura: {
                 message: 'Campo Invalido.',
                 validators: {
                     notEmpty: {
                         message: 'Campo requerido.'
                     },
-                    stringLength: {
-                        min: 2,
-                        max: 64,
-                        message: 'Campo longitud Min(2) Max (64) caracteres.'
-                    },
-                    regexp: {
-                        regexp: /^([A-Za-zÑñáéíóúÁÉÍÓÚ0-9 ]+)$/,
-                        message: 'Campo con caracteres invalidos.'
-                    },
-                    // Envia { Nombre, Select_Carrera'} al back-end
+                    // Envia { Select_Asignatura, Select_Carrera'} al back-end
                     remote: {
-                        message: 'El Nombre ya esta asignado a la Carrera',
+                        message: 'Asignatura ya asignada a la Carrera',
                         type: 'POST',
-                        //url: ROOT + 'uda/_comprobar/' + $('#Select_Carrera').val()
-                        url: ROOT + 'uda/_comprobar/',
+                        url: ROOT + 'uda/_comprobarAsignaturaCarrera/',
                         data: function (validator) {
                             return {
-                                Select_Carrera: validator.getFieldElements('Select_Carrera').val()
+                                Select_Carrera: validator.getFieldElements('Select_Carrera').val(),
+                                Id: validator.getFieldElements('Id').val()
                             };
                         }
                     }
@@ -49,7 +38,12 @@ $(document).ready(function () {
     // revalidar campos
     $('#Select_Carrera').on('change', function (e) {
         // Revalidar cuando cambia
-        $('#FormUda').bootstrapValidator('revalidateField', 'Nombre');
+        $('#FormUda').bootstrapValidator('revalidateField', 'Select_Asignatura');
+    });
+    
+    $('#Select_Asignatura').on('change', function (e) {
+        // Revalidar cuando cambia
+        $('#FormUda').bootstrapValidator('revalidateField', 'Select_Carrera');
     });
 });
 

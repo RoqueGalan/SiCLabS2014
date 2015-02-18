@@ -9,6 +9,7 @@
     <thead>
         <tr>
             <th>Unidad de Aprendizaje</th>
+            <th>Carrera</th>
             <th>Grupo</th>
             <th>Ciclo</th>
             <th>Descripción</th>
@@ -18,7 +19,8 @@
     <tbody>
         <?php foreach ($this->listaCursos as $key => $curso): ?>
             <tr>
-                <td><?php echo $curso->getUda()->getNombre(); ?></td>
+                <td><?php echo $curso->getUda()->getAsignatura()->getNombre(); ?></td>
+                <td><?php echo $curso->getUda()->getCarrera()->getNombre(); ?></td>
                 <td><?php echo $curso->getGrupo()->getNombre(); ?></td>
                 <td><?php echo $curso->getCiclo()->getNombre(); ?></td>
                 <td><?php echo $curso->getDescripcion(); ?></td>

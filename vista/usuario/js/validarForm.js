@@ -28,6 +28,11 @@ $(document).ready(function () {
                         message: 'Registro ya existe.',
                         type: 'POST',
                         url: ROOT + 'usuario/_comprobarMatricula/',
+                        data: function (validator) {
+                            return {
+                                Id: validator.getFieldElements('Id').val()
+                            };
+                        }
                     }
                 }
             },

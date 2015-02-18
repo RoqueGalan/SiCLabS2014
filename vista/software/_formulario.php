@@ -15,14 +15,14 @@
 <?php endif; ?>
 
 <form class="form-horizontal" id="FormSoftware" method="post" action="<?php echo ROOT; ?>software/_guardar/<?php echo $this->software->getId(); ?>" autocomplete="off">
-    <h4>Equipo</h4>
+    <h4>Software</h4>
     <hr />
     <input type="hidden" class="form-control" id="Id" name="Id" placeholder="Id" value="<?php echo $this->software->getId(); ?>">
 
     <div class="form-group ">
         <label for="Nombre" class="col-sm-3 control-label">Nombre</label>
         <div class="col-sm-5">
-            <input type="text" class="form-control" id="Nombre" name="Nombre" placeholder="Nombre del Equipo" value="<?php echo $this->software->getNombre(); ?>">
+            <input type="text" class="form-control" id="Nombre" name="Nombre" placeholder="Nombre del Software" value="<?php echo $this->software->getNombre(); ?>">
         </div>
     </div>
 

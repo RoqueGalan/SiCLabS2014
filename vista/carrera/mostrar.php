@@ -19,6 +19,14 @@
         <dd>
             <?php echo $this->carrera->getNombre(); ?>
         </dd>
+        
+        <dt>
+            Siglas
+        </dt>
+
+        <dd>
+            <?php echo $this->carrera->getSiglas(); ?>
+        </dd>
 
     </dl>
 </div>

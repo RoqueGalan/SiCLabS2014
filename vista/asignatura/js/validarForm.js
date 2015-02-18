@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    $('#FormCarrera').bootstrapValidator({
+    $('#FormAsignatura').bootstrapValidator({
         fields: {
             /*
              * Nombre (s)
@@ -27,34 +27,7 @@ $(document).ready(function() {
                     remote: {
                         message: 'Registro ya existe.',
                         type: 'POST',
-                        url: ROOT + 'carrera/_comprobarNombre/',
-                        data: function (validator) {
-                            return {
-                                Id: validator.getFieldElements('Id').val()
-                            };
-                        }
-                    }
-                }
-            },
-            /*
-             * siglas
-             * Requerido
-             * Letras
-             * Rango (3,4)
-             */
-            Siglas: {
-                message: 'El Campo invalido.',
-                validators: {
-                    notEmpty: {
-                        message: 'Campo requerido.'
-                    },
-                    stringLength: {
-                        min: 3,
-                        message: 'Campo longitud Min(3) caracteres.'
-                    },
-                    regexp: {
-                        regexp: /^([A-Z]+)$/,
-                        message: 'Campo con caracteres invalidos.'
+                        url: ROOT + 'asignatura/_comprobarNombre/'
                     }
                 }
             }

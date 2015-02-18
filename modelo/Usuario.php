@@ -137,6 +137,7 @@ class Usuario extends Modelo {
 
     public function actualizar() {
         $parametros = array(
+            'Matricula' => $this->getMatricula(),
             'Nombre' => $this->getNombre(),
             'Apellido' => $this->getApellido(),
             'Correo' => $this->getCorreo(),

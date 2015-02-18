@@ -1,7 +1,7 @@
 <h2>Index</h2>
 
 <p>
-    <a href="<?php echo ROOT . 'permisoRol/nuevo'; ?>" class="btn btn-link">Asignar Permiso a Rol</a>
+    <a href="<?php echo ROOT . 'permisoRol/nuevo/'. $this->rol->getId(); ?>" class="btn btn-link">Asignar Permiso a Rol</a>
 </p>
 
 <table class="table table-hover table-striped">

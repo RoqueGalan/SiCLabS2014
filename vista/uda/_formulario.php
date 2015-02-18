@@ -20,9 +20,19 @@
     <input type="hidden" class="form-control" id="Id" name="Id" placeholder="Id" value="<?php echo $this->uda->getId(); ?>">
 
     <div class="form-group ">
-        <label for="Nombre" class="col-sm-3 control-label">Nombre</label>
-        <div class="col-sm-5">
-            <input type="text" class="form-control" id="Nombre" name="Nombre" placeholder="Nombre de la Unidad de Aprendizaje" value="<?php echo $this->uda->getNombre(); ?>">
+        <label for="Select_Asignatura" class="col-sm-3 control-label">Asignatura</label>
+        <div class="col-sm-5 selectContainer">
+            <select name="Select_Asignatura" id="Select_Asignatura" class="form-control">
+                <option value="">-- Selecciona Asignatura --</option>
+                <?php
+                foreach ($this->listaAsignaturas as $key => $asignatura) {
+                    if ($asignatura->getId() == $this->uda->getAsignatura()->getId())
+                        echo "<option value='{$asignatura->getId()}' selected>{$asignatura->getNombre()}</option>";
+                    else
+                        echo "<option value='{$asignatura->getId()}'>{$asignatura->getNombre()}</option>";
+                }
+                ?>
+            </select>
         </div>
     </div>
 

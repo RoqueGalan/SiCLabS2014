@@ -15,7 +15,7 @@
             Unidad de Aprendizaje
         </dt>
         <dd>
-            <?php echo $this->curso->getUda()->getNombre(); ?>
+            <?php echo $this->curso->getUda()->getAsignatura()->getNombre(); ?>
         </dd>
         
         <dt>
@@ -37,6 +37,13 @@
         </dt>
         <dd>
             <?php echo $this->curso->getDescripcion(); ?>
+        </dd>
+        
+        <dt>
+           Carrera
+        </dt>
+        <dd>
+            <?php echo $this->curso->getUda()->getCarrera()->getNombre(); ?>
         </dd>
     </dl>
 </div>

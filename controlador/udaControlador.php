@@ -61,7 +61,10 @@ class udaControlador extends Controlador {
         $this->_vista->uda->setId(0);
         // lista de carreras
         $this->_vista->listaCarreras = $this->_vista->uda->getCarrera()->lista();
+        // lista de asignaturas
+        $this->_vista->listaAsignaturas = $this->_vista->uda->getAsignatura()->lista();
 
+        
         $this->_vista->render('uda/nuevo');
     }
 
@@ -87,6 +90,8 @@ class udaControlador extends Controlador {
 
         //lista de carreras
         $this->_vista->listaCarreras = $this->_vista->uda->getCarrera()->lista();
+        // lista de asignaturas
+        $this->_vista->listaAsignaturas = $this->_vista->uda->getAsignatura()->lista();
 
         $this->_vista->render('uda/editar');
     }
@@ -110,15 +115,14 @@ class udaControlador extends Controlador {
         $id = $this->getEntero('Id');
 
         /*
-         * Nombre
+         * Select-Asignatura:
          * Requerido
-         * Letras y numeros
-         * Rango (2,64)
+         * Numerico
          */
-        $campo = 'Nombre';
+        $campo = 'Select_Asignatura';
         $val->requerido($campo);
-        $val->cadenaRango($campo, 1, 64, 1);
-        $nombre = $val->getValor($campo);
+        $val->numerico($campo);
+        $select_Asignatura = $val->getValor($campo);
 
         /*
          * Select_Carrera:
@@ -143,11 +147,13 @@ class udaControlador extends Controlador {
             $this->_vista->uda = new Uda();
 
             $this->_vista->uda->setId($id);
-            $this->_vista->uda->setNombre($nombre);
+            $this->_vista->uda->getAsignatura()->setId($select_Asignatura);
             $this->_vista->uda->getCarrera()->setId($select_Carrera);
 
             //lista de carreras
             $this->_vista->listaCarreras = $this->_vista->uda->getCarrera()->lista();
+            // lista de asignaturas
+            $this->_vista->listaAsignaturas = $this->_vista->uda->getAsignatura()->lista();
 
 
             //redirigir a la vista
@@ -158,13 +164,13 @@ class udaControlador extends Controlador {
             // no se encontraron errores
             $uda = new Uda();
 
-            $uda->setNombre($nombre);
+            $uda->getAsignatura()->setId($select_Asignatura);
             $uda->getCarrera()->setId($select_Carrera);
 
             if ($id == 0) {
                 //insertar
                 // comprobar campo Uda no repetido en Carrera
-                if ($uda->existe($nombre, $select_Carrera)) {
+                if ($uda->existe($select_Asignatura, $select_Carrera)) {
                     $this->redireccionar('error/tipo/Registro_SiExiste');
                 }
                 $uda->insertar();
@@ -174,7 +180,7 @@ class udaControlador extends Controlador {
                  * Validar Repetido:
                  * No Repetido
                  */
-                $existe = $uda->existe($nombre, $select_Carrera);
+                $existe = $uda->existe($select_Asignatura, $select_Carrera);
                 if ($existe != $id && $existe != 0) {
                     $this->redireccionar('error/tipo/Registro_SiExiste');
                 }
@@ -199,20 +205,29 @@ class udaControlador extends Controlador {
         $this->redireccionar('uda/index/');
     }
 
-    function _comprobar() {
-        $esDisponible = false;
-        $nombre = $this->getTexto('Nombre');
+    function _comprobarAsignaturaCarrera() {
+        $asignaturaId = $this->getTexto('Select_Asignatura');
         $carreraId = $this->getEntero('Select_Carrera');
-
-        //validar que nombre esten asignados a una carrera
+        $id = $this->getEntero('Id');
         $uda = new Uda();
-        if ($uda->existe($nombre, $carreraId)) {
-            $esDisponible = false;
+
+        if ($uda->existe($asignaturaId, $carreraId)) {
+            //permiso existe
+            if ($id != 0) {
+                $uda->buscar($id);
+                ($uda->getAsignatura()->getId() == $asignaturaId && $uda->getCarrera()->getId() == $carreraId) ?
+                                $esDisponible = true :
+                                $esDisponible = false;
+            } else {
+                $esDisponible = false;
+            }
         } else {
             $esDisponible = true;
         }
-
-
+        
+        if($asignaturaId == 0 )
+            $esDisponible = false;
+            
 
         echo json_encode(array('valid' => $esDisponible));
     }

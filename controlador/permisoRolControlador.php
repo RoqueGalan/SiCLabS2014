@@ -29,6 +29,8 @@ class PermisoRolControlador extends Controlador {
         }
         //agregar rol a permisoRol
         $permisoRol->setRol($rol);
+        //
+        $this->_vista->rol = $rol;
         //lista roles
         $this->_vista->listaPermisosRol = $paginador->paginar($permisoRol->lista(), $pagina, 10);
         //numero de pagina a renderizar
@@ -56,7 +58,7 @@ class PermisoRolControlador extends Controlador {
         $this->_vista->render("permisoRol/mostrar");
     }
 
-    function nuevo() {
+    function nuevo($RolId) {
         /* script o css a utilizar por la vista */
         $this->_vista->setJs('bootstrapValidator.min');
         $this->_vista->setCss('bootstrapValidator.min');
@@ -66,10 +68,17 @@ class PermisoRolControlador extends Controlador {
         $this->_vista->titulo = 'PermisoRol-Nuevo';
         $this->_vista->errorForm = array();
         $this->_vista->permisoRol = new PermisoRol();
+        $RolId = $this->filtrarEntero($RolId);
 
         /* logica */
         $this->_vista->permisoRol->setId(0);
         $this->_vista->permisoRol->setEstado('');
+
+        $this->_vista->permisoRol->getRol()->buscar($RolId);
+        // comprobar que el registro exista
+        if ($this->_vista->permisoRol->getRol()->getId() == '-1') {
+            $this->redireccionar('error/tipo/Registro_NoExiste');
+        }
 
         //llenar los select
         $this->_vista->listaRoles = $this->_vista->permisoRol->getRol()->lista();
@@ -224,20 +233,27 @@ class PermisoRolControlador extends Controlador {
     }
 
     function _comprobarPermisoRol() {
-        $esDisponible = false;
         $permiso = $this->getEntero('Select_Permiso');
         $rol = $this->getEntero('Select_Rol');
-        //validar que permiso y rol no esten asignados aun rol
-
+        $id = $this->getEntero('Id');
         $permisoRol = new PermisoRol();
+
         if ($permisoRol->existe($rol, $permiso)) {
-            $esDisponible = false;
+            //permiso existe
+            if ($id != 0) {
+                $permisoRol->buscar($id);
+                ($permisoRol->getRol()->getId() == $rol && $permisoRol->getPermiso()->getId() == $permiso) ?
+                                $esDisponible = true :
+                                $esDisponible = false;
+            } else {
+                $esDisponible = false;
+            }
         } else {
             $esDisponible = true;
         }
 
-        if($rol == 0) $esDisponible = false;
-        
+        if ($rol == 0)
+            $esDisponible = false;
 
         echo json_encode(array('valid' => $esDisponible));
     }
