@@ -56,7 +56,7 @@
                 <?php
                 foreach ($this->listaCursos as $key => $curso) {
                     if ($curso->getId() == $this->horario->getCurso()->getId())
-                        echo "<option value='{$curso->getId()}' selected>{$curso->getUda()->getnombre()}</option>";
+                        echo "<option value='{$curso->getId()}' selected>{$curso->getUda()->getAsignatura()->getnombre()}</option>";
                 }
                 ?>
             </select>
