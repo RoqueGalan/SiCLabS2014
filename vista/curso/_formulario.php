@@ -19,17 +19,18 @@
     <hr />
     <input type="hidden" class="form-control" id="Id" name="Id" placeholder="Id" value="<?php echo $this->curso->getId(); ?>">
 
+    
     <div class="form-group ">
-        <label for="Select_Uda" class="col-sm-3 control-label">Unidad de Aprendizaje</label>
+        <label for="Select_Asignatura" class="col-sm-3 control-label">Asignatura</label>
         <div class="col-sm-5 selectContainer">
-            <select name="Select_Uda" id="Select_Uda" class="form-control">
-                <option value="">-- Selecciona UDA --</option>
+            <select name="Select_Asignatura" id="Select_Asignatura" class="form-control">
+                <option value="">-- Selecciona Asignatura --</option>
                 <?php
-                foreach ($this->listaUdas as $key => $uda) {
-                    if ($uda->getId() == $this->curso->getUda()->getId())
-                        echo "<option value='{$uda->getId()}' selected>{$uda->getCarrera()->getSiglas()} - {$uda->getAsignatura()->getNombre()}</option>";
+                foreach ($this->listaAsignaturas as $key => $asignatura) {
+                    if ($asignatura->getId() == $this->curso->getAsignatura()->getId())
+                        echo "<option value='{$asignatura->getId()}' selected>{$asignatura->getNombre()}</option>";
                     else
-                        echo "<option value='{$uda->getId()}'>{$uda->getCarrera()->getSiglas()} - {$uda->getAsignatura()->getNombre()}</option>";
+                        echo "<option value='{$asignatura->getId()}'>{$asignatura->getNombre()}</option>";
                 }
                 ?>
             </select>
@@ -37,10 +38,28 @@
     </div>
     
     <div class="form-group ">
+        <label for="Select_Carrera" class="col-sm-3 control-label">Carrera</label>
+        <div class="col-sm-5 selectContainer">
+            <select name="Select_Carrera" id="Select_Carrera" class="form-control">
+                <option value="">-- Selecciona Carrera --</option>
+                <?php
+                foreach ($this->listaCarreras as $key => $carrera) {
+                    if ($carrera->getId() == $this->curso->getCarrera()->getId())
+                        echo "<option value='{$carrera->getId()}' selected>{$carrera->getNombre()}</option>";
+                    else
+                        echo "<option value='{$carrera->getId()}'>{$carrera->getNombre()}</option>";
+                }
+                ?>
+            </select>
+        </div>
+    </div>
+    
+        
+    <div class="form-group ">
         <label for="Select_Grupo" class="col-sm-3 control-label">Grupo</label>
         <div class="col-sm-5 selectContainer">
             <select name="Select_Grupo" id="Select_Grupo" class="form-control">
-                <option value="">-- Selecciona Grupo --</option>
+                <option value="">-- Selecciona Grupo--</option>
                 <?php
                 foreach ($this->listaGrupos as $key => $grupo) {
                     if ($grupo->getId() == $this->curso->getGrupo()->getId())

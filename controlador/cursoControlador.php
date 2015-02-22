@@ -8,7 +8,7 @@ class CursoControlador extends Controlador {
 
     function index($EspacioId, $pagina = false) {
         /* script o css a utilizar por la vista */
-        $this->_vista->setJs('botonEliminar', 'Curso');
+        $this->_vista->setJs('botonEliminar', 'curso');
 
         /* declarar e inicializar variables */
         $this->_vista->titulo = 'Curso-Lista';
@@ -74,7 +74,8 @@ class CursoControlador extends Controlador {
         }
         $this->_vista->curso->setId(0);
         // listas
-        $this->_vista->listaUdas = $this->_vista->curso->getUda()->lista();
+        $this->_vista->listaAsignaturas = $this->_vista->curso->getAsignatura()->lista();
+        $this->_vista->listaCarreras = $this->_vista->curso->getCarrera()->lista();
         $this->_vista->listaGrupos = $this->_vista->curso->getGrupo()->lista();
         $this->_vista->listaCiclos = $this->_vista->curso->getCiclo()->lista();
         $this->_vista->listaEspacios = $this->_vista->curso->getEspacio()->lista();
@@ -104,7 +105,8 @@ class CursoControlador extends Controlador {
         }
 
         // listas
-        $this->_vista->listaUdas = $this->_vista->curso->getUda()->lista();
+        $this->_vista->listaAsignaturas = $this->_vista->curso->getAsignatura()->lista();
+        $this->_vista->listaCarreras = $this->_vista->curso->getCarrera()->lista();
         $this->_vista->listaGrupos = $this->_vista->curso->getGrupo()->lista();
         $this->_vista->listaCiclos = $this->_vista->curso->getCiclo()->lista();
         $this->_vista->listaEspacios = $this->_vista->curso->getEspacio()->lista();
@@ -132,14 +134,24 @@ class CursoControlador extends Controlador {
         $id = $this->getEntero('Id');
 
         /*
-         * Select_Uda:
+         * Select_Asignatura:
          * Requerido
          * Numerico
          */
-        $campo = 'Select_Uda';
+        $campo = 'Select_Asignatura';
         $val->requerido($campo);
         $val->numerico($campo);
-        $select_Uda = $val->getValor($campo);
+        $select_Asignatura = $val->getValor($campo);
+
+        /*
+         * Select_Carrera:
+         * Requerido
+         * Numerico
+         */
+        $campo = 'Select_Carrera';
+        $val->requerido($campo);
+        $val->numerico($campo);
+        $select_Carrera = $val->getValor($campo);
 
         /*
          * Select_Grupo:
@@ -192,14 +204,16 @@ class CursoControlador extends Controlador {
             $this->_vista->curso = new Curso();
 
             $this->_vista->curso->setId($id);
-            $this->_vista->curso->getUda()->setId($select_Uda);
+            $this->_vista->curso->getAsignatura()->setId($select_Asignatura);
+            $this->_vista->curso->getCarrera()->setId($select_Carrera);
             $this->_vista->curso->getGrupo()->setId($select_Grupo);
             $this->_vista->curso->getCiclo()->setId($select_Ciclo);
             $this->_vista->curso->setDescripcion($descripcion);
             $this->_vista->curso->getEspacio()->setId($select_Espacio);
 
             // listas
-            $this->_vista->listaUdas = $this->_vista->curso->getUda()->lista();
+            $this->_vista->listaAsignaturas = $this->_vista->curso->getAsignatura()->lista();
+            $this->_vista->listaCarreras = $this->_vista->curso->getCarrera()->lista();
             $this->_vista->listaGrupos = $this->_vista->curso->getGrupo()->lista();
             $this->_vista->listaCiclos = $this->_vista->curso->getCiclo()->lista();
             $this->_vista->listaEspacios = $this->_vista->curso->getEspacio()->lista();
@@ -213,7 +227,8 @@ class CursoControlador extends Controlador {
             // no se encontraron errores
             $curso = new Curso();
 
-            $curso->getUda()->setId($select_Uda);
+            $curso->getAsignatura()->setId($select_Asignatura);
+            $curso->getCarrera()->setId($select_Carrera);
             $curso->getGrupo()->setId($select_Grupo);
             $curso->getCiclo()->setId($select_Ciclo);
             $curso->setDescripcion($descripcion);
@@ -222,7 +237,7 @@ class CursoControlador extends Controlador {
             if ($id == 0) {
                 //insertar
                 // comprobar que campo Uda, grupo, ciclo no repetido en curso
-                if ($curso->existe($select_Uda, $select_Grupo, $select_Ciclo, $select_Espacio)) {
+                if ($curso->existe($select_Asignatura, $select_Carrera, $select_Grupo, $select_Ciclo, $select_Espacio)) {
                     $this->redireccionar('error/tipo/Registro_SiExiste');
                 }
                 $curso->insertar();
@@ -232,7 +247,7 @@ class CursoControlador extends Controlador {
                  * Validar Repetido:
                  * No Repetido
                  */
-                $existe = $curso->existe($select_Uda, $select_Grupo, $select_Ciclo, $select_Espacio);
+                $existe = $curso->existe($select_Asignatura, $select_Carrera, $select_Grupo, $select_Ciclo, $select_Espacio);
                 if ($existe != $id && $existe != 0) {
                     $this->redireccionar('error/tipo/Registro_SiExiste');
                 }
@@ -261,15 +276,26 @@ class CursoControlador extends Controlador {
     function _comprobar() {
         $esDisponible = false;
 
-        $udaId = $this->getEntero('Select_Uda');
+        $asignaturaId = $this->getEntero('Select_Asignatura');
+        $carreraId = $this->getEntero('Select_Carrera');
         $grupoId = $this->getEntero('Select_Grupo');
         $cicloId = $this->getEntero('Select_Ciclo');
         $espacioId = $this->getEntero('Select_Espacio');
+        $id = $this->getEntero('Id');
 
         //validar que campo Uda, grupo, ciclo no repetido en curso
         $curso = new Curso();
-        if ($curso->existe($udaId, $grupoId, $cicloId, $espacioId)) {
-            $esDisponible = false;
+        $existe = $curso->existe($asignaturaId, $carreraId, $grupoId, $cicloId, $espacioId);
+        if ($existe) {
+            //curso existe
+            if ($id != 0) {
+                $curso->buscar($id);
+                ($curso->getId() == $existe) ?
+                                $esDisponible = true :
+                                $esDisponible = false;
+            } else {
+                $esDisponible = false;
+            }
         } else {
             $esDisponible = true;
         }

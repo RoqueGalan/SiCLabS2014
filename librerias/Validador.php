@@ -363,7 +363,7 @@ class Validador {
         $this->_existe($campo);
         if ($this->_lleno($campo)) {
             $valor = utf8_encode($this->getValor($campo));
-            if (!preg_match("/^([A-Za-zÑñáéíóúÁÉÍÓÚ0123456789 ]+)$/", $valor)) {
+            if (!preg_match("/^([A-Za-zÑñáéíóúÁÉÍÓÚ0-9 ]+)$/", $valor)) {
                 $this->_setError($campo, 'Solo caracteres alphanumericos', 109);
             }
         }
@@ -388,7 +388,7 @@ class Validador {
         if ($_FILES[$campo]['name']) {
             $ruta = DIR_ROOT . $ruta;
 
-            $upload = new upload($_FILES[$campo], 'es_Es');
+            $upload = new Upload($_FILES[$campo], 'es_Es');
             $upload->allowed = array('image/*');
             $upload->file_new_name_body = 'temp-' . uniqid();
             $upload->_mkdir($ruta);
@@ -428,7 +428,7 @@ class Validador {
         if ($_FILES[$campo]['name']) {
             $ruta = DIR_ROOT . $ruta;
 
-            $upload = new upload($_FILES[$campo], 'es_Es');
+            $upload = new Upload($_FILES[$campo], 'es_Es');
             $upload->allowed = array('application/*');
             $upload->file_new_name_body = 'temp-' . uniqid();
             $upload->_mkdir($ruta);

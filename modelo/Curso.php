@@ -3,7 +3,8 @@
 class Curso extends Modelo {
 
     private $_Id;
-    private $_Uda;
+    private $_Asignatura;
+    private $_Carrera;
     private $_Grupo;
     private $_Ciclo;
     private $_Descripcion;
@@ -11,26 +12,23 @@ class Curso extends Modelo {
 
     function __construct() {
         parent:: __construct();
-        $this->_Uda = new Uda();
+        $this->_Asignatura = new Asignatura();
+        $this->_Carrera = new Carrera();
         $this->_Grupo = new Grupo();
         $this->_Ciclo = new Ciclo();
         $this->_Espacio = new Espacio();
-    }
-
-    function getEspacio() {
-        return $this->_Espacio;
-    }
-
-    function setEspacio($Espacio) {
-        $this->_Espacio = $Espacio;
     }
 
     function getId() {
         return $this->_Id;
     }
 
-    function getUda() {
-        return $this->_Uda;
+    function getAsignatura() {
+        return $this->_Asignatura;
+    }
+
+    function getCarrera() {
+        return $this->_Carrera;
     }
 
     function getGrupo() {
@@ -45,12 +43,20 @@ class Curso extends Modelo {
         return $this->_Descripcion;
     }
 
+    function getEspacio() {
+        return $this->_Espacio;
+    }
+
     function setId($Id) {
         $this->_Id = $Id;
     }
 
-    function setUda($Uda) {
-        $this->_Uda = $Uda;
+    function setAsignatura($Asignatura) {
+        $this->_Asignatura = $Asignatura;
+    }
+
+    function setCarrera($Carrera) {
+        $this->_Carrera = $Carrera;
     }
 
     function setGrupo($Grupo) {
@@ -65,6 +71,11 @@ class Curso extends Modelo {
         $this->_Descripcion = $Descripcion;
     }
 
+    function setEspacio($Espacio) {
+        $this->_Espacio = $Espacio;
+    }
+
+    
     public function lista($espacioId, $where = '') {
         $lista = array();
         $tempLista = $this->_db->select("SELECT * FROM Curso WHERE `EspacioId` = {$espacioId} {$where}");
@@ -74,7 +85,8 @@ class Curso extends Modelo {
         foreach ($tempLista as $temp) {
             $curso = new Curso();
             $curso->setId($temp['Id']);
-            $curso->getUda()->buscar($temp['UdaId']);
+            $curso->getAsignatura()->buscar($temp['AsignaturaId']);
+            $curso->getCarrera()->buscar($temp['CarreraId']);
             $curso->getGrupo()->buscar($temp['GrupoId']);
             $curso->getCiclo()->buscar($temp['CicloId']);
             $curso->setDescripcion($temp['Descripcion']);
@@ -86,8 +98,8 @@ class Curso extends Modelo {
         return $lista;
     }
 
-    public function existe($uda, $grupo, $ciclo, $espacio) {
-        $temp = $this->_db->select("SELECT Id FROM Curso WHERE `UdaId` = '{$uda}' AND `GrupoId` = '{$grupo}' AND `CicloId` = '{$ciclo}' AND `EspacioId` = '{$espacio}' LIMIT 1");
+    public function existe($asignatura, $carrera, $grupo, $ciclo, $espacio) {
+        $temp = $this->_db->select("SELECT Id FROM Curso WHERE `AsignaturaId` = '{$asignatura}' AND `CarreraId` = '{$carrera}' AND `GrupoId` = '{$grupo}' AND `CicloId` = '{$ciclo}' AND `EspacioId` = '{$espacio}' LIMIT 1");
 
         if (count($temp)) {
             //existe verdadero
@@ -102,7 +114,8 @@ class Curso extends Modelo {
 
         if (count($temp)) {
             $this->setId($temp[0]['Id']);
-            $this->getUda()->buscar($temp[0]['UdaId']);
+            $this->getAsignatura()->buscar($temp[0]['AsignaturaId']);
+            $this->getCarrera()->buscar($temp[0]['CarreraId']);
             $this->getGrupo()->buscar($temp[0]['GrupoId']);
             $this->getCiclo()->buscar($temp[0]['CicloId']);
             $this->setDescripcion($temp[0]['Descripcion']);
@@ -116,7 +129,8 @@ class Curso extends Modelo {
 
     public function insertar() {
         $parametros = array(
-            'UdaId' => $this->getUda()->getId(),
+            'AsignaturaId' => $this->getAsignatura()->getId(),
+            'CarreraId' => $this->getCarrera()->getId(),
             'GrupoId' => $this->getGrupo()->getId(),
             'CicloId' => $this->getCiclo()->getId(),
             'Descripcion' => $this->getDescripcion(),
@@ -128,7 +142,8 @@ class Curso extends Modelo {
 
     public function actualizar() {
         $parametros = array(
-            'UdaId' => $this->getUda()->getId(),
+            'AsignaturaId' => $this->getAsignatura()->getId(),
+            'CarreraId' => $this->getCarrera()->getId(),
             'GrupoId' => $this->getGrupo()->getId(),
             'CicloId' => $this->getCiclo()->getId(),
             'Descripcion' => $this->getDescripcion(),

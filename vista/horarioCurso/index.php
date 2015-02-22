@@ -1,5 +1,8 @@
 <h2>Index</h2>
-<h3><?php echo $this->curso->getUda()->getAsignatura()->getNombre(); ?></h3>
+<h3><?php echo "{$this->curso->getAsignatura()->getNombre()} | "
+. "{$this->curso->getCarrera()->getSiglas()} | "
+. "{$this->curso->getGrupo()->getNombre()} | "
+. "{$this->curso->getCiclo()->getNombre()}"; ?></h3>
 
 <p>
     <a href="<?php echo ROOT . 'horarioCurso/nuevo/'. $this->curso->getId(); ?>" class="btn btn-link">Nuevo Dia</a>

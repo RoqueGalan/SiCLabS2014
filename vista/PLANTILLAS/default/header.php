@@ -37,7 +37,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="<?php echo ROOT; ?>"><i class="fa fa-lg fa-desktop"></i> Siclabs</a>
+                    <a class="navbar-brand" href="<?php echo ROOT; ?>"><i class="fa fa-lg fa-desktop"></i> Siclabs xD</a>
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
@@ -69,9 +69,7 @@
                                 <li><a href="<?php echo ROOT . 'carrera/index'; ?>">Carreras</a></li>
                                 <li><a href="<?php echo ROOT . 'ciclo/index'; ?>">Ciclos</a></li>
                                 <li><a href="<?php echo ROOT . 'grupo/index'; ?>">Grupos</a></li>
-                                <li><a href="<?php echo ROOT . 'asignatura/index'; ?>">Asignaturas</a></li>
-                                <li class="divider"></li>
-                                <li><a href="<?php echo ROOT . 'uda/index'; ?>">Unidades de Aprendizaje</a></li>                              
+                                <li><a href="<?php echo ROOT . 'asignatura/index'; ?>">Asignaturas</a></li>                             
                             </ul>
                         </li>
 

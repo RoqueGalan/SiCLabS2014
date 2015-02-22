@@ -95,7 +95,7 @@ class Controlador {
         if ($_FILES[$campo]['name']) {
             $ruta = DIR_ROOT . $ruta;
 
-            $upload = new upload($_FILES[$campo], 'es_Es');
+            $upload = new Upload($_FILES[$campo], 'es_Es');
             $upload->allowed = array('image/*');
             $upload->file_new_name_body = 'img-' . uniqid();
             $upload->_mkdir($ruta);
@@ -122,7 +122,7 @@ class Controlador {
         if ($_FILES[$campo]['name']) {
             $ruta = DIR_ROOT . $ruta;
 
-            $upload = new upload($_FILES[$campo], 'es_Es');
+            $upload = new Upload($_FILES[$campo], 'es_Es');
             $upload->allowed = array('application/*');
             $upload->file_new_name_body = 'doc-' . uniqid();
             $upload->_mkdir($ruta);

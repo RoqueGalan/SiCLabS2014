@@ -10,14 +10,14 @@ class Vista {
 
     public function render($nombre, $plantilla = 'default') {
         //aplicar try para errores
-        require_once DIR_ROOT . 'vista/plantillas/' . $plantilla . '/header.php';
+        require_once DIR_ROOT . 'vista/PLANTILLAS/' . $plantilla . '/header.php';
         $vista = DIR_ROOT . 'vista/' . $nombre . '.php';
         if (is_readable($vista)) {
             require_once $vista;
         } else {
             header('location:' . ROOT . 'error/tipo/Pagina_NoExiste');
         }
-        require_once DIR_ROOT . 'vista/plantillas/' . $plantilla . '/footer.php';
+        require_once DIR_ROOT . 'vista/PLANTILLAS/' . $plantilla . '/footer.php';
     }
     
     public function renderParcial($nombre, $plantilla = 'default') {

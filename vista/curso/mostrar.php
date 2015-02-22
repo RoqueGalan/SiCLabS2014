@@ -12,10 +12,10 @@
         </dd>
 
         <dt>
-            Unidad de Aprendizaje
+            Asignatura
         </dt>
         <dd>
-            <?php echo $this->curso->getUda()->getAsignatura()->getNombre(); ?>
+            <?php echo $this->curso->getAsignatura()->getNombre(); ?>
         </dd>
         
         <dt>
@@ -43,7 +43,7 @@
            Carrera
         </dt>
         <dd>
-            <?php echo $this->curso->getUda()->getCarrera()->getNombre(); ?>
+            <?php echo $this->curso->getCarrera()->getNombre(); ?>
         </dd>
     </dl>
 </div>

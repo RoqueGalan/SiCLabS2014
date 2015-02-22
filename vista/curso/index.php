@@ -8,7 +8,7 @@
 <table class="table table-hover table-striped">
     <thead>
         <tr>
-            <th>Unidad de Aprendizaje</th>
+            <th>Asignatura</th>
             <th>Carrera</th>
             <th>Grupo</th>
             <th>Ciclo</th>
@@ -19,8 +19,8 @@
     <tbody>
         <?php foreach ($this->listaCursos as $key => $curso): ?>
             <tr>
-                <td><?php echo $curso->getUda()->getAsignatura()->getNombre(); ?></td>
-                <td><?php echo $curso->getUda()->getCarrera()->getNombre(); ?></td>
+                <td><?php echo $curso->getAsignatura()->getNombre(); ?></td>
+                <td><?php echo $curso->getCarrera()->getNombre(); ?></td>
                 <td><?php echo $curso->getGrupo()->getNombre(); ?></td>
                 <td><?php echo $curso->getCiclo()->getNombre(); ?></td>
                 <td><?php echo $curso->getDescripcion(); ?></td>
