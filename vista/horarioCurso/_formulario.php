@@ -14,7 +14,7 @@
     </div>
 <?php endif; ?>
 
-<form class="form-horizontal" id="FormHorarioCurso" method="post" action="<?php echo ROOT; ?>horarioCurso/_guardar/<?php echo $this->horario->getId(); ?>" autocomplete="off">
+<form class="form-horizontal" id="FormHorarioCurso1111" method="post" action="<?php echo ROOT; ?>horarioCurso/_guardar/<?php echo $this->horario->getId(); ?>" autocomplete="off">
     <h4>Horario</h4>
     <hr />
     <input type="hidden" class="form-control" id="Id" name="Id" placeholder="Id" value="<?php echo $this->horario->getId(); ?>">

@@ -198,6 +198,16 @@ class horarioCursoControlador extends Controlador {
                             $this->_vista->render('horarioCurso/nuevo');
         } else {
             // no se encontraron errores
+            //-----------------------------------
+            
+            
+            $this->_comprobarHorario($select_Dia, $inicio, $fin, $select_Curso);
+         
+            
+            //-----------------------------------           
+            
+            
+            
             $horario->setDia($select_Dia);
             $horario->setInicio($inicio);
             $horario->setFin($fin);
@@ -238,6 +248,21 @@ class horarioCursoControlador extends Controlador {
         $horario->eliminar($id);
 
         $this->redireccionar("horarioCurso/index/{$horario->getCurso()->getId()}");
+    }
+    
+    function _comprobarHorario($dia, $inicio, $fin, $cursoId){
+        $c = new Curso();
+        $h = new HorarioCurso();
+        
+        $c->buscar($cursoId);
+        $listaTemp = $h->_db->select("SELECT * FROM `HorarioCurso` AS `h`, `Curso` AS `c` WHERE "
+                . "c.EspacioId = '{$c->getEspacio()->getId()}' AND "
+                . "c.CicloId = '{$c->getCiclo()->getId()}' AND "
+                . "h.Dia = '{$dia}' AND "
+                . "(h.Inicio >= '{$inicio}' AND h.Fin <= '{$fin}')");
+                
+        var_dump($listaTemp);
+        die;
     }
 
     function _comprobar($id) {
