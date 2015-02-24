@@ -199,15 +199,11 @@ class horarioCursoControlador extends Controlador {
         } else {
             // no se encontraron errores
             //-----------------------------------
-            
-            
-            $this->_comprobarHorario($select_Dia, $inicio, $fin, $select_Curso);
-         
-            
+//            $this->_comprobarHorario($select_Dia, $inicio, $fin, $select_Curso);
             //-----------------------------------           
-            
-            
-            
+
+
+
             $horario->setDia($select_Dia);
             $horario->setInicio($inicio);
             $horario->setFin($fin);
@@ -216,7 +212,8 @@ class horarioCursoControlador extends Controlador {
             if ($id == 0) {
                 //insertar
                 // comprobar campo Uda no repetido en Carrera
-                if ($horario->existe($inicio, $fin, $select_Dia, $horario->getCurso()->getEspacio()->getId())) {
+
+                if ($horario->existe($select_Dia, $inicio, $fin, $select_Curso)) {
                     $this->redireccionar('error/tipo/Registro_SiExiste');
                 }
                 $horario->insertar();
@@ -226,7 +223,7 @@ class horarioCursoControlador extends Controlador {
                  * Validar Repetido:
                  * No Repetido
                  */
-                $existe = $horario->existe($inicio, $fin, $select_Dia, $horario->getCurso()->getEspacio()->getId());
+                $existe = $horario->existe($select_Dia, $inicio, $fin, $select_Curso);
                 if ($existe != $id && $existe != 0) {
                     $this->redireccionar('error/tipo/Registro_SiExiste');
                 }
@@ -249,21 +246,31 @@ class horarioCursoControlador extends Controlador {
 
         $this->redireccionar("horarioCurso/index/{$horario->getCurso()->getId()}");
     }
-    
-    function _comprobarHorario($dia, $inicio, $fin, $cursoId){
-        $c = new Curso();
-        $h = new HorarioCurso();
-        
-        $c->buscar($cursoId);
-        $listaTemp = $h->_db->select("SELECT * FROM `HorarioCurso` AS `h`, `Curso` AS `c` WHERE "
-                . "c.EspacioId = '{$c->getEspacio()->getId()}' AND "
-                . "c.CicloId = '{$c->getCiclo()->getId()}' AND "
-                . "h.Dia = '{$dia}' AND "
-                . "(h.Inicio >= '{$inicio}' AND h.Fin <= '{$fin}')");
-                
-        var_dump($listaTemp);
-        die;
-    }
+
+//    function _comprobarHorario($dia, $inicio, $fin, $cursoId) {
+//        $c = new Curso();
+//        $h = new HorarioCurso();
+//
+//        $c->buscar($cursoId);
+//        $listaTemp = $h->_db->select("SELECT * FROM `HorarioCurso` AS `h`, `Curso` AS `c` WHERE "
+//                . "c.EspacioId = '{$c->getEspacio()->getId()}' AND "
+//                . "c.CicloId = '{$c->getCiclo()->getId()}' AND "
+//                . "h.Dia = '{$dia}'");
+//
+//        foreach ($listaTemp as $horario) {
+//            //rango definido por el usuario desde el form
+//            $rango1_inicio = strtotime($inicio);
+//            $rango1_fin = strtotime($fin);
+//            //rango definido por la base de datos
+//            $rango2_inicio = strtotime($horario['Inicio']);
+//            $rango2_fin = strtotime($horario['Fin']);
+//            //comparaciones
+//            ($rango1_inicio == $rango2_inicio) || ($rango1_inicio > $rango2_inicio ? $rango1_inicio < $rango2_fin : $rango2_inicio < $rango1_fin) ?
+//                            $esDisponible = false:
+//                            $esDisponible = true;
+//        }
+//        return $esDisponible;
+//    }
 
     function _comprobar($id) {
         $val = new Validador($_POST);
@@ -278,28 +285,23 @@ class horarioCursoControlador extends Controlador {
          */
         if ($id == '1') {
             //Rango
-            $val->rangoTiempo('07:00:00', '21:00:00', 'Inicio');
-            //Menor a Fin
-            $val->menorTiempo('Inicio', 'Fin');
-            //Select_Dia lleno
-            $val->requerido('Select_Dia');
-            $val->compararPalabras('Select_Dia', $arreglo = array('Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'));
+            $campo = 'Inicio';
+            $val->rangoTiempo('07:00:00', '21:00:00', $campo);
+            $inicio = $val->getValor($campo);
+            $campo = 'Fin';
+            $fin = $val->getValor($campo);
+            $campo = 'Select_Dia';
+            $dia = $val->getValor($campo);
             //Select_Curso lleno
-            $val->requerido('Select_Curso');
-            $val->numerico('Select_Curso');
+            $campo = 'Select_Curso';
+            $curso = $val->getValor($campo);
 
             //Horario No Repetido
             if (!count($val->getErrorLista())) {
-                $cursoId = $val->getValor('Select_Curso');
                 $horario = new HorarioCurso();
-                $horario->getCurso()->buscar($cursoId);
-
-                $inicio = $val->getValor('Inicio');
-                $fin = $val->getValor('Fin');
-                $dia = $val->getValor('Select_Dia');
-                if (!$horario->existe($inicio, $fin, $dia, $horario->getCurso()->getEspacio()->getId())) {
+                $horario->existe($dia, $inicio, $fin, $curso) ?
+                    $esDisponible = false :
                     $esDisponible = true;
-                }
             }
         } else {
             /*

@@ -22,11 +22,11 @@ class HorarioCurso extends Modelo {
     }
 
     function getInicio() {
-        return date("H:i",strtotime($this->_Inicio));
+        return date("H:i", strtotime($this->_Inicio));
     }
 
     function getFin() {
-        return date("H:i",strtotime($this->_Fin));
+        return date("H:i", strtotime($this->_Fin));
     }
 
     function getCurso() {
@@ -56,7 +56,7 @@ class HorarioCurso extends Modelo {
     // ------------------- metodos de la bd ----------------------
     public function lista($cursoId, $where = '') {
         $lista = array();
-        $tempLista = $this->_db->select("SELECT * FROM HorarioCurso WHERE `CursoId` = {$cursoId} {$where} ORDER BY `Inicio`");
+        $tempLista = $this->_db->select("SELECT * FROM HorarioCurso WHERE `CursoId` = {$cursoId} {$where} ORDER BY `Dia`, `Inicio`");
 
         //crear una lista de objetos, para su facil extracion en las vistas
         foreach ($tempLista as $temp) {
@@ -72,18 +72,36 @@ class HorarioCurso extends Modelo {
 
         return $lista;
     }
-    
-    public function existe($inicio, $fin, $dia, $EspacioId) {
-        $temp = $this->_db->select("SELECT * FROM `HorarioCurso` AS `h`, `Curso` AS `c` WHERE c.EspacioId = '{$EspacioId}' AND h.Dia = '{$dia}' AND(`Inicio` >= '{$inicio}' AND `Fin` <= '{$fin}' ) LIMIT 1");
 
-        if (count($temp)) {
-            //existe verdadero
-            return $temp[0]['Id'];
-        } else {
-            return 0;
+    public function existe($dia, $inicio, $fin, $cursoId) {
+
+        $c = new Curso();
+        $h = new HorarioCurso();
+
+        $c->buscar($cursoId);
+        $listaTemp = $h->_db->select("SELECT * FROM `HorarioCurso` AS `h`, `Curso` AS `c` WHERE "
+                . "c.EspacioId = '{$c->getEspacio()->getId()}' AND "
+                . "c.CicloId = '{$c->getCiclo()->getId()}' AND "
+                . "h.Dia = '{$dia}'");
+        if (count($listaTemp)) {
+            foreach ($listaTemp as $horario) {
+                //rango definido por el usuario desde el form
+                $rango1_inicio = strtotime($inicio);
+                $rango1_fin = strtotime($fin);
+                //rango definido por la base de datos
+                $rango2_inicio = strtotime($horario['Inicio']);
+                $rango2_fin = strtotime($horario['Fin']);
+                //comparaciones
+                ($rango1_inicio == $rango2_inicio) || ($rango1_inicio > $rango2_inicio ? $rango1_inicio < $rango2_fin : $rango2_inicio < $rango1_fin) ?
+                                $existe = true :
+                                $existe = false;
+            }
+        }else{
+            $existe = false;
         }
+        return $existe;
     }
-    
+
     public function buscar($id) {
         $temp = $this->_db->select("SELECT * FROM HorarioCurso WHERE `Id` = '{$id}' LIMIT 1");
 
@@ -110,7 +128,7 @@ class HorarioCurso extends Modelo {
 
         return $this->_db->insert('HorarioCurso', $parametros);
     }
-    
+
     public function actualizar() {
         $parametros = array(
             'Dia' => $this->getDia(),
@@ -122,8 +140,9 @@ class HorarioCurso extends Modelo {
 
         $this->_db->update('HorarioCurso', $parametros, $donde);
     }
-    
+
     public function eliminar($id) {
         $this->_db->delete('HorarioCurso', "`Id` = {$id}");
     }
+
 }
