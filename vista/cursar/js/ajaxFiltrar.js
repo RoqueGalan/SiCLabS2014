@@ -28,7 +28,6 @@ var getUsuarios = function (tipo) {
     $.post(ruta, parametros, function (datos) {
         $("#Select_Usuario").html('');
         if (datos.length > 0) {
-            $("#Select_Usuario").append('<option value="">- Selecciona -</option>');
             for (var i = 0; i < datos.length; i++) {
                 $("#Select_Usuario").append('<option value="' + datos[i].Id + '">' + datos[i].Matricula + ' - ' + datos[i].Nombre + ' ' + datos[i].Apellido + '</option>');
             }

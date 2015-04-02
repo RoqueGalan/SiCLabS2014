@@ -75,6 +75,12 @@ class ImpartirControlador extends Controlador {
         if ($this->_vista->impartir->getCurso()->getId() == '-1') {
             $this->redireccionar('error/tipo/Registro_NoExiste');
         }
+        // comprobar que curso ya este en impartir
+        if($this->_vista->impartir->existe($CursoId))
+        {
+            $this->redireccionar('error/tipo/Registro_SiExiste');
+        }
+        
         $this->_vista->impartir->setId(0);
 
         // lista de cursos

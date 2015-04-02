@@ -99,11 +99,7 @@
         <div class="col-lg-5">
             <select name="Select_Usuario" id="Select_Usuario" class="form-control">
                 <?php
-                if ($this->usuario->getId() == 0) {
-                    echo "<option value=''>- Sin registros -</option>";
-                } else {
-                    echo "<option value='{$this->usuario->getId()}'>{$this->usuario->getMatricula()} - {$this->usuario->getNombre()} {$this->usuario->getApellido()}</option>";
-                }
+                echo "<option value='{$this->usuario->getId()}'>{$this->usuario->getMatricula()} - {$this->usuario->getNombre()} {$this->usuario->getApellido()}</option>";
                 ?>
             </select>
         </div>
